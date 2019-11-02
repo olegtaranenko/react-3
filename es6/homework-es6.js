@@ -26,7 +26,7 @@ const sponsors = {
 (function (owner, director, capital, employers) {
   // из-за того, что null !== undefined просто установить значение по умолчанию - мало
   director = director || 'Victor';
-console.log(`We have a business. Owner: ${owner}, director: ${director}. Our budget: ${sponsors.calcTotal()}. 
+console.log(`We have a business. Owner: ${owner}, director: ${director}. Our budget: ${sponsors.calcTotal(capital)}. 
 And our employers: ${employers}
 And we have a sponsors: ${sponsors.sumSponsors()}
 Note. Be careful with ${sponsors.eu[0]}. It's a huge risk.`);
