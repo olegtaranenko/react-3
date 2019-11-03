@@ -12,8 +12,8 @@ const sponsors = {
 
     return ownCapital + this.cash.reduce((prev, value) => prev + value)
   },
-  sumSponsors() {
-    return [...this.eu, ...this.rus, 'unexpected sponsor'];
+  sumSponsors(...additionalSponsors) {
+    return [...this.eu, ...this.rus, ...additionalSponsors];
   }
 };
 

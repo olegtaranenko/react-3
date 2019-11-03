@@ -1,4 +1,4 @@
-import {employersNames} from "./employers";
+import {employersNames as employers} from "./employers";
 import {sponsors} from "./sponsors";
 
 
@@ -13,11 +13,11 @@ class Business {
   }
 
   get director() {
-    return this._director;
+    return this._director || 'Victor';
   }
 
   set director(value) {
-    this._director = value || 'Victor';
+    this._director = value;
   }
 
   get capital() {
@@ -36,7 +36,7 @@ class Business {
     this._employers = value;
   }
 
-  constructor(owner, director, capital, employers) {
+  constructor(owner, director =  'Victor', capital, employers) {
     this._owner = owner;
     this._director = director;
     this._capital = capital;
@@ -44,13 +44,16 @@ class Business {
   }
 
   getInfo() {
-    // из-за того, что null !== undefined просто установить значение по умолчанию - мало
+    const {
+      eu: [riskedSponsor]
+    } = sponsors;
+
     console.log(`We have a business. Owner: ${this.owner}, director: ${this.director}. Our budget: ${sponsors.calcCash(this.capital)}. 
 And our employers: ${this.employers}
-And we have a sponsors: ${sponsors.sumSponsors()}
-Note. Be careful with ${sponsors.eu[0]}. It's a huge risk.`);
+And we have a sponsors: ${sponsors.sumSponsors('unexpected sponsor')}
+Note. Be careful with ${riskedSponsor}. It's a huge risk.`);
   }
 }
 
-const myBusiness = new Business('Sam', null, null, employersNames);
+const myBusiness = new Business('Sam', null, null, employers);
 myBusiness.getInfo();
