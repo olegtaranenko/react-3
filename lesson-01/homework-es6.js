@@ -19,8 +19,8 @@ const sponsors = {
 
     return ownCapital + this.cash.reduce((prev, value) => prev + value)
   },
-  sumSponsors() {
-    return [...this.eu, ...this.rus, 'unexpected sponsor'];
+  sumSponsors(...additionalSponsors) {
+    return [...this.eu, ...this.rus, ...additionalSponsors];
   }
 };
 
@@ -28,8 +28,13 @@ const sponsors = {
 ((owner, director, capital, employers) => {
   // из-за того, что null !== undefined просто установить значение по умолчанию - мало
   director = director || 'Victor';
+
+  const {
+    eu: [riskedSponsor]
+  } = sponsors;
+
   console.log(`We have a business. Owner: ${owner}, director: ${director}. Our budget: ${sponsors.calcCash(capital)}. 
 And our employers: ${employers}
-And we have a sponsors: ${sponsors.sumSponsors()}
-Note. Be careful with ${sponsors.eu[0]}. It's a huge risk.`);
+And we have a sponsors: ${sponsors.sumSponsors('unexpected sponsor')}
+Note. Be careful with ${riskedSponsor}. It's a huge risk.`);
 })('Sam', null, null, employersNames);
