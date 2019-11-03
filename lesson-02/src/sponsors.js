@@ -10,11 +10,11 @@ const sponsors = {
       ownCapital = 0;
     }
 
-    return ownCapital + this.cash.reduce((prev, value) => prev + value)
+    return ownCapital + this.cash.reduce((prev, value) => prev + value);
   },
   sumSponsors(...additionalSponsors) {
     return [...this.eu, ...this.rus, ...additionalSponsors];
   }
 };
 
-export {sponsors}
+export { sponsors };
