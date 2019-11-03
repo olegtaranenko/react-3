@@ -1,7 +1,6 @@
 import {employersNames as employers} from "./employers";
 import {sponsors} from "./sponsors";
 
-
 class Business {
 
   get owner() {
@@ -36,7 +35,7 @@ class Business {
     this._employers = value;
   }
 
-  constructor(owner, director =  'Victor', capital, employers) {
+  constructor(owner, director = 'Victor', capital, employers) {
     this._owner = owner;
     this._director = director;
     this._capital = capital;
