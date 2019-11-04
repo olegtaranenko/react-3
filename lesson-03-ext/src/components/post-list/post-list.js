@@ -6,8 +6,8 @@ import './post-list.css'
 const PostList = () => {
   return (
     <ul className="app-list list-group">
-      <PostListItem/>
-      <PostListItem/>
+      <PostListItem dt={(new Date().toLocaleDateString())}/>
+      <PostListItem dt={(new Date())}/>
       <PostListItem/>
     </ul>
   )

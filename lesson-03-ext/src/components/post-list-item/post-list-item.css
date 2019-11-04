@@ -40,6 +40,16 @@
   transition: 0.5s all;
 }
 
+.app-list-item-time {
+  /*max-width: 100px;*/
+  font-size: 0.8em;
+  display: block;
+  line-height: 35px;
+  cursor: pointer;
+  user-select: none;
+  /*transition: 0.5s all;*/
+}
+
 .app-list-item.like .fa-heart {
     opacity: 1;
     transform: translateX(0px);
