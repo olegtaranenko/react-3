@@ -17,4 +17,9 @@ const sponsors = {
   }
 };
 
-export { sponsors };
+const {
+  eu: [unsecuredSponsor]
+} = sponsors;
+
+
+export { sponsors, unsecuredSponsor };

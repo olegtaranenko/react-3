@@ -1,6 +1,5 @@
-import {employersNames as employers} from "./employers.mjs";
-import {sponsors} from "./sponsors.mjs";
-
+import {employersNames as employers} from "./employers";
+import {sponsors, unsecuredSponsor} from "./sponsors";
 
 class Business {
 
@@ -8,26 +7,28 @@ class Business {
                 owner: owner,
                 director: director = 'Victor',
                 capital: capital,
-                employers: employers
+                employers: employers,
+                unsecuredSponsor: unsecuredSponsor
               } = {}) {
     this.owner = owner;
     this.director = director;
     this.capital = capital;
     this.employers = employers;
+    this.unsecuredSponsor = unsecuredSponsor;
   }
 
-  getInfo(riskedSponsor) {
+  getInfo(unsecuredSponsor) {
 
     console.log(`We have a business. Owner: ${this.owner}, director: ${this.director}. Our budget: ${sponsors.calcCash(this.capital)}. 
 And our employers: ${this.employers}
-And we have a sponsors: ${sponsors.sumSponsors('unexpected sponsor')}
-Note. Be careful with ${riskedSponsor}. It's a huge risk.`);
+And we have a sponsors: ${sponsors.sumSponsors('unexpected sponsor')}${this.unsecuredSponsor ? `\nNote. Be careful with ${unsecuredSponsor}. It's a huge risk.` : ''}`);
   }
 }
 
-const {
-  eu: [riskedSponsor]
-} = sponsors;
+const myBusiness = new Business({
+  owner: 'Sam',
+  employers: employers,
+  unsecuredSponsor: unsecuredSponsor
+});
 
-const myBusiness = new Business({owner: 'Sam', employers: employers});
-myBusiness.getInfo(riskedSponsor);
+myBusiness.getInfo();

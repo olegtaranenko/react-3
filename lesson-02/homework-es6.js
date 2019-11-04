@@ -29,11 +29,11 @@ const sponsors = {
   // из-за того, что null !== undefined просто установить значение по умолчанию - мало
   director = director || 'Victor';
   const {
-    eu: [riskedSponsor]
+    eu: [unsecuredSponsor]
   } = sponsors;
 
   console.log(`We have a business. Owner: ${owner}, director: ${director}. Our budget: ${sponsors.calcCash(capital)}. 
 And our employers: ${employers}
 And we have a sponsors: ${sponsors.sumSponsors('unexpected sponsor')}
-Note. Be careful with ${riskedSponsor}. It's a huge risk.`);
+Note. Be careful with ${unsecuredSponsor}. It's a huge risk.`);
 })('Sam', null, null, employersNames);
