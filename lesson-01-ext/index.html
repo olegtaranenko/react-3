@@ -20,15 +20,11 @@
   ];
 
   const appEl = document.querySelector('#app');
-  // имплементация промисов Promise.all() не входит в callback функции then(),
-  // если сбоит хотя бы один промисю
-  // Переменная recover нужна для того, чтобы картинки были видны и в этом случае
-  let recover = false;
   const activeCls = 'active';
   const imageCls = 'lesson-image';
 
   function createImgPromise(url) {
-    let promise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       let img = document.createElement('img');
       img.onload = e => {
         console.log('img loaded');
@@ -39,37 +35,25 @@
         reject(img);
       };
 
-      let classeNames = imageCls + (recover ? ' ' + activeCls : '');
-
-      img.classList.add(classeNames);
+      img.classList.add(imageCls);
       img.src = url;
       appEl.appendChild(img);
     });
-
-    promise.catch((caught) => {
-      console.warn('image %s not loaded', caught.src);
-      return undefined;
-    });
-
-    return promise;
   }
 
 
-  Promise.all(images.map(img => createImgPromise(img))).then((data) => {
+  Promise.all(images.map(img => createImgPromise(img)).map(p => p.catch((caught) => {
+    console.warn('image %s not loaded', caught.src);
+    // при возврате undefined не срабатывает захват ошибки Promise.all().catch()
+    // плюс к тому нормально отрабатывает Promise.all().then(success) !
+    // взято из https://davidwalsh.name/promises-results
+    return undefined;
+  }))).then((data) => {
     console.log('all done');
 
     // нормальное течение, когда все картинки в порядке
     for (const imgEl of data) {
-      imgEl.classList.add(activeCls);
-    }
-  }, e => {
-    console.warn('then error callback', e);
-    if (recover === false) {
-      recover = true;
-      const created = document.querySelectorAll('.' + imageCls);
-      for (const img of created ) {
-        img.classList.add((activeCls))
-      }
+      imgEl && imgEl.classList.add(activeCls);
     }
   });
 
