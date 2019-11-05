@@ -3,10 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <title>Урок №1 - усложненное задание</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
+<h3 class="title">Hello Lesson 1 hard</h3>
+<div id="app"></div>
+
+<script>
+  let images = [
+    'img/not-existed.jpg',
+    'img/deal-discount.jpg',
+    'img/deal-help.jpg',
+    'img/wrong-again.jpg',
+    'img/deal-wholesale.jpg'
+  ];
+
+  const appEl = document.querySelector('#app');
+  // имплементация промисов Promise.all() не входит в callback функции then(),
+  // если сбоит хотя бы один промисю
+  // Переменная recover нужна для того, чтобы картинки были видны и в этом случае
+  let recover = false;
+  const activeCls = 'active';
+  const imageCls = 'lesson-image';
+
+  function createImgPromise(url) {
+    let promise = new Promise((resolve, reject) => {
+      let img = document.createElement('img');
+      img.onload = e => {
+        console.log('img loaded');
+        resolve(img);
+      };
+
+      img.onerror = e => {
+        reject(img);
+      };
+
+      let classeNames = imageCls + (recover ? ' ' + activeCls : '');
+
+      img.classList.add(classeNames);
+      img.src = url;
+      appEl.appendChild(img);
+    });
+
+    promise.catch((caught) => {
+      console.warn('image %s not loaded', caught.src);
+      return undefined;
+    });
+
+    return promise;
+  }
 
 
+  Promise.all(images.map(img => createImgPromise(img))).then((data) => {
+    console.log('all done');
+
+    // нормальное течение, когда все картинки в порядке
+    for (const imgEl of data) {
+      imgEl.classList.add(activeCls);
+    }
+  }, e => {
+    console.warn('then error callback', e);
+    if (recover === false) {
+      recover = true;
+      const created = document.querySelectorAll('.' + imageCls);
+      for (const img of created ) {
+        img.classList.add((activeCls))
+      }
+    }
+  });
+
+
+</script>
 </body>
 </html>
