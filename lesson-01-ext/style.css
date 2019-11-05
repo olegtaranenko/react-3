@@ -1,0 +1,10 @@
+.lesson-image {
+  width: 300px;
+  /*height: 200px;*/
+  display: none;
+  /*display: inline-block;*/
+}
+
+.lesson-image.active {
+  display: inline-block;
+}

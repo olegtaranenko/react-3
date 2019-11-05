@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Урок №1 - усложненное задание</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<h3 class="title">Hello Lesson 1 hard</h3>
+<div id="app"></div>
+
+<script>
+  let images = [
+    'img/not-existed.jpg',
+    'img/deal-discount.jpg',
+    'img/deal-help.jpg',
+    'img/wrong-again.jpg',
+    'img/deal-wholesale.jpg'
+  ];
+
+  const appEl = document.querySelector('#app');
+  const activeCls = 'active';
+  const imageCls = 'lesson-image';
+
+  function createImgPromise(url) {
+    return new Promise((resolve, reject) => {
+      let img = document.createElement('img');
+      img.onload = e => {
+        console.log('img loaded');
+        resolve(img);
+      };
+
+      img.onerror = e => {
+        reject(img);
+      };
+
+      img.classList.add(imageCls);
+      img.src = url;
+      appEl.appendChild(img);
+    });
+  }
+
+
+  Promise.all(images.map(img => createImgPromise(img)).map(p => p.catch((caught) => {
+    console.warn('image %s not loaded', caught.src);
+    // при возврате undefined не срабатывает захват ошибки Promise.all().catch()
+    // плюс к тому нормально отрабатывает Promise.all().then(success) !
+    // взято из https://davidwalsh.name/promises-results
+    return undefined;
+  }))).then((data) => {
+    console.log('all done');
+
+    // нормальное течение, когда все картинки в порядке
+    for (const imgEl of data) {
+      imgEl && imgEl.classList.add(activeCls);
+    }
+  });
+
+
+</script>
+</body>
+</html>
