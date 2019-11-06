@@ -1,14 +1,29 @@
 import React from 'react'
 
-import './search-panel.css'
+import { Input }        from 'reactstrap';
+import PostStatusFilter from "../post-status-filter";
+
+import styled from "styled-components";
+
+const SearchBlock = styled.div`
+  margin: 1rem 0;
+  display: flex
+  input {
+    margin-right: 3px;
+  }
+`;
+
 
 const SearchPanel = () => {
   return (
-    <input
-      className="form-control search-import"
-      type="text"
-      placeholder="Поиск по записям"
-    />
+    <SearchBlock>
+      <Input
+        type="text"
+        className="search-import"
+        placeholder="Поиск по записям"
+      />
+      <PostStatusFilter/>
+    </SearchBlock>
   )
 };
 

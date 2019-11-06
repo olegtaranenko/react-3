@@ -1,50 +1,51 @@
 import React, {Component} from 'react';
+import styled from "styled-components";
+import nextId from "react-id-generator";
 
-import AppHeader        from "../app-header";
-import SearchPanel      from "../search-panel";
-import PostStatusFilter from "../post-status-filter";
-import PostList         from "../post-list";
+import AppHeader   from "../app-header";
+import SearchPanel from "../search-panel";
+import PostList    from "../post-list";
 import PostAddForm from "../post-add-form";
 
-import './app.css';
+
+const AppBlock = styled.div`
+  margin: 0 auto;
+  max-width: 800px
+`;
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: [
-        5,
-        null,
-        {label: 'should not be viewable, missed id'},
-        {id: 'missed label'},
-        // {label: 'that\'s ok', id: 1234},
-        {label: "Going to learn React", important: true, id: 1},
-        {label: "That is so good", important: false, id: 2},
-        {label: "I need a break...", important: false, id: 3},
-      ]
+    const {data} = props;
 
+    this.state = {
+      data: data.filter(post => post && typeof post === 'object' && post.id && post.label)
     };
     this.deleteItem = this.deleteItem.bind(this);
     this.addItem = this.addItem.bind(this);
-    this.maxId = 4;
+    // this.maxId = 4;
   }
 
   deleteItem(id) {
     console.log(id);
     this.setState(({data}) => {
-      const index = data.findIndex(elem => elem && typeof elem === 'object' && elem.id === id);
+      const index = data.findIndex(elem => elem.id === id);
       const before = data.slice(0, index);
       const after = data.slice(index + 1);
       return {
-        data: [...before, ...after]};
+        data: [...before, ...after]
+      };
     })
   }
 
   addItem(body) {
+    let id = nextId();
+    console.log(id);
+
     const newItem = {
-      label: body,
+      label:    body,
       importan: false,
-      id: this.maxId++
+      id:       id
     };
     this.setState(({data}) => {
       const newArr = [...data, newItem];
@@ -53,17 +54,12 @@ export default class App extends Component {
       }
     });
   };
-  
-  
 
   render() {
     return (
-      <div className="app">
+      <AppBlock>
         <AppHeader/>
-        <div className="search-panel d-flex">
-          <SearchPanel/>
-          <PostStatusFilter/>
-        </div>
+        <SearchPanel/>
         <PostList
           posts={this.state.data}
           onDelete={this.deleteItem}
@@ -71,7 +67,7 @@ export default class App extends Component {
         <PostAddForm
           onAdd={this.addItem}
         />
-      </div>
+      </AppBlock>
     )
   }
 };

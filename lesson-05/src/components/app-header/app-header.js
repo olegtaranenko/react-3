@@ -1,12 +1,14 @@
-import React from 'react'
+import React  from 'react'
+import { Navbar, NavbarBrand, NavItem} from 'reactstrap';
 
-import './app-header.css'
-const AppHeader = () => {
+const AppHeader = (props) => {
   return (
-    <div className="app-header d-flex">
-      <h1>Oleg Taranenko</h1>
-      <h2>5 записей, из них понравилось 0</h2>
-    </div>
+    <Navbar light>
+      <NavbarBrand href="#">
+        Oleg Taranenko
+      </NavbarBrand>
+      <NavItem tag="div">5 записей, из них понравилось 0</NavItem>
+    </Navbar>
   )
 };
 

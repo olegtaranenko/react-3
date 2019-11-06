@@ -6,21 +6,19 @@ import './post-list.css'
 
 const PostList = ({posts, onDelete}) => {
   const elements = posts
-  .filter(post => post && typeof post === 'object' && post.id && post.label)
   .map((item) => {
     const {id, ...itemProps} = item;
     return (
       <li key={id} className='list-group-item'>
         <PostListItem
           {...itemProps}
-          onDelete={() => onDelete(id)}
+          onDelete = {() => onDelete(id)}
         />
       </li>
     )
   });
 
   return (
-
     <ListGroup className="app-list">
       {elements}
     </ListGroup>
