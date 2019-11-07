@@ -82,8 +82,39 @@ export default class App extends Component {
     });
   }
 
+  onToggleImportant = (id) => {
+    console.log('important %s', id);
+    this.setState(({data}) => {
+      const index = data.findIndex(item => item.id === id);
+      const oldItem = data[index];
+      const newItem = {...oldItem, important: !oldItem.important};
+
+      return {
+        data: [...data.slice(0, index), newItem, ...data.slice(index + 1)]
+      };
+    })
+  };
+
+  onToggleLike = (id) => {
+    console.log('like %s', id);
+    this.setState(({data}) => {
+      const index = data.findIndex(item => item.id === id);
+      const oldItem = data[index];
+      const newItem = {...oldItem, like: !oldItem.like};
+
+      return {
+        data: [...data.slice(0, index), newItem, ...data.slice(index + 1)]
+      };
+    })
+  };
+
+
 
   render() {
+    const {data} = this.state;
+    const liked = data.filter(item => item.like).length;
+    const posted = data.length;
+
     const toggle = () => {
       this.setState(({modal}) => {
         return {modal: !modal}
@@ -93,11 +124,16 @@ export default class App extends Component {
     return (
        <div>
         <AppBlock>
-          <AppHeader/>
+          <AppHeader
+            liked={liked}
+            posted={posted}
+          />
           <SearchPanel/>
           <PostList
-            posts={this.state.data}
+            posts={data}
             onDelete={this.runModal}
+            onToggleImportant={this.onToggleImportant}
+            onToggleLike={this.onToggleLike}
           />
           <PostAddForm
             onAdd={this.addItem}
