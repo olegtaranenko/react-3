@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import styled from "styled-components";
-import Generator from "./id-generator";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import React, {Component}                                   from 'react';
+import styled                                               from "styled-components";
+import Generator                                            from "./id-generator";
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
 
-import AppHeader from "../app-header";
+import AppHeader   from "../app-header";
 import SearchPanel from "../search-panel";
 import PostList    from "../post-list";
 import PostAddForm from "../post-add-form";
@@ -25,69 +25,78 @@ export default class App extends Component {
     const {data} = props;
 
     this.state = {
-      data: data.filter(post => post && typeof post === 'object' && post.id && post.label),
-      modal: false
+      data:        data.filter(post => post && typeof post === 'object' && post.id && post.label),
+      deletePopup: false
     };
-    this.deleteItem = this.deleteItem.bind(this);
-    this.addItem = this.addItem.bind(this);
-    this.runModal = this.runModal.bind(this);
-    this.setModal = this.setModal.bind(this);
   }
 
 
-  runModal(id) {
+  aboutToDelete = id => {
     console.log('about to delete %s', id);
-    this.setModal(true);
+    this.showDeletePopup(true);
     this.setState(({idToDelete}) => {
       return {idToDelete: id}
     })
-  }
+  };
 
 
-  deleteItem() {
-    let id = this.state.idToDelete;
+  deleteItem = () => {
+    const id = this.state.idToDelete;
     console.log('do delete %s', id);
-    this.setModal(false);
+    this.hideDeletePopup();
 
     this.setState(({data}) => {
       const index = data.findIndex(elem => elem.id === id);
       const before = data.slice(0, index);
       const after = data.slice(index + 1);
       return {
-        data: [...before, ...after]
+        data:       [...before, ...after],
+        idToDelete: undefined
       };
     })
-  }
+  };
 
-  addItem(body) {
+
+  addItem = body => {
     let id = generator.get();
     console.log(id);
 
     const newItem = {
-      label:    body,
-      importan: false,
-      id:       id
+      label:     body,
+      important: false,
+      like:      false,
+      id:        id
     };
+
     this.setState(({data}) => {
-      const newArr = [...data, newItem];
+      const newData = [...data, newItem];
       return {
-        data: newArr
+        data: newData
       }
     });
   };
 
-  setModal(visible) {
+  showDeletePopup = () => {
     this.setState(() => {
-      return {modal: visible}
+      return {deletePopup: true}
     });
-  }
+  };
+  
+  hideDeletePopup = () => {
+    this.setState(() => {
+      return {deletePopup: false}
+    });
+  };
+  
 
-  onToggleImportant = (id) => {
-    console.log('important %s', id);
+  toggleBooleanState = (propName, id) => {
+    console.log('toggle %s for %s item', propName, id);
     this.setState(({data}) => {
       const index = data.findIndex(item => item.id === id);
       const oldItem = data[index];
-      const newItem = {...oldItem, important: !oldItem.important};
+      const newItem = {...oldItem};
+
+      newItem[propName] = !oldItem[propName];
 
       return {
         data: [...data.slice(0, index), newItem, ...data.slice(index + 1)]
@@ -95,34 +104,23 @@ export default class App extends Component {
     })
   };
 
-  onToggleLike = (id) => {
-    console.log('like %s', id);
-    this.setState(({data}) => {
-      const index = data.findIndex(item => item.id === id);
-      const oldItem = data[index];
-      const newItem = {...oldItem, like: !oldItem.like};
 
-      return {
-        data: [...data.slice(0, index), newItem, ...data.slice(index + 1)]
-      };
-    })
+  onToggleImportant = id => {
+    this.toggleBooleanState('important', id)
   };
 
+  onToggleLike = id => {
+    this.toggleBooleanState('like', id);
+  };
 
 
   render() {
-    const {data} = this.state;
+    const {data, deletePopup} = this.state;
     const liked = data.filter(item => item.like).length;
     const posted = data.length;
 
-    const toggle = () => {
-      this.setState(({modal}) => {
-        return {modal: !modal}
-      });
-    };
-
     return (
-       <div>
+      <div>
         <AppBlock>
           <AppHeader
             liked={liked}
@@ -131,7 +129,7 @@ export default class App extends Component {
           <SearchPanel/>
           <PostList
             posts={data}
-            onDelete={this.runModal}
+            onDelete={this.aboutToDelete}
             onToggleImportant={this.onToggleImportant}
             onToggleLike={this.onToggleLike}
           />
@@ -140,12 +138,12 @@ export default class App extends Component {
           />
         </AppBlock>
 
-        <Modal isOpen={this.state.modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>Попытка удалить пост</ModalHeader>
+        <Modal isOpen={deletePopup} toggle={this.hideDeletePopup}>
+          <ModalHeader toggle={this.hideDeletePopup}>Требуется Подтверждение</ModalHeader>
           <ModalBody>Вы точно собираетесь удалить запись?</ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.deleteItem}>Да!</Button>{' '}
-            <Button color="secondary" onClick={toggle}>Отмена</Button>
+            <Button color="primary" onClick={this.deleteItem}>Уверен(а)!</Button>{' '}
+            <Button color="secondary" onClick={this.hideDeletePopup}>Отмена</Button>
           </ModalFooter>
         </Modal>
 
