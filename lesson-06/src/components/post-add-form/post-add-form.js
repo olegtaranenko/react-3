@@ -1,8 +1,8 @@
-import React           from 'react';
+import React, {Component}           from 'react';
 import styled          from "styled-components";
 import {Button, Input} from 'reactstrap';
 
-const PostForm = styled.div`
+const PostForm = styled.form`
   display: flex;
   margin-top: 20px;
   input {
@@ -11,22 +11,50 @@ const PostForm = styled.div`
 `;
 
 
-const PostAddForm = ({onAdd}) => {
-  return (
-    <PostForm>
-      <Input
-        type="text"
-        placeholder="О чем вы думаете сейчас?"
-      />
-      <Button
-        type="submit"
-        onClick={() => onAdd('Hello')}
+export default class PostAddForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: ''
+    }
+
+  }
+
+  onValueChange = (e) => {
+    let value = e.target.value;
+    console.log(value);
+
+    this.setState({
+      text: value
+    })
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.onAdd(this.state.text);
+    this.setState({
+      text: ''
+    })
+  };
+
+  render() {
+    return (
+      <PostForm
+        onSubmit={this.onSubmit}
       >
-        Добавить
-      </Button>
+        <Input
+          type="text"
+          placeholder="О чем вы думаете сейчас?"
+          onChange={this.onValueChange}
+          value={this.state.text}
+        />
+        <Button
+          type="submit"
+        >
+          Добавить
+        </Button>
 
-    </PostForm>
-  )
+      </PostForm>
+    )
+  }
 };
-
-export default PostAddForm;
