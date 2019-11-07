@@ -61,7 +61,7 @@ export default class App extends Component {
 
   addItem = body => {
     let id = generator.get();
-    console.log(id);
+    // console.log(id);
 
     const newItem = {
       label:     body,

@@ -21,8 +21,7 @@ export default class PostAddForm extends Component {
   }
 
   onValueChange = (e) => {
-    let value = e.target.value;
-    console.log(value);
+    const value = e.target.value;
 
     this.setState({
       text: value
@@ -31,10 +30,13 @@ export default class PostAddForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.onAdd(this.state.text);
-    this.setState({
-      text: ''
-    })
+    const {text} = this.state;
+    if (text) {
+      this.props.onAdd(text);
+      this.setState({
+        text: ''
+      })
+    }
   };
 
   render() {
