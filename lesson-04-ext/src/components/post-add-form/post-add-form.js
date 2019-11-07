@@ -4,15 +4,11 @@ import './post-add-form.css'
 
 export default class PostAddForm extends Component {
 
-  constructor({mode}) {
-    super();
-    this.state = {
-      mode: mode
-    }
+  constructor(props) {
+    super(props);
   }
 
   render() {
-    const mode = this.state.mode;
 
     return (
       <form className="bottom-panel d-flex">

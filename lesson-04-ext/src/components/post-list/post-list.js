@@ -3,14 +3,16 @@ import PostListItem from "../post-list-item";
 
 import './post-list.css'
 
-const PostList = ({posts}) => {
+const PostList = ({posts, onEditStart}) => {
   const elements = posts
   .filter(post => post && typeof post === 'object' && post.id && post.label)
   .map((item) => {
     const {id, ...itemProps} = item;
     return (
       <li key={id} className='list-group-item'>
-        <PostListItem {...itemProps}/>
+        <PostListItem {...item}
+          onEditStart={onEditStart}
+        />
       </li>
     )
   });
