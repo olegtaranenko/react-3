@@ -1,6 +1,10 @@
 export default class Sponsors {
 
-  constructor(cash, eu, rus) {
+  constructor({
+                cash: cash,
+                eu: eu,
+                rus: rus
+              } = {}) {
     this.cash = cash;
     this.eu = eu;
     this.rus = rus;
@@ -19,6 +23,11 @@ export default class Sponsors {
 
   sumSponsors(...additionalSponsors) {
     return [...this.eu, ...this.rus, ...additionalSponsors];
+  }
+
+  unsecured() {
+    const [unsecuredSponsor] = this.eu;
+    return unsecuredSponsor;
   }
 }
 

@@ -177,13 +177,13 @@ class Business {
 
   getInfo() {
     const {
-      eu: [riskedSponsor]
+      eu: [unsecuredSponsor]
     } = sponsors;
 
     console.log(`We have a business. Owner: ${this.owner}, director: ${this.director}. Our budget: ${sponsors.calcCash(this.capital)}. 
 And our employers: ${this.employers}
 And we have a sponsors: ${sponsors.sumSponsors('unexpected sponsor')}
-Note. Be careful with ${riskedSponsor}. It's a huge risk.`);
+Note. Be careful with ${unsecuredSponsor}. It's a huge risk.`);
   }
 }
 
