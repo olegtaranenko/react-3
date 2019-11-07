@@ -26,6 +26,8 @@ export default class App extends Component {
 
     this.state = {
       data:        data.filter(post => post && typeof post === 'object' && post.id && post.label),
+      term: '',
+      filter: 'all',
       deletePopup: false
     };
   }
@@ -109,15 +111,46 @@ export default class App extends Component {
     this.toggleBooleanState('important', id)
   };
 
+
   onToggleLike = id => {
     this.toggleBooleanState('like', id);
   };
 
 
+  filterPost = (items, filter) => {
+    if (filter === 'like') {
+      return items.filter(item => item.like);
+    }
+    return items;
+  };
+
+
+  searchPost = (items, term) => {
+    if (!term || !term.length) {
+      return items;
+    }
+
+    return items.filter(item => {
+      return item.label.indexOf(term) !== -1;
+    })
+  };
+
+  onUpdateSearch = (term) => {
+    this.setState({term});
+  };
+
+  onFilterSelect = (filter) => {
+    console.log('filter %s', filter);
+    this.setState({filter});
+  };
+
+
   render() {
-    const {data, deletePopup} = this.state;
+    const {data, term, filter, deletePopup} = this.state;
     const liked = data.filter(item => item.like).length;
     const posted = data.length;
+
+    const visiblePosts = this.filterPost(this.searchPost(data, term), filter);
 
     return (
       <div>
@@ -126,9 +159,13 @@ export default class App extends Component {
             liked={liked}
             posted={posted}
           />
-          <SearchPanel/>
+          <SearchPanel
+            onUpdateSearch={this.onUpdateSearch}
+            onFilterSelect={this.onFilterSelect}
+            filter={filter}
+          />
           <PostList
-            posts={data}
+            posts={visiblePosts}
             onDelete={this.aboutToDelete}
             onToggleImportant={this.onToggleImportant}
             onToggleLike={this.onToggleLike}

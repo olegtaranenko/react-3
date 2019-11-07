@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 import { Input }        from 'reactstrap';
 import PostStatusFilter from "../post-status-filter";
@@ -14,17 +14,37 @@ const SearchBlock = styled.div`
 `;
 
 
-const SearchPanel = () => {
-  return (
-    <SearchBlock>
-      <Input
-        type="text"
-        className="search-import"
-        placeholder="Поиск по записям"
-      />
-      <PostStatusFilter/>
-    </SearchBlock>
-  )
+export default class SearchPanel extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      term: ''
+    }
+  }
+
+  onUpdateSearch = (e) => {
+    const term = e.target.value;
+    this.setState({term});
+    this.props.onUpdateSearch(term);
+  };
+
+  render() {
+    const {filter, onFilterSelect} = this.props;
+    return (
+      <SearchBlock>
+        <Input
+          type="text"
+          className="search-import"
+          placeholder="Поиск по записям"
+          onChange={this.onUpdateSearch}
+        />
+        <PostStatusFilter
+          filter={filter}
+          onFilterSelect={onFilterSelect}
+        />
+      </SearchBlock>
+    )
+  }
 };
 
-export default SearchPanel
