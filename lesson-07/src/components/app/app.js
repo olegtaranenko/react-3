@@ -4,14 +4,6 @@ import Header                from '../header';
 import RandomChar            from '../randomChar';
 import ItemList              from '../itemList';
 import CharDetails           from '../charDetails';
-import GotService            from "../../services/gotService";
-
-const gotService = new GotService();
-const characters = gotService.getAllCharacters(5, 3);
-// .then(res => {
-//   debugger
-//   console.log(res);
-// });
 
 
 /*
@@ -22,7 +14,8 @@ const characters = [
 ];
 */
 
-let App = () => {
+const App = (props) => {
+  const {characters} = props;
   return (
     <>
       <Container>
