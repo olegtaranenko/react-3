@@ -15,7 +15,7 @@ const characters = [
 */
 
 const App = (props) => {
-  const {characters} = props;
+  const {characters, detail} = props;
   return (
     <>
       <Container>
@@ -34,7 +34,9 @@ const App = (props) => {
             />
           </Col>
           <Col md='6'>
-            <CharDetails/>
+            <CharDetails
+              character={detail}
+            />
           </Col>
         </Row>
       </Container>

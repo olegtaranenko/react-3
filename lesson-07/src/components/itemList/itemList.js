@@ -1,22 +1,20 @@
 import React, {Component} from 'react';
-import './itemList.css';
+// import './itemList.css';
+import styled from 'styled-components';
+
+const ItemListElement = styled.li`
+  cursor: pointer;
+`;
 
 export default class ItemList extends Component {
-
-/*
-  constructor(props) {
-    super(props);
-  }
-
-*/
   render() {
-    // debugger;
     const {characters} = this.props;
     const elements = characters.map(character => {
-      return <li className="list-group-item">
+      return <ItemListElement className="list-group-item">
         {character.name}
-      </li>
+      </ItemListElement>
     });
+
     return (
       <ul className="item-list list-group">
         {elements}

@@ -6,11 +6,11 @@ import './index.css';
 import GotService from "./services/gotService";
 const gotService = new GotService();
 
-gotService.getAllCharacters(5, 3)
+
+gotService.getAllCharacters(27, 6)
 .then(characters => {
-  // debugger
-  // console.log(charachters);
   ReactDOM.render(<App
     characters={characters}
+    detail={characters[0]}
   />, document.getElementById('root'));
 });

@@ -14,12 +14,32 @@ export default class GotService {
     return await response.json();
   };
 
-  getAllCharacters(page = 3, pageSize = 20) {
+  getAllCharacters(page = 3, pageSize = 10) {
     return this.getResource(`/characters?page=${page}&pageSize=${pageSize}`);
   }
 
-  getCharachter(id) {
+  getCharacter(id) {
     return this.getResource(`/characters/${id}`);
   }
+  
+  
+  getAllHouses(page = 3, pageSize = 10) {
+    return this.getResource(`/houses?page=${page}&pageSize=${pageSize}`);
+  }
+
+  getHouse(id) {
+    return this.getResource(`/houses/${id}`);
+  }
+  
+
+  getAllBooks(page = 3, pageSize = 10) {
+    return this.getResource(`/books?page=${page}&pageSize=${pageSize}`);
+  }
+
+  getBook(id) {
+    return this.getResource(`/books/${id}`);
+  }
+  
+
 }
 
