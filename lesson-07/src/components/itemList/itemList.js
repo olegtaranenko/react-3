@@ -10,7 +10,7 @@ export default class ItemList extends Component {
 
 */
   render() {
-    debugger;
+    // debugger;
     const {characters} = this.props;
     const elements = characters.map(character => {
       return <li className="list-group-item">
