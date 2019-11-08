@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import styled from 'styled-components';
 
 const HeaderBlock = styled.div`
@@ -27,26 +27,26 @@ const HeaderLinks = styled.ul`
 `;
 
 const Header = () => {
-    return (
-        <HeaderBlock>
-            <HeaderTitle>
-                <a href="#">
-                Game of Thrones DB
-                </a>
-            </HeaderTitle>
-            <HeaderLinks>
-                <li>
-                    <a href="#">Characters</a>
-                </li>
-                <li>
-                    <a href="#">Houses</a>
-                </li>
-                <li>
-                    <a href="#">Books</a>   
-                </li>
-            </HeaderLinks>
-        </HeaderBlock>
-    );
+  return (
+    <HeaderBlock>
+      <HeaderTitle>
+        <a href="#">
+          Game of Thrones DB
+        </a>
+      </HeaderTitle>
+      <HeaderLinks>
+        <li>
+          <a href="#">Characters</a>
+        </li>
+        <li>
+          <a href="#">Houses</a>
+        </li>
+        <li>
+          <a href="#">Books</a>
+        </li>
+      </HeaderLinks>
+    </HeaderBlock>
+  );
 };
 
 export default Header;

@@ -1,20 +1,26 @@
 import React, {Component} from 'react';
 import './itemList.css';
+
 export default class ItemList extends Component {
 
-    render() {
-        return (
-            <ul className="item-list list-group">
-                <li className="list-group-item">
-                    John Snow
-                </li>
-                <li className="list-group-item">
-                    Brandon Stark
-                </li>
-                <li className="list-group-item">
-                    Geremy
-                </li>
-            </ul>
-        );
-    }
+/*
+  constructor(props) {
+    super(props);
+  }
+
+*/
+  render() {
+    debugger;
+    const {characters} = this.props;
+    const elements = characters.map(character => {
+      return <li className="list-group-item">
+        {character.name}
+      </li>
+    });
+    return (
+      <ul className="item-list list-group">
+        {elements}
+      </ul>
+    );
+  }
 }
