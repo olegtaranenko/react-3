@@ -1,47 +1,103 @@
 import React, {Component} from 'react';
-import styled from 'styled-components';
+import styled             from 'styled-components';
+import GotService         from "../../services/gotService";
+import Spinner      from "../spinner";
+import ErrorMessage from "../errorMessage";
 
-const RandomBlock=styled.div`
+const RandomBlock = styled.div`
   background-color: #fff;
   padding: 25px 25px 15px 25px;
   margin-bottom: 40px;
   h4 {
     margin-bottom: 20px;
     text-align: center;
+    font-size: 1.15em
   }
 `;
 
-const TermSpan=styled.span`
+const TermSpan = styled.span`
   font-weight: bold;
 `;
 
 
 export default class RandomChar extends Component {
 
+  constructor(props) {
+    super(props);
+    this.updateCharacter()
+  }
+
+  gotService = new GotService();
+
+  state = {
+    char:    {},
+    loading: true,
+    failed: false
+  };
+
+  onCharacterLoaded = (char) => {
+    this.setState({
+      char,
+      loading: false
+    });
+  };
+
+  onError = () => {
+    this.setState({
+      failed: true,
+      loading: false
+    });
+  };
+
+  updateCharacter = () => {
+    const {emulateError} = this.props;
+    const id = emulateError ? Math.floor(Math.random() * 240 + 50) : 1e8;
+
+    this.gotService.getCharacter(id)
+    .then(this.onCharacterLoaded)
+    .catch(this.onError);
+  };
+
+
   render() {
+    const {char, loading, failed} = this.state;
+    const spinner = loading ? <Spinner/> : null;
+    const error = failed ? <ErrorMessage/> : null;
+    const content = !(loading || failed) ? <Content char={char}/> : null;
 
     return (
       <RandomBlock className="rounded">
-        <h4>Random Character: John</h4>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item d-flex justify-content-between">
-            <TermSpan>Gender</TermSpan>
-            <span>male</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between">
-            <TermSpan>Born</TermSpan>
-            <span>11.03.1039</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between">
-            <TermSpan>Died</TermSpan>
-            <span>13.09.1089</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between">
-            <TermSpan>Culture</TermSpan>
-            <span>Anarchy</span>
-          </li>
-        </ul>
+        {error}
+        {spinner}
+        {content}
       </RandomBlock>
     );
   }
 }
+
+const Content = ({char}) => {
+  const {name, gender, born, died, culture} = char;
+  return (
+    <>
+      <h4>Random Character: {name}</h4>
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item d-flex justify-content-between">
+          <TermSpan>Gender</TermSpan>
+          <span>{gender}</span>
+        </li>
+        <li className="list-group-item d-flex justify-content-between">
+          <TermSpan>Born</TermSpan>
+          <span>{born}</span>
+        </li>
+        <li className="list-group-item d-flex justify-content-between">
+          <TermSpan>Died</TermSpan>
+          <span>{died}</span>
+        </li>
+        <li className="list-group-item d-flex justify-content-between">
+          <TermSpan>Culture</TermSpan>
+          <span>{culture}</span>
+        </li>
+      </ul>
+    </>
+  )
+};
