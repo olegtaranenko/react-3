@@ -1,15 +1,7 @@
-const hourSlot = Math.round(360 / 12);
-const minuteSlot = Math.round(360 / 60);
-const hourMinuteSlot = 360 / (60 * 12);
-// const speedPerMinute = 5.5
-
-
 const func = (hour, minute) => {
-  const hourAngle = hourSlot * (hour % 12) + hourMinuteSlot * (minute % 60);
-  const minuteAngle = minuteSlot * (minute % 60);
+  const angle = (((hour % 12) * 60 + (minute % 60)) * 5.5) % 360;
 
-  const angle = (hourAngle - minuteAngle) > 0 ? hourAngle - minuteAngle : minuteAngle - hourAngle;
-  console.log(`For input ${hour < 10 ? '0':''}${hour}:${minute < 10 ? '0':''}${minute} => angle: ${angle}`);
+  console.log(`For input ${hour < 10 ? '0':''}${hour}:${minute < 10 ? '0':''}${minute} => angle: ${angle < 180 ? angle : 360 - angle}`);
 };
 
 func(0, 0);  //=>>>  0
