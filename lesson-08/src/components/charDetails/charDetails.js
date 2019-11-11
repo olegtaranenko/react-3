@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import styled             from 'styled-components';
-import GotService         from "../../services/gotService";
 
 const CharDetailsBlock = styled.div`
   background-color: #fff;
@@ -21,32 +20,8 @@ const SelectError = styled.span`
 
 export default class CharDetails extends Component {
 
-  constructor(props) {
-    super(props);
-    this.updateCharacter()
-  }
-
-  gotService = new GotService();
-
-  state = {
-    name:    null,
-    gender:  null,
-    born:    null,
-    died:    null,
-    culture: null
-  };
-
-  updateCharacter = () => {
-    const id = 130;
-    this.gotService.getCharacter(id)
-      .then(char => {
-        this.setState({...char})
-      });
-  };
-
   render() {
-
-    const {name, gender, born, died, culture} = this.state;
+    const {character: {name, gender, born, died, culture}} = this.props;
 
     return (
       <CharDetailsBlock className="rounded">

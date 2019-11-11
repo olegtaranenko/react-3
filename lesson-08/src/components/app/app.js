@@ -9,11 +9,11 @@ import CharDetails           from '../charDetails';
 export default class App extends Component {
   state = {
     randomVisible: true,
-    emulateError: false
+    emulateError: false,
+    characterDetail: {}
   };
 
   onClickRandom = () => {
-    // debugger;
     this.setState(({randomVisible}) => {
       return {
         randomVisible: !randomVisible
@@ -22,22 +22,26 @@ export default class App extends Component {
   };
 
   onClickRandomError = () => {
-    this.setState(({emulateError}) => {
-      return {
-        emulateError: !emulateError
-      }
+    this.setState((state) => {
+      const {emulateError} = state;
+      return ({...state}, {emulateError: !emulateError});
+    })
+  };
+
+  onListUpdated = (characterDetail) => {
+    this.setState((state) => {
+      return {...state, characterDetail};
     })
   };
 
   render() {
-    const {characters, detail} = this.props;
-    const {randomVisible, emulateError} = this.state;
+    const {randomVisible, emulateError, characterDetail, reloadApp} = this.state;
     const button = <button onClick={this.onClickRandom}>Random Character</button>;
     const buttonError = <button onClick={this.onClickRandomError}>Random Error</button>;
 
     const randomCt = randomVisible ? <Row>
       <Col lg={{size: 5, offset: 0}}>
-        <RandomChar emulateError={emulateError}/>
+        <RandomChar emulateError={emulateError} reloadApp={reloadApp}/>
       </Col>
     </Row> : null;
 
@@ -53,12 +57,12 @@ export default class App extends Component {
           <Row>
             <Col md='6'>
               <ItemList
-                characters={characters}
+                onListUpdated={this.onListUpdated}
               />
             </Col>
             <Col md='6'>
               <CharDetails
-                character={detail}
+                character={characterDetail}
               />
             </Col>
           </Row>
