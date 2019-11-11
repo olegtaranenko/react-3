@@ -51,7 +51,7 @@ export default class RandomChar extends Component {
 
   updateCharacter = () => {
     const {emulateError} = this.props;
-    const id = emulateError ? Math.floor(Math.random() * 240 + 50) : 1e8;
+    const id = !emulateError ? Math.floor(Math.random() * 240 + 50) : 1e8;
 
     this.gotService.getCharacter(id)
     .then(this.onCharacterLoaded)
