@@ -29,6 +29,13 @@ export default class CharDetails extends Component {
     loading:   true
   };
 
+  componentDidCatch(error, errorInfo) {
+    console.log('error');
+    this.setState({
+      error: true
+    })
+  }
+
 
   componentDidMount() {
     this.updateCharacter();

@@ -2,26 +2,24 @@ import React, {Component}    from 'react';
 import {Col, Container, Row} from 'reactstrap';
 import Header                from '../header';
 import RandomChar            from '../randomChar';
-import ItemList              from '../itemList';
-import CharDetails           from '../charDetails';
-import ErrorMessage from "../errorMessage";
-import Spinner      from "../spinner";
+import ErrorMessage  from "../errorMessage";
+import CharacterPage from "../characterPage";
 
 export default class App extends Component {
   state = {
-    randomVisible:     true,
-    emulateError:      false,
-    characterDetailId: null,
-    error:             false
+    randomVisible: true,
+    error:         false
   };
 
 
+/*
   componentDidCatch(error, errorInfo) {
     console.log('error');
     this.setState({
       error: true
     })
   }
+*/
 
   onClickRandom = () => {
     this.setState(({randomVisible}) => {
@@ -44,18 +42,15 @@ export default class App extends Component {
     })
   };
 
-  onCharSelected = (id) => {
-    this.setState({characterDetailId: id});
-  };
-
-
   render() {
 
+/*
     if (this.state.error) {
       return <ErrorMessage msg='Critical error happens'/>
     }
 
-    const {randomVisible, emulateError, characterDetailId, reloadApp} = this.state;
+*/
+    const {randomVisible, emulateError, reloadApp} = this.state;
     const button = <button onClick={this.onClickRandom}>Random Character</button>;
     const buttonError = <button onClick={this.onClickRandomError}>Random Error</button>;
 
@@ -74,20 +69,7 @@ export default class App extends Component {
         </Container>
         <Container>
           {randomCt}
-          <Row>
-            <Col md='6'>
-              <ItemList
-                emulateError={emulateError}
-                onCharSelected={this.onCharSelected}
-              />
-            </Col>
-            <Col md='6'>
-              <CharDetails
-                emulateError={emulateError}
-                characterId={characterDetailId}
-              />
-            </Col>
-          </Row>
+          <CharacterPage emulateError={emulateError}/>
         </Container>
       </>
     );

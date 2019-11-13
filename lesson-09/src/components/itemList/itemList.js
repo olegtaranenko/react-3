@@ -28,7 +28,7 @@ export default class ItemList extends Component {
 
   updateCharacters = () => {
     const {emulateError} = this.props;
-    const pageNumber = !emulateError ? Math.floor(Math.random() * 1000 + 5) : -1;
+    const pageNumber = !emulateError ? Math.floor(Math.random() * 100 + 5) : -1;
 
     this.gotService.getAllCharacters(pageNumber)
     .then(this.onCharactersLoaded)

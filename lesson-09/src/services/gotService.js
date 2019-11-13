@@ -49,20 +49,40 @@ export default class GotService {
   _transformCharacter(char) {
     const {name, gender, born, died, culture, url} = char;
     const key = _extractKey(url);
+    // const key = this._extractKey(url);
     return {name, gender, born, died, culture, key};
   }
 
   _transformHouse(house) {
     const {name, region, words, titles, overlord, ancestralWeapons, url} = house;
     const key = _extractKey(url);
+    // const key = this._extractKey(url);
     return {name, region, words, titles, overlord, ancestralWeapons, key};
   }
 
   _transformBook(book) {
     const {name, numberOfPages, publisher, released, url} = book;
     const key = _extractKey(url);
+    // const key = this._extractKey(url);
     return {name, numberOfPages, publisher, released, key};
   }
+
+/*
+  _extractKey = (url) => {
+    const defaultKey = null;
+    const matched = url.match(/\d+$/);
+
+    let ret = defaultKey;
+    if (matched && matched[0]) {
+      ret = parseInt(matched[0]);
+      if (isNaN(ret)) {
+        ret = defaultKey;
+      }
+    }
+
+    return ret;
+  }
+*/
 }
 
 
@@ -81,5 +101,4 @@ function _extractKey(url) {
 
   return ret;
 }
-
 
