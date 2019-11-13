@@ -7,7 +7,8 @@ const inlineStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   width:  '100%',
-  height: 238
+  height: 238,
+  backgroundColor: '#fff'
 };
 
 const Spinner = () => {

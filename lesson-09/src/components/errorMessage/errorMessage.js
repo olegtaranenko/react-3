@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './errorMessage.module.sass'
-
-const ErrorMessage = (msg = 'Something goes wrong.') => {
-  const {error, error_message, error_text} = styles;
+const {error, error_message, error_text} = styles;
+const ErrorMessage = ({msg}) => {
+  msg = msg || 'Something goes wrong.';
   return (
     <div className={error}>
       <div className={error_message}>

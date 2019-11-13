@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import styled             from 'styled-components';
-import GotService from "../../services/gotService";
-import Spinner      from "../spinner";
-import ErrorMessage from "../errorMessage";
+import GotService         from "../../services/gotService";
+import Spinner            from "../spinner";
+import ErrorMessage       from "../errorMessage";
 
 const ItemListElement = styled.li`
   cursor: pointer;
@@ -18,8 +18,8 @@ export default class ItemList extends Component {
 
   state = {
     characters: [],
-    loading: true,
-    failed: false
+    loading:    true,
+    failed:     false
   };
 
   componentDidMount() {
@@ -28,7 +28,7 @@ export default class ItemList extends Component {
 
   updateCharacters = () => {
     const {emulateError} = this.props;
-    const pageNumber = !emulateError ? Math.floor(Math.random() * 300 + 5) : -1;
+    const pageNumber = !emulateError ? Math.floor(Math.random() * 1000 + 5) : -1;
 
     this.gotService.getAllCharacters(pageNumber)
     .then(this.onCharactersLoaded)
@@ -39,13 +39,13 @@ export default class ItemList extends Component {
     return this.setState({
       characters,
       loading: false,
-      failed: false
+      failed:  false
     });
   };
 
   onError = () => {
     this.setState({
-      failed: true,
+      failed:  true,
       loading: false
     });
   };

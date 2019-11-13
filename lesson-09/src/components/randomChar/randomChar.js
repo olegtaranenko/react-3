@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import styled             from 'styled-components';
 import GotService         from "../../services/gotService";
-import Spinner      from "../spinner";
-import ErrorMessage from "../errorMessage";
+import Spinner            from "../spinner";
+import ErrorMessage       from "../errorMessage";
 
 const RandomBlock = styled.div`
   background-color: #fff;
@@ -27,7 +27,7 @@ export default class RandomChar extends Component {
   state = {
     char:    {},
     loading: true,
-    failed: false
+    failed:  false
   };
 
   componentDidMount() {
@@ -49,7 +49,7 @@ export default class RandomChar extends Component {
 
   onError = () => {
     this.setState({
-      failed: true,
+      failed:  true,
       loading: false
     });
   };

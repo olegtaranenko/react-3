@@ -4,15 +4,15 @@ import Header                from '../header';
 import RandomChar            from '../randomChar';
 import ItemList              from '../itemList';
 import CharDetails           from '../charDetails';
-import ErrorMessage          from "../errorMessage";
-
+import ErrorMessage from "../errorMessage";
+import Spinner      from "../spinner";
 
 export default class App extends Component {
   state = {
     randomVisible:     true,
     emulateError:      false,
     characterDetailId: null,
-    // error:             false
+    error:             false
   };
 
 
@@ -51,11 +51,9 @@ export default class App extends Component {
 
   render() {
 
-/*
     if (this.state.error) {
-      return <ErrorMessage/>
+      return <ErrorMessage msg='Critical error happens'/>
     }
-*/
 
     const {randomVisible, emulateError, characterDetailId, reloadApp} = this.state;
     const button = <button onClick={this.onClickRandom}>Random Character</button>;
