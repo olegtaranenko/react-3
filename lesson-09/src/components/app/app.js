@@ -70,6 +70,10 @@ export default class App extends Component {
         <Container>
           {randomCt}
           <CharacterPage emulateError={emulateError}/>
+{/*
+          <CharacterPage emulateError={emulateError}/>
+          <CharacterPage emulateError={emulateError}/>
+*/}
         </Container>
       </>
     );
