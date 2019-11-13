@@ -1,45 +1,45 @@
 import React, {Component} from 'react';
 import styled             from 'styled-components';
-import GotService         from "../../services/gotService";
+import GotService from "../../services/gotService";
+import Spinner      from "../spinner";
+import ErrorMessage from "../errorMessage";
 
 const ItemListElement = styled.li`
   cursor: pointer;
 `;
 
+const ItemListBody = styled.ul`
+  background-color: #ffffff;
+`;
+
 export default class ItemList extends Component {
-
-  constructor(props) {
-    super(props);
-    this.updateCharacters()
-  }
-
 
   gotService = new GotService();
 
-
   state = {
     characters: [],
-    loading: false
+    loading: true,
+    failed: false
   };
 
+  componentDidMount() {
+    this.updateCharacters();
+  }
 
   updateCharacters = () => {
     const {emulateError} = this.props;
-    const pageNumber = !emulateError ? Math.floor(Math.random() * 200 + 35) : -1;
+    const pageNumber = !emulateError ? Math.floor(Math.random() * 300 + 5) : -1;
 
-    this.gotService.getAllCharacters(pageNumber, 3)
+    this.gotService.getAllCharacters(pageNumber)
     .then(this.onCharactersLoaded)
     .catch(this.onError);
   };
 
   onCharactersLoaded = (characters) => {
-    const {onListUpdated} = this.props;
-
-    onListUpdated && characters && characters[0] && onListUpdated(characters[0]);
-
     return this.setState({
       characters,
-      loading: false
+      loading: false,
+      failed: false
     });
   };
 
@@ -51,19 +51,30 @@ export default class ItemList extends Component {
   };
 
 
-
   render() {
-    const {characters, loading} = this.state;
-    const elements = characters.map(character => {
-      return <ItemListElement className="list-group-item">
-        {character.name}
+    const {characters, loading, failed} = this.state;
+    const errorState = characters && !characters.length || failed;
+
+    const spinner = loading ? <Spinner/> : null;
+    const errorMessage = (!loading && errorState) ? ErrorMessage('Items can\'t be not loaded') : null;
+
+    const elements = (!loading && !errorState) ? characters.map((character) => {
+      const {key, name} = character;
+      return <ItemListElement
+        key={key}
+        className="list-group-item"
+        onClick={() => this.props.onCharSelected(key)}
+      >
+        {name}
       </ItemListElement>
-    });
+    }) : null;
 
     return (
-      <ul className="item-list list-group">
+      <ItemListBody className="item-list list-group rounded">
+        {spinner}
+        {errorMessage}
         {elements}
-      </ul>
+      </ItemListBody>
     );
   }
 }

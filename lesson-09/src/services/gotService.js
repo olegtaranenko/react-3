@@ -14,53 +14,72 @@ export default class GotService {
     return await response.json();
   };
 
-  async getAllCharacters(page = 3, pageSize = 10) {
-    let resource = await this.getResource(`/characters?page=${page}&pageSize=${pageSize}`);
+  async getAllCharacters(page = 5, pageSize = 10) {
+    let resource = await this.getResource(`characters?page=${page}&pageSize=${pageSize}`);
     return resource.map(this._transformCharacter);
   }
 
   async getCharacter(id) {
-    let resource = await this.getResource(`/characters/${id}`);
+    let resource = await this.getResource(`characters/${id}`);
     return this._transformCharacter(resource);
   }
-  
-  
+
+
   async getAllHouses(page = 3, pageSize = 10) {
-    let resource = await this.getResource(`/houses?page=${page}&pageSize=${pageSize}`);
+    let resource = await this.getResource(`houses?page=${page}&pageSize=${pageSize}`);
     return resource.map(this._transformHouse);
   }
 
   async getHouse(id) {
-    let resource = await this.getResource(`/houses/${id}`);
+    let resource = await this.getResource(`houses/${id}`);
     return this._transformHouse(resource);
   }
-  
+
 
   async getAllBooks(page = 3, pageSize = 10) {
-    let resource = await this.getResource(`/books?page=${page}&pageSize=${pageSize}`);
+    let resource = await this.getResource(`books?page=${page}&pageSize=${pageSize}`);
     return resource.map(this._transformBook);
   }
 
   async getBook(id) {
-    let resource = await this.getResource(`/books/${id}`);
+    let resource = await this.getResource(`books/${id}`);
     return this._transformHouse(resource);
   }
 
-
-
   _transformCharacter(char) {
-    const {name, gender, born, died, culture} = char;
-    return {name, gender, born, died, culture};
+    const {name, gender, born, died, culture, url} = char;
+    const key = _extractKey(url);
+    return {name, gender, born, died, culture, key};
   }
 
   _transformHouse(house) {
-    const {name, region, words, titles, overlord, ancestralWeapons} = house;
-    return {name, region, words, titles, overlord, ancestralWeapons};
+    const {name, region, words, titles, overlord, ancestralWeapons, url} = house;
+    const key = _extractKey(url);
+    return {name, region, words, titles, overlord, ancestralWeapons, key};
   }
 
   _transformBook(book) {
-    const {name, numberOfPages, publisher, released} = book;
-    return {name, numberOfPages, publisher, released};
+    const {name, numberOfPages, publisher, released, url} = book;
+    const key = _extractKey(url);
+    return {name, numberOfPages, publisher, released, key};
   }
 }
+
+
+// Почему то возвращается
+function _extractKey(url) {
+  const defaultKey = null;
+  const matched = url.match(/\d+$/);
+
+  let ret = defaultKey;
+  if (matched && matched[0]) {
+    ret = parseInt(matched[0]);
+    if (isNaN(ret)) {
+      ret = defaultKey;
+    }
+  }
+
+  return ret;
+}
+
 

@@ -4,14 +4,24 @@ import Header                from '../header';
 import RandomChar            from '../randomChar';
 import ItemList              from '../itemList';
 import CharDetails           from '../charDetails';
+import ErrorMessage          from "../errorMessage";
 
 
 export default class App extends Component {
   state = {
-    randomVisible: true,
-    emulateError: false,
-    characterDetail: {}
+    randomVisible:     true,
+    emulateError:      false,
+    characterDetailId: null,
+    // error:             false
   };
+
+
+  componentDidCatch(error, errorInfo) {
+    console.log('error');
+    this.setState({
+      error: true
+    })
+  }
 
   onClickRandom = () => {
     this.setState(({randomVisible}) => {
@@ -28,14 +38,26 @@ export default class App extends Component {
     })
   };
 
-  onListUpdated = (characterDetail) => {
+  onListUpdated = (characterDetailId) => {
     this.setState((state) => {
-      return {...state, characterDetail};
+      return {...state, characterDetailId};
     })
   };
 
+  onCharSelected = (id) => {
+    this.setState({characterDetailId: id});
+  };
+
+
   render() {
-    const {randomVisible, emulateError, characterDetail, reloadApp} = this.state;
+
+/*
+    if (this.state.error) {
+      return <ErrorMessage/>
+    }
+*/
+
+    const {randomVisible, emulateError, characterDetailId, reloadApp} = this.state;
     const button = <button onClick={this.onClickRandom}>Random Character</button>;
     const buttonError = <button onClick={this.onClickRandomError}>Random Error</button>;
 
@@ -57,12 +79,14 @@ export default class App extends Component {
           <Row>
             <Col md='6'>
               <ItemList
-                onListUpdated={this.onListUpdated}
+                emulateError={emulateError}
+                onCharSelected={this.onCharSelected}
               />
             </Col>
             <Col md='6'>
               <CharDetails
-                character={characterDetail}
+                emulateError={emulateError}
+                characterId={characterDetailId}
               />
             </Col>
           </Row>

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import styled             from 'styled-components';
+import GotService         from "../../services/gotService";
+import Spinner            from "../spinner";
 
 const CharDetailsBlock = styled.div`
   background-color: #fff;
@@ -11,7 +13,7 @@ const CharDetailsBlock = styled.div`
   }
 `;
 
-const SelectError = styled.span`
+const SelectMissed = styled.span`
     color: #fff;
     text-align: center;
     font-size: 26px;
@@ -20,11 +22,56 @@ const SelectError = styled.span`
 
 export default class CharDetails extends Component {
 
-  render() {
-    const {character: {name, gender, born, died, culture}} = this.props;
+  gotService = new GotService();
 
-    return (
-      <CharDetailsBlock className="rounded">
+  state = {
+    character: null,
+    loading:   true
+  };
+
+
+  componentDidMount() {
+    this.updateCharacter();
+  }
+
+
+  updateCharacter = () => {
+    const {characterId} = this.props;
+
+    if (characterId) {
+      this.gotService.getCharacter(characterId)
+      .then(this.onCharacterLoaded)
+      .catch(this.onError);
+    }
+    // this.foo.bar = 0;
+  };
+
+
+  onCharacterLoaded = (character) => {
+    this.setState({
+      character,
+      loading: false
+    });
+  };
+
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.characterId !== this.props.characterId) {
+      this.setState({loading: true});
+      this.updateCharacter();
+    }
+  }
+
+
+  render() {
+    if (!this.state.character) {
+      return <SelectMissed>Please select a character</SelectMissed>
+    }
+
+    const {character: {name, gender, born, died, culture}, loading} = this.state;
+    const spinner = loading ? <Spinner/> : null;
+    const content = !loading ?
+      <>
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
           <li className="list-group-item d-flex justify-content-between">
@@ -44,6 +91,12 @@ export default class CharDetails extends Component {
             <span>{culture}</span>
           </li>
         </ul>
+      </> : null;
+
+    return (
+      <CharDetailsBlock className="rounded">
+        {spinner}
+        {content}
       </CharDetailsBlock>
     );
   }
