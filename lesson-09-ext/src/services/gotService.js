@@ -47,9 +47,17 @@ export default class GotService {
   }
 
   _transformCharacter(char) {
-    const {name, gender, born, died, culture, url} = char;
+    let {name, gender, born, died, culture, url} = char;
     const key = _extractKey(url);
     // const key = this._extractKey(url);
+
+
+    name = this.checkNonEmpty(name);
+    gender = this.checkNonEmpty(gender);
+    born = this.checkNonEmpty(born);
+    died = this.checkNonEmpty(died);
+    culture = this.checkNonEmpty(culture);
+
     return {name, gender, born, died, culture, key};
   }
 
@@ -65,6 +73,10 @@ export default class GotService {
     const key = _extractKey(url);
     // const key = this._extractKey(url);
     return {name, numberOfPages, publisher, released, key};
+  }
+
+  checkNonEmpty = (value) => {
+    return (value === '') ?  'oop\'s... no data' : value;
   }
 
 /*
