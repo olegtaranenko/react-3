@@ -52,49 +52,59 @@ export default class GotService {
     // const key = this._extractKey(url);
 
 
-    name = this.checkNonEmpty(name);
-    gender = this.checkNonEmpty(gender);
-    born = this.checkNonEmpty(born);
-    died = this.checkNonEmpty(died);
-    culture = this.checkNonEmpty(culture);
+    name = checkNonEmpty(name);
+    gender = checkNonEmpty(gender);
+    born = checkNonEmpty(born);
+    died = checkNonEmpty(died);
+    culture = checkNonEmpty(culture);
 
     return {name, gender, born, died, culture, key};
   }
 
   _transformHouse(house) {
-    const {name, region, words, titles, overlord, ancestralWeapons, url} = house;
+    let {name, region, words, titles, overlord, ancestralWeapons, url} = house;
+
+    name = checkNonEmpty(name);
+    region = checkNonEmpty(region);
+    words = checkNonEmpty(words);
+    titles = checkNonEmpty(titles);
+    overlord = checkNonEmpty(overlord);
+    ancestralWeapons = checkNonEmpty(ancestralWeapons);
+
     const key = _extractKey(url);
     // const key = this._extractKey(url);
     return {name, region, words, titles, overlord, ancestralWeapons, key};
   }
 
   _transformBook(book) {
-    const {name, numberOfPages, publisher, released, url} = book;
+    let {name, numberOfPages, publisher, released, url} = book;
+
+    name = checkNonEmpty(name);
+    numberOfPages = checkNonEmpty(numberOfPages);
+    publisher = checkNonEmpty(publisher);
+    released = checkNonEmpty(released);
+
     const key = _extractKey(url);
     // const key = this._extractKey(url);
     return {name, numberOfPages, publisher, released, key};
   }
 
-  checkNonEmpty = (value) => {
-    return (value === '') ?  'oop\'s... no data' : value;
-  }
+  /*
+    _extractKey = (url) => {
+      const defaultKey = null;
+      const matched = url.match(/\d+$/);
 
-/*
-  _extractKey = (url) => {
-    const defaultKey = null;
-    const matched = url.match(/\d+$/);
-
-    let ret = defaultKey;
-    if (matched && matched[0]) {
-      ret = parseInt(matched[0]);
-      if (isNaN(ret)) {
-        ret = defaultKey;
+      let ret = defaultKey;
+      if (matched && matched[0]) {
+        ret = parseInt(matched[0]);
+        if (isNaN(ret)) {
+          ret = defaultKey;
+        }
       }
-    }
 
-    return ret;
-  }
-*/
+      return ret;
+    }
+  */
 }
 
 
@@ -112,5 +122,9 @@ function _extractKey(url) {
   }
 
   return ret;
+}
+
+function checkNonEmpty(value) {
+  return (value === '') ? 'oop\'s... no data' : value;
 }
 
