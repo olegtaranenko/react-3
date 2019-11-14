@@ -43,7 +43,7 @@ export default class GotService {
 
   getBook = async (id) => {
     let resource = await this.getResource(`books/${id}`);
-    return this._transformHouse(resource);
+    return this._transformBook(resource);
   };
 
   _transformCharacter(char) {
@@ -125,6 +125,6 @@ function _extractKey(url) {
 }
 
 function checkNonEmpty(value) {
-  return (value === '') ? 'oop\'s... no data' : value;
+  return (value === '' || value == null) ? 'oop\'s... no data' : value;
 }
 

@@ -20,9 +20,9 @@ export default class ItemList extends Component {
   };
 
   componentDidMount() {
-    const {getData} = this.props;
+    const {getGotList} = this.props;
 
-    getData()
+    getGotList()
     .then(this.onListLoaded)
     .catch(this.onError);
   }

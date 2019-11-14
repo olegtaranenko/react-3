@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import styled             from 'styled-components';
-import GotService         from "../../services/gotService";
-import {Col, Row}         from "reactstrap";
-import ItemList           from "../itemList";
-import CharDetails        from "../charDetails";
-import ErrorMessage       from "../errorMessage";
+import React, {Component}   from 'react';
+import styled               from 'styled-components';
+import GotService           from "../../services/gotService";
+import {Col, Row}           from "reactstrap";
+import ItemList             from "../itemList";
+import ItemDetails, {Field} from "../itemDetails";
+import ErrorMessage         from "../errorMessage";
 
 const CharDetailsBlock = styled.div`
   background-color: #fff;
@@ -32,7 +32,7 @@ export default class BooksPage extends Component {
     error:        false
   };
 
-  onItemSelected = (id) => {
+  onBookSelected = (id) => {
     this.setState({bookDetailId: id});
   };
 
@@ -46,10 +46,10 @@ export default class BooksPage extends Component {
 
   render() {
 
-    const {bookDetailId} = this.state;
+    const {bookDetailId, error} = this.state;
     const {emulateError} = this.props;
 
-    if (this.state.error) {
+    if (error) {
       return <ErrorMessage msg='Critical error happens'/>
     }
 
@@ -59,16 +59,24 @@ export default class BooksPage extends Component {
         <Col md='6'>
           <ItemList
             emulateError={emulateError}
-            getData={this.gotService.getAllBooks}
-            onItemSelected={this.onItemSelected}
-            renderItem={({name, publisher}) => (<><span>{`${name} (${publisher})`}</span><button>Click me</button> </>)}
+            getGotList={this.gotService.getAllBooks}
+            onItemSelected={this.onBookSelected}
+            renderItem={({name, publisher}) => (<><span>{`${name} (${publisher})`}</span>
+              <button>Click me</button>
+            </>)}
           />
         </Col>
         <Col md='6'>
-          <CharDetails
+          <ItemDetails
             emulateError={emulateError}
-            bookId={bookDetailId}
-          />
+            itemId={bookDetailId}
+            getGotItem={this.gotService.getBook}
+          >
+            <Field field='numberOfPages' label='Number of pages'/>
+            <Field field='publisher' label='Publisher'/>
+            <Field field='released' label='Released at'/>
+
+          </ItemDetails>
         </Col>
       </Row>
     );
