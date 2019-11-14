@@ -18,10 +18,10 @@ const ItemDetailsBlock = styled.div`
   }
 `;
 
-const SelectMissed = styled.span`
+const SelectMissed = styled.div`
     color: #fff;
     text-align: center;
-    font-size: 26px;
+    font-size: 20px;
 `;
 
 const TermSpan = styled.span`
@@ -102,7 +102,8 @@ export default class ItemDetails extends Component {
   render() {
     const {item, loading, failed} = this.state;
     if (!item) {
-      return <SelectMissed>Please select an item</SelectMissed>
+      const missedMessage = this.props.missedMessage || <>Please select an item</>;
+      return <SelectMissed><span>{missedMessage}</span></SelectMissed>
     }
 
     const spinner = loading ? <Spinner/> : null;

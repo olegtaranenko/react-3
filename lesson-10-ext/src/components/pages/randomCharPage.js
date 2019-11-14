@@ -95,6 +95,7 @@ export default class RandomCharPage extends Component {
       itemId={characterDetailId}
       getGotItem={this.gotService.getCharacter}
       renderTitle={(item) => <h3>Random Character: {item.name}</h3>}
+      missedMessage=' '
     >
       <Field field='gender' label='Gender'/>
       <Field field='born' label='Born'/>

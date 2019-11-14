@@ -45,6 +45,7 @@ export default class HousesPage extends Component {
       emulateError={emulateError}
       itemId={houseDetailId}
       getGotItem={this.gotService.getHouse}
+      missedMessage='Выберите, пожалуйста, дом из списка'
     >
       <Field field='name' label='Name'/>
       <Field field='region' label='Region'/>

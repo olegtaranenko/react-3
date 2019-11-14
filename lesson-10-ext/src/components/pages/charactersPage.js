@@ -47,6 +47,7 @@ export default class CharactersPage extends Component {
       emulateError={emulateError}
       itemId={characterDetailId}
       getGotItem={this.gotService.getCharacter}
+      missedMessage='Выберите, пожалуйста, персонажа из списка'
     >
       <Field field='gender' label='Gender'/>
       <Field field='born' label='Born'/>

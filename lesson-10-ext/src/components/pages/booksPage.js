@@ -49,6 +49,7 @@ export default class BooksPage extends Component {
       emulateError={emulateError}
       itemId={bookDetailId}
       getGotItem={this.gotService.getBook}
+      missedMessage='Выберите, пожалуйста, книгу из списка'
     >
       <Field field='numberOfPages' label='Number of pages'/>
       <Field field='publisher' label='Publisher'/>
