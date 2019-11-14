@@ -1,29 +1,12 @@
 import React, {Component}   from 'react';
-import styled               from 'styled-components';
 import GotService           from "../../services/gotService";
 import ItemList             from "../itemList";
 import ItemDetails, {Field} from "../itemDetails";
 import ErrorMessage         from "../errorMessage";
 import RowBlock             from "../rowBlock";
 
-const CharDetailsBlock = styled.div`
-  background-color: #fff;
-  padding: 25px 25px 15px 25px;
-  margin-bottom: 40px;
-  h4 {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-`;
 
-const SelectMissed = styled.span`
-    color: #fff;
-    text-align: center;
-    font-size: 26px;
-`;
-
-
-export default class CharacterPage extends Component {
+export default class CharactersPage extends Component {
 
   gotService = new GotService();
 
@@ -50,7 +33,7 @@ export default class CharacterPage extends Component {
     const {emulateError} = this.props;
 
     if (this.state.error) {
-      return <ErrorMessage msg='Critical error happens'/>
+      return <ErrorMessage msg='Characters: Critical error happens'/>
     }
 
     const characters = <ItemList

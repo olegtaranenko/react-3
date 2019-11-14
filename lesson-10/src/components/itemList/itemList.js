@@ -61,7 +61,7 @@ export default class ItemList extends Component {
 
   render() {
     const {itemList, loading, failed} = this.state;
-    const errorState = itemList && !itemList.length || failed;
+    const errorState = (itemList && !itemList.length) || failed;
 
     const spinner = loading ? <Spinner/> : null;
     const errorMessage = (!loading && errorState) ? ErrorMessage('Items can\'t be not loaded') : null;

@@ -1,80 +1,34 @@
-import React, {Component}    from 'react';
-import {Col, Container, Row} from 'reactstrap';
-import Header                from '../header';
-import RandomChar            from '../randomChar';
-import CharacterPage         from "../characterPage";
-import BooksPage             from "../booksPage";
-import HousesPage            from "../housesPage";
+import React, {Component}                                      from 'react';
+import {Container}                                             from 'reactstrap';
+import Header                                                  from '../header';
+import {BooksPage, CharactersPage, HousesPage, RandomCharPage} from "../pages";
 
 export default class App extends Component {
+
   state = {
-    randomVisible: true,
-    error:         false
-  };
-
-
-/*
-  componentDidCatch(error, errorInfo) {
-    console.log('error');
-    this.setState({
-      error: true
-    })
-  }
-*/
-
-  onClickRandom = () => {
-    this.setState(({randomVisible}) => {
-      return {
-        randomVisible: !randomVisible
-      }
-    })
+    emulateError: false
   };
 
   onClickRandomError = () => {
     this.setState((state) => {
       const {emulateError} = state;
-      return ({...state}, {emulateError: !emulateError});
-    })
-  };
-
-  onListUpdated = (characterDetailId) => {
-    this.setState((state) => {
-      return {...state, characterDetailId};
+      return ({emulateError: !emulateError});
     })
   };
 
 
   render() {
-/*
-    if (this.state.error) {
-      return <ErrorMessage msg='Critical error happens'/>
-    }
-
-*/
-    const {randomVisible, emulateError, reloadApp} = this.state;
-    const button = <button onClick={this.onClickRandom}>Random Character</button>;
-    const buttonError = <button onClick={this.onClickRandomError}>Random Error</button>;
-
-    const randomCt = randomVisible ? <Row>
-      <Col lg={{size: 5, offset: 0}}>
-        <RandomChar emulateError={emulateError} reloadApp={reloadApp}/>
-      </Col>
-    </Row> : null;
-
+    const {emulateError} = this.state;
     return (
       <>
         <Container>
           <Header/>
-          {button}
-          {buttonError}
         </Container>
         <Container>
-          {randomCt}
-          <CharacterPage emulateError={emulateError}/>
-
+          <RandomCharPage emulateError={emulateError} onClickRandomError={this.onClickRandomError}/>
+          <CharactersPage emulateError={emulateError}/>
           <BooksPage/>
           <HousesPage/>
-
         </Container>
       </>
     );

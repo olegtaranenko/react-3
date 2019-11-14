@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
 import styled             from 'styled-components';
-import GotService         from "../../services/gotService";
 import Spinner            from "../spinner";
+import ErrorMessage       from "../errorMessage";
 
 const ItemDetailsBlock = styled.div`
   background-color: #fff;
   padding: 25px 25px 15px 25px;
   margin-bottom: 40px;
   h4 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  h3 {
+    font-size: 22px;
     margin-bottom: 20px;
     text-align: center;
   }
@@ -22,7 +27,6 @@ const SelectMissed = styled.span`
 const TermSpan = styled.span`
   font-weight: bold;
 `;
-
 
 
 const Field = ({item, field, label}) => {
@@ -41,8 +45,8 @@ export {
 export default class ItemDetails extends Component {
 
   state = {
-    item: null,
-    loading:   true
+    item:    null,
+    loading: true
   };
 
   componentDidCatch(error, errorInfo) {
@@ -73,6 +77,7 @@ export default class ItemDetails extends Component {
   onItemLoaded = (item) => {
     this.setState({
       item,
+      failed:  false,
       loading: false
     });
   };
@@ -95,15 +100,17 @@ export default class ItemDetails extends Component {
 
 
   render() {
-    const {item, loading} = this.state;
+    const {item, loading, failed} = this.state;
     if (!item) {
-      return <SelectMissed>Please select a item</SelectMissed>
+      return <SelectMissed>Please select an item</SelectMissed>
     }
 
     const spinner = loading ? <Spinner/> : null;
-    const content = !loading ?
+    const error = (!loading && failed) ? <ErrorMessage/> : null;
+    const renderTitle = this.props.renderTitle || ((item) => <h4>{item.name}</h4>);
+    const content = (!loading && !failed) ?
       <>
-        <h4>{item.name}</h4>
+        {renderTitle(item)}
         <ul className="list-group list-group-flush">
           {
             React.Children.map(this.props.children, child => {
@@ -114,9 +121,11 @@ export default class ItemDetails extends Component {
         </ul>
       </> : null;
 
+
     return (
       <ItemDetailsBlock className="rounded">
         {spinner}
+        {error}
         {content}
       </ItemDetailsBlock>
     );

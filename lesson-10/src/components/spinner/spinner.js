@@ -7,7 +7,7 @@ const inlineStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   width:  '100%',
-  height: 238,
+  height: 242,
   backgroundColor: '#fff'
 };
 
