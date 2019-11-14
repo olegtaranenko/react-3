@@ -30,9 +30,16 @@ export default class GotService {
     return resource.map(this._transformHouse);
   };
 
-  getHouse = async (id) => {
+  getHouse = async (id, isOverlord = false) => {
     let resource = await this.getResource(`houses/${id}`);
-    return this._transformHouse(resource);
+    let overlordItem = null;
+    if ( resource.overlord && !isOverlord ) {
+      const overlordKey = _extractKey(resource.overlord);
+      if (overlordKey) {
+        overlordItem = await this.getHouse(overlordKey, true);
+      }
+    }
+    return this._transformHouse(resource, overlordItem);
   };
 
 
@@ -61,20 +68,22 @@ export default class GotService {
     return {name, gender, born, died, culture, key};
   }
 
-  _transformHouse(house) {
+
+  _transformHouse(house, overlordItem) {
     let {name, region, words, titles, overlord, ancestralWeapons, url} = house;
 
     name = checkNonEmpty(name);
     region = checkNonEmpty(region);
     words = checkNonEmpty(words);
     titles = checkNonEmpty(titles);
-    overlord = checkNonEmpty(overlord);
+    overlord = overlordItem ? overlordItem.name : checkNonEmpty(overlord);
     ancestralWeapons = checkNonEmpty(ancestralWeapons);
 
     const key = _extractKey(url);
     // const key = this._extractKey(url);
     return {name, region, words, titles, overlord, ancestralWeapons, key};
   }
+
 
   _transformBook(book) {
     let {name, numberOfPages, publisher, released, url} = book;
@@ -125,6 +134,6 @@ function _extractKey(url) {
 }
 
 function checkNonEmpty(value) {
-  return (value === '' || value == null) ? 'oop\'s... no data' : value;
+  return (value === '' || value == null || (Array.isArray(value) && (!value.length || !value[0]))) ? 'oop\'s... no data' : value;
 }
 

@@ -2,9 +2,9 @@ import React, {Component}    from 'react';
 import {Col, Container, Row} from 'reactstrap';
 import Header                from '../header';
 import RandomChar            from '../randomChar';
-import ErrorMessage  from "../errorMessage";
-import CharacterPage from "../characterPage";
-import BooksPage     from "../booksPage";
+import CharacterPage         from "../characterPage";
+import BooksPage             from "../booksPage";
+import HousesPage            from "../housesPage";
 
 export default class App extends Component {
   state = {
@@ -43,8 +43,8 @@ export default class App extends Component {
     })
   };
 
-  render() {
 
+  render() {
 /*
     if (this.state.error) {
       return <ErrorMessage msg='Critical error happens'/>
@@ -73,7 +73,7 @@ export default class App extends Component {
           <CharacterPage emulateError={emulateError}/>
 
           <BooksPage/>
-          {/*<CharacterPage emulateError={emulateError}/>*/}
+          <HousesPage/>
 
         </Container>
       </>
