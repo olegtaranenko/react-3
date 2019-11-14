@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import styled             from 'styled-components';
-import GotService         from "../../services/gotService";
 import Spinner            from "../spinner";
 import ErrorMessage       from "../errorMessage";
 
@@ -14,32 +13,25 @@ const ItemListBody = styled.ul`
 
 export default class ItemList extends Component {
 
-  gotService = new GotService();
-
   state = {
-    characters: [],
-    loading:    true,
-    failed:     false
+    itemList: [],
+    loading:  true,
+    failed:   false
   };
 
   componentDidMount() {
-    this.updateCharacters();
+    const {getData} = this.props;
+
+    getData()
+    .then(this.onListLoaded)
+    .catch(this.onError);
   }
 
-  updateCharacters = () => {
-    const {emulateError} = this.props;
-    const pageNumber = !emulateError ? Math.floor(Math.random() * 100 + 5) : -1;
-
-    this.gotService.getAllCharacters(pageNumber)
-    .then(this.onCharactersLoaded)
-    .catch(this.onError);
-  };
-
-  onCharactersLoaded = (characters) => {
+  onListLoaded = (itemList) => {
     return this.setState({
-      characters,
-      loading: false,
-      failed:  false
+      itemList: itemList,
+      loading:    false,
+      failed:     false
     });
   };
 
@@ -51,23 +43,30 @@ export default class ItemList extends Component {
   };
 
 
+  renderItems = (itemList) => {
+
+    return itemList.map((item) => {
+      const {key} = item;
+      const label = this.props.renderItem(item);
+
+      return <ItemListElement
+        key={key}
+        className="list-group-item"
+        onClick={() => this.props.onItemSelected(key)}>
+        {label}
+      </ItemListElement>
+    });
+  };
+
+
   render() {
-    const {characters, loading, failed} = this.state;
-    const errorState = characters && !characters.length || failed;
+    const {itemList, loading, failed} = this.state;
+    const errorState = itemList && !itemList.length || failed;
 
     const spinner = loading ? <Spinner/> : null;
     const errorMessage = (!loading && errorState) ? ErrorMessage('Items can\'t be not loaded') : null;
 
-    const elements = (!loading && !errorState) ? characters.map((character) => {
-      const {key, name} = character;
-      return <ItemListElement
-        key={key}
-        className="list-group-item"
-        onClick={() => this.props.onCharSelected(key)}
-      >
-        {name}
-      </ItemListElement>
-    }) : null;
+    const elements = (!loading && !errorState) ? this.renderItems(itemList) : null;
 
     return (
       <ItemListBody className="item-list list-group rounded">

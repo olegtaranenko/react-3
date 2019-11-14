@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import styled             from 'styled-components';
-import GotService         from "../../services/gotService";
-import {Col, Row}         from "reactstrap";
-import ItemList           from "../itemList";
-import CharDetails        from "../charDetails";
-import ErrorMessage       from "../errorMessage";
+import React, {Component}   from 'react';
+import styled               from 'styled-components';
+import GotService           from "../../services/gotService";
+import ItemList             from "../itemList";
+import CharDetails, {Field} from "../charDetails";
+import ErrorMessage         from "../errorMessage";
+import RowBlock             from "../rowBlock";
 
 const CharDetailsBlock = styled.div`
   background-color: #fff;
@@ -32,7 +32,7 @@ export default class CharacterPage extends Component {
     error:             false
   };
 
-  onCharSelected = (id) => {
+  onItemSelected = (id) => {
     this.setState({characterDetailId: id});
   };
 
@@ -53,22 +53,27 @@ export default class CharacterPage extends Component {
       return <ErrorMessage msg='Critical error happens'/>
     }
 
+    const characters = <ItemList
+      emulateError={emulateError}
+      getData={this.gotService.getAllCharacters}
+      onItemSelected={this.onItemSelected}
+      renderItem={({name, gender}) => `${name} (${gender})`}
+    />;
+
+    const charDetails = <CharDetails
+      emulateError={emulateError}
+      characterId={characterDetailId}>
+      <Field field='gender' label='Gender'/>
+      <Field field='born' label='Born'/>
+      <Field field='died' label='Died'/>
+      <Field field='culture' label='Culture'/>
+    </CharDetails>;
 
     return (
-      <Row>
-        <Col md='6'>
-          <ItemList
-            emulateError={emulateError}
-            onCharSelected={this.onCharSelected}
-          />
-        </Col>
-        <Col md='6'>
-          <CharDetails
-            emulateError={emulateError}
-            characterId={characterDetailId}
-          />
-        </Col>
-      </Row>
-    );
+      <RowBlock
+        left={characters}
+        right={charDetails}
+      />
+    )
   }
 }

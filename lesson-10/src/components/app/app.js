@@ -4,6 +4,7 @@ import Header                from '../header';
 import RandomChar            from '../randomChar';
 import ErrorMessage  from "../errorMessage";
 import CharacterPage from "../characterPage";
+import BooksPage     from "../booksPage";
 
 export default class App extends Component {
   state = {
@@ -70,10 +71,10 @@ export default class App extends Component {
         <Container>
           {randomCt}
           <CharacterPage emulateError={emulateError}/>
-{/*
-          <CharacterPage emulateError={emulateError}/>
-          <CharacterPage emulateError={emulateError}/>
-*/}
+
+          <BooksPage/>
+          {/*<CharacterPage emulateError={emulateError}/>*/}
+
         </Container>
       </>
     );

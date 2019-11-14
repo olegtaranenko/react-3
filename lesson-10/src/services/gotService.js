@@ -14,37 +14,37 @@ export default class GotService {
     return await response.json();
   };
 
-  async getAllCharacters(page = 5, pageSize = 10) {
+  getAllCharacters = async (page = 5, pageSize = 10) => {
     let resource = await this.getResource(`characters?page=${page}&pageSize=${pageSize}`);
     return resource.map(this._transformCharacter);
-  }
+  };
 
-  async getCharacter(id) {
+  getCharacter = async (id) => {
     let resource = await this.getResource(`characters/${id}`);
     return this._transformCharacter(resource);
-  }
+  };
 
 
-  async getAllHouses(page = 3, pageSize = 10) {
+  getAllHouses = async (page = 3, pageSize = 10) => {
     let resource = await this.getResource(`houses?page=${page}&pageSize=${pageSize}`);
     return resource.map(this._transformHouse);
-  }
+  };
 
-  async getHouse(id) {
+  getHouse = async (id) => {
     let resource = await this.getResource(`houses/${id}`);
     return this._transformHouse(resource);
-  }
+  };
 
 
-  async getAllBooks(page = 3, pageSize = 10) {
-    let resource = await this.getResource(`books?page=${page}&pageSize=${pageSize}`);
+  getAllBooks = async () => {
+    let resource = await this.getResource(`books`);
     return resource.map(this._transformBook);
-  }
+  };
 
-  async getBook(id) {
+  getBook = async (id) => {
     let resource = await this.getResource(`books/${id}`);
     return this._transformHouse(resource);
-  }
+  };
 
   _transformCharacter(char) {
     let {name, gender, born, died, culture, url} = char;

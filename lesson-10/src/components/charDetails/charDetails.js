@@ -19,6 +19,24 @@ const SelectMissed = styled.span`
     font-size: 26px;
 `;
 
+const TermSpan = styled.span`
+  font-weight: bold;
+`;
+
+
+
+const Field = ({character, field, label}) => {
+  return (
+    <li className="list-group-item d-flex justify-content-between">
+      <TermSpan>{label}</TermSpan>
+      <span>{character[field]}</span>
+    </li>
+  )
+};
+
+export {
+  Field
+}
 
 export default class CharDetails extends Component {
 
@@ -71,32 +89,22 @@ export default class CharDetails extends Component {
 
 
   render() {
-    if (!this.state.character) {
+    const {character, loading} = this.state;
+    if (!character) {
       return <SelectMissed>Please select a character</SelectMissed>
     }
 
-    const {character: {name, gender, born, died, culture}, loading} = this.state;
     const spinner = loading ? <Spinner/> : null;
     const content = !loading ?
       <>
-        <h4>{name}</h4>
+        <h4>{character.name}</h4>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item d-flex justify-content-between">
-            <span className="term">Gender</span>
-            <span>{gender}</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between">
-            <span className="term">Born</span>
-            <span>{born}</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between">
-            <span className="term">Died</span>
-            <span>{died}</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between">
-            <span className="term">Culture</span>
-            <span>{culture}</span>
-          </li>
+          {
+            React.Children.map(this.props.children, child => {
+              return React.cloneElement(child, {character});
+            })
+          }
+
         </ul>
       </> : null;
 
