@@ -1,22 +1,17 @@
-import React, {Component}   from 'react';
-import GotService           from "../../services/gotService";
-import ItemList             from "../itemList";
-import ItemDetails, {Field} from "../itemDetails";
-import ErrorMessage         from "../errorMessage";
-import RowBlock             from "../rowBlock";
+import React, {Component} from 'react';
+import GotService         from "../../services/gotService";
+import ItemList           from "../itemList";
+import ErrorMessage       from "../errorMessage";
+import {withRouter}       from 'react-router-dom';
 
-export default class BooksPage extends Component {
+class BooksPage extends Component {
 
   gotService = new GotService();
 
   state = {
-    bookDetailId: null,
-    error:        false
+    error: false
   };
 
-  onBookSelected = (id) => {
-    this.setState({bookDetailId: id});
-  };
 
   componentDidCatch(error, errorInfo) {
     console.log('error');
@@ -27,8 +22,7 @@ export default class BooksPage extends Component {
 
 
   render() {
-
-    const {bookDetailId, error} = this.state;
+    const {error} = this.state;
     const {emulateError} = this.props;
 
     if (error) {
@@ -36,31 +30,23 @@ export default class BooksPage extends Component {
     }
 
 
-    const left = <ItemList
-      emulateError={emulateError}
-      getGotList={this.gotService.getAllBooks}
-      onItemSelected={this.onBookSelected}
-      renderItem={({name, publisher}) => (<><span>{`${name} (${publisher})`}</span>
-        <button>Click me</button>
-      </>)}
-    />;
-
-    const right = <ItemDetails
-      emulateError={emulateError}
-      itemId={bookDetailId}
-      getGotItem={this.gotService.getBook}
-      missedMessage='Выберите, пожалуйста, книгу из списка'
-    >
-      <Field field='numberOfPages' label='Number of pages'/>
-      <Field field='publisher' label='Publisher'/>
-      <Field field='released' label='Released at'/>
-
-    </ItemDetails>;
     return (
-      <RowBlock
-        left={left}
-        right={right}
+      <ItemList
+        emulateError={emulateError}
+        getGotList={this.gotService.getAllBooks}
+        onItemSelected={itemId => {
+          // this.props.history.push(`/books/${itemId}`);
+          // НЕ РАБОТАЕТ!
+          // this.props.history.push(itemId) ;
+          // РАБОТАЕТ !!!
+          this.props.history.push(itemId+'');
+        }}
+        renderItem={({name, publisher}) => (<><span>{`${name} (${publisher})`}</span>
+          <button>Click me</button>
+        </>)}
       />
     );
   }
 }
+
+export default withRouter(BooksPage);

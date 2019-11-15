@@ -22,7 +22,7 @@ export default class RandomCharPage extends Component {
 
   componentDidMount() {
     this.updateCharacter();
-    this.timerId = setInterval(this.updateCharacter, 2500);
+    // this.timerId = setInterval(this.updateCharacter, 2500);
   }
 
   componentWillUnmount() {
