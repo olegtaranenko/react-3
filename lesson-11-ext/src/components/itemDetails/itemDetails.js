@@ -82,7 +82,13 @@ export default class ItemDetails extends Component {
   };
 
 
-  onLoadError = () => {
+  onLoadError = (e) => {
+    console.log(e);
+    const callback = this.props.onLoadErrorCallback;
+    if (callback ) {
+      callback.call(this, e);
+    }
+
     this.setState({
       failed:  true,
       loading: false

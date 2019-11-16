@@ -1,7 +1,8 @@
 import React, {Component}   from 'react';
 import GotService           from "../../services/gotService";
-import ItemDetails, {Field} from "../itemDetails";
+import ItemDetails, {Field} from "./index";
 import {withRouter}         from 'react-router-dom';
+import NotFound             from "../notFound/notFound";
 
 const styleBtn = {
   // display: 'flex',
@@ -21,12 +22,27 @@ const styleH4 = {
 class BooksItem extends Component {
   gotService = new GotService();
 
+  state = {
+    error: false
+  };
+
+  componentDidCatch(error, errorInfo) {
+    console.log('error');
+    this.setState({
+      error: true
+    })
+  }
+
   render() {
     const flexDiv = {
       display: 'flex',
     };
 
     const {emulateError, bookDetailId} = this.props;
+    const {error} = this.state;
+    if (error) {
+      return <NotFound/>;
+    }
     const disableCache = Math.random();
     return (
       <div style={flexDiv}>
@@ -37,6 +53,11 @@ class BooksItem extends Component {
           emulateError={emulateError}
           itemId={bookDetailId}
           getGotItem={this.gotService.getBook}
+          onLoadErrorCallback={(state) => {
+            this.setState({
+              error: true
+            })
+          }}
           renderTitle={item => {
             return <div>
               <button style={styleBtn} className="btn" onClick={() => {
