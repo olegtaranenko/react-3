@@ -67,6 +67,7 @@ export default class RandomChar extends Component {
   render() {
     const {char, loading, failed} = this.state;
     let error = null;
+    let errorBgClass = null;
 
     if (failed) {
       const {
@@ -74,20 +75,8 @@ export default class RandomChar extends Component {
         code: failedCode
       } = failed;
 
-      switch (failedCode) {
-        case 404:
-          break;
-
-        case 408:
-          break;
-
-        case 410:
-          break;
-
-        default:
-
-      }
-      error = <ErrorMessage msg={failedMessage}/>;
+      errorBgClass = `error_${failedCode}`;
+      error = <ErrorMessage msg={failedMessage} bgClass={errorBgClass}/>;
     }
 
     const spinner = loading ? <Spinner/> : null;
