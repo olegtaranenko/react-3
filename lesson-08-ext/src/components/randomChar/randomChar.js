@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import styled             from 'styled-components';
 import GotService         from "../../services/gotService";
-import Spinner      from "../spinner";
-import ErrorMessage from "../errorMessage";
+import Spinner            from "../spinner";
+import ErrorMessage       from "../errorMessage";
 
 const RandomBlock = styled.div`
   background-color: #fff;
@@ -30,21 +30,26 @@ export default class RandomChar extends Component {
   gotService = new GotService();
 
   state = {
-    char:    {},
-    loading: true,
-    failed: false
+    char:          {},
+    loading:       true,
+    failed:        false,
+    failedMessage: ''
   };
 
   onCharacterLoaded = (char) => {
     this.setState({
       char,
-      loading: false
+      loading: false,
+      failed:  false
     });
   };
 
-  onError = () => {
+  onError = (e) => {
     this.setState({
-      failed: true,
+      failed:  {
+        message: e.message,
+        code:    e.httpStatus
+      },
       loading: false
     });
   };
@@ -61,8 +66,31 @@ export default class RandomChar extends Component {
 
   render() {
     const {char, loading, failed} = this.state;
+    let error = null;
+
+    if (failed) {
+      const {
+        message:  failedMessage,
+        code: failedCode
+      } = failed;
+
+      switch (failedCode) {
+        case 404:
+          break;
+
+        case 408:
+          break;
+
+        case 410:
+          break;
+
+        default:
+
+      }
+      error = <ErrorMessage msg={failedMessage}/>;
+    }
+
     const spinner = loading ? <Spinner/> : null;
-    const error = failed ? <ErrorMessage/> : null;
     const content = !(loading || failed) ? <Content char={char}/> : null;
 
     return (

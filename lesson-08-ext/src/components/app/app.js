@@ -36,8 +36,8 @@ export default class App extends Component {
 
   render() {
     const {randomVisible, emulateError, characterDetail, reloadApp} = this.state;
-    const button = <button onClick={this.onClickRandom}>Random Character</button>;
-    const buttonError = <button onClick={this.onClickRandomError}>Random Error</button>;
+    const button = <button className='btn btn-info app_btn' onClick={this.onClickRandom}>Random Character</button>;
+    const buttonError = <button className='btn btn-info app_btn' onClick={this.onClickRandomError}>Random Error</button>;
 
     const randomCt = randomVisible ? <Row>
       <Col lg={{size: 5, offset: 0}}>

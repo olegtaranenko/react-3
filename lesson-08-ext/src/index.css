@@ -18,3 +18,8 @@ a:active {
     text-decoration: none;
     color: inherit;
 }
+
+.app_btn {
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
