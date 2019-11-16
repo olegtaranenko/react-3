@@ -35,14 +35,14 @@ class BooksPage extends Component {
         emulateError={emulateError}
         getGotList={this.gotService.getAllBooks}
         onItemSelected={itemId => {
-          // this.props.history.push(`/books/${itemId}`);
+          this.props.history.push(`/books/${itemId}`);
           // НЕ РАБОТАЕТ!
           // this.props.history.push(itemId) ;
           // РАБОТАЕТ !!!
-          this.props.history.push(itemId+'');
+          // this.props.history.push(itemId+'');
         }}
         renderItem={({name, publisher}) => (<><span>{`${name} (${publisher})`}</span>
-          <button>Click me</button>
+
         </>)}
       />
     );

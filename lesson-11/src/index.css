@@ -18,3 +18,8 @@ a:active {
     text-decoration: none;
     color: inherit;
 }
+
+
+.book-details-info {
+    min-width: 500px;
+}

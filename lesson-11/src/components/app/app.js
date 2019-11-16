@@ -27,10 +27,14 @@ export default class App extends Component {
           <Header/>
         </Container>
         <Container>
+{/*
           <RandomCharPage emulateError={emulateError} onClickRandomError={this.onClickRandomError}/>
           <Route path='/characters' component={CharactersPage}/>
           <Route path='/houses' component={HousesPage}/>
-          <Route path='/books' exact component={BooksPage}/>
+*/}
+          <Route path='/' exact component={BooksPage}/>
+          {/*<Route path='/books' exact component={BooksPage}/>*/}
+          <Route path='/books/' exact component={BooksPage}/>
           <Route path='/books/:id' render={
             ({match}) => {
               const {id} = match.params;
