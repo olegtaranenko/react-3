@@ -1,0 +1,72 @@
+h1, h2 {
+  text-align: center;
+}
+
+body {
+  background: url("../img/webstart-logo.png") no-repeat center center;
+  background-size: cover;
+  font-family: sans-serif;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+.link-to-toc, nav a {
+  text-decoration: none;
+
+  color: black;
+}
+
+section {
+  border: blue solid thin;
+  margin: 50px;
+  padding: 100px;
+}
+
+.mark-note {
+    color: blue;
+    font-style: italic;
+}
+
+.mark-deleted {
+    text-decoration: line-through;
+}
+
+nav {
+  position: fixed;
+  left: auto;
+  top: 200px;
+  bottom: auto;
+  right: 0;
+}
+
+.book {
+  margin-right: 300px;
+}
+
+header {
+  margin: 50px;
+  /*padding-left: 50px;*/
+}
+
+#chapter-1 {
+  color: red;
+}
+
+#chapter-2 {
+  color: pink;
+}
+
+#chapter-3 {
+  color: darkred;
+}
+
+#chapter-4 {
+  color: deeppink;
+}
+
+#chapter-5 {
+  color: orangered;
+}
+
