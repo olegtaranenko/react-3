@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import styled             from 'styled-components';
-import Spinner            from "../spinner";
-import ErrorMessage       from "../errorMessage";
+import React, {useEffect, useState} from 'react';
+import styled                       from 'styled-components';
+import Spinner                      from "../spinner";
+import ErrorMessage                 from "../errorMessage";
 
 const ItemDetailsBlock = styled.div`
   background-color: #fff;
@@ -41,100 +41,88 @@ export {
   Field
 }
 
-export default class ItemDetails extends Component {
-
-  state = {
-    item:    null,
-    loading: true
-  };
-
-  componentDidCatch(error, errorInfo) {
-    console.log('error');
-    this.setState({
-      error: true
-    })
-  }
+function ItemDetails({itemId, getGotItem, onLoadErrorCallback, missedMessage, renderTitle, children, blockStylingCss}) {
 
 
-  componentDidMount() {
-    this.updateItem();
-  }
+  const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
+
+  /*
+    componentDidCatch(error, errorInfo) {
+      console.log('error');
+      this.setState({
+        error: true
+      })
+    }
+  */
 
 
-  updateItem = () => {
-    const {itemId} = this.props;
+  useEffect(() => {
+    setLoading(true);
+    updateItem();
+  }, [itemId]);
+
+
+  const updateItem = () => {
 
     if (itemId) {
-      this.props.getGotItem(itemId)
-      .then(this.onItemLoaded)
-      .catch(this.onLoadError);
+      getGotItem(itemId)
+      .then(onItemLoaded)
+      .catch(onLoadError);
     }
     // this.foo.bar = 0;
   };
 
 
-  onItemLoaded = (item) => {
-    this.setState({
-      item,
-      failed:  false,
-      loading: false
-    });
+  const onItemLoaded = (item) => {
+    setItem(item);
+    setFailed(  false);
+    setLoading( false);
   };
 
 
-  onLoadError = (e) => {
-    console.log(e);
-    const callback = this.props.onLoadErrorCallback;
-    if (callback ) {
-      callback.call(this, e);
+  const onLoadError = (e) => {
+    if (onLoadErrorCallback) {
+      onLoadErrorCallback.call(this, e);
     }
 
-    this.setState({
-      failed:  true,
-      loading: false
-    });
+    setFailed(  true);
+    setLoading( false);
   };
 
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.itemId !== this.props.itemId) {
-      this.setState({loading: true});
-      this.updateItem();
-    }
+  // const {item, loading, failed} = this.state;
+  if (!item) {
+    const missedMessage = missedMessage || <>Please select an item</>;
+    return <SelectMissed><span>{missedMessage}</span></SelectMissed>
   }
 
+  const spinner = loading ? <Spinner/> : null;
+  const error = (!loading && failed) ? <ErrorMessage/> : null;
+  renderTitle = renderTitle || ((item) => <h4>{item.name}</h4>);
+  const content = (!loading && !failed) ?
+    <>
+      {renderTitle(item)}
+      <ul className="list-group list-group-flush">
+        {
+          React.Children.map(children, child => {
+            return React.cloneElement(child, {item});
+          })
+        }
 
-  render() {
-    const {item, loading, failed} = this.state;
-    if (!item) {
-      const missedMessage = this.props.missedMessage || <>Please select an item</>;
-      return <SelectMissed><span>{missedMessage}</span></SelectMissed>
-    }
+      </ul>
+    </> : null;
 
-    const spinner = loading ? <Spinner/> : null;
-    const error = (!loading && failed) ? <ErrorMessage/> : null;
-    const renderTitle = this.props.renderTitle || ((item) => <h4>{item.name}</h4>);
-    const content = (!loading && !failed) ?
-      <>
-        {renderTitle(item)}
-        <ul className="list-group list-group-flush">
-          {
-            React.Children.map(this.props.children, child => {
-              return React.cloneElement(child, {item});
-            })
-          }
+  const itemStyleClass = "rounded" + (blockStylingCss ? ' ' + blockStylingCss : '');
 
-        </ul>
-      </> : null;
-
-    const itemStyleClass = "rounded" + (this.props.blockStylingCss ? ' ' + this.props.blockStylingCss : '');
-
-    return (
-      <ItemDetailsBlock className={`${itemStyleClass}`}>
-        {spinner}
-        {error}
-        {content}
-      </ItemDetailsBlock>
-    );
-  }
+  return (
+    <ItemDetailsBlock className={`${itemStyleClass}`}>
+      {spinner}
+      {error}
+      {content}
+    </ItemDetailsBlock>
+  );
 }
+
+export default ItemDetails;

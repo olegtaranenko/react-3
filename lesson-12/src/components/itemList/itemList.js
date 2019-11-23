@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import styled             from 'styled-components';
-import Spinner            from "../spinner";
-import ErrorMessage       from "../errorMessage";
+import React, {useEffect, useState} from 'react';
+import styled                       from 'styled-components';
+import Spinner                      from "../spinner";
+import ErrorMessage                 from "../errorMessage";
 
 const ItemListElement = styled.li`
   cursor: pointer;
@@ -11,69 +11,57 @@ const ItemListBody = styled.ul`
   background-color: #ffffff;
 `;
 
-export default class ItemList extends Component {
+function ItemList({getGotList, onItemSelected, renderItem}) {
 
-  state = {
-    itemList: [],
-    loading:  true,
-    failed:   false
-  };
+  const [itemList, updateList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
 
-  componentDidMount() {
-    const {getGotList} = this.props;
-
+  useEffect(() => {
     getGotList()
-    .then(this.onListLoaded)
-    .catch(this.onError);
-  }
+    .then(onListLoaded)
+    .catch(onError);
+  }, []);
 
-  onListLoaded = (itemList) => {
-    return this.setState({
-      itemList: itemList,
-      loading:    false,
-      failed:     false
-    });
+  const onListLoaded = (data) => {
+    updateList(data);
+    setLoading(false);
+    setFailed(false);
   };
 
-  onError = () => {
-    this.setState({
-      failed:  true,
-      loading: false
-    });
+  const onError = () => {
+    setLoading(false);
+    setFailed(true);
   };
 
 
-  renderItems = (itemList) => {
+  const renderItems = (itemList) => {
 
     return itemList.map((item) => {
       const {key} = item;
-      const label = this.props.renderItem(item);
+      const label = renderItem(item);
 
       return <ItemListElement
         key={key}
         className="list-group-item"
-        onClick={() => this.props.onItemSelected(key)}>
+        onClick={() => onItemSelected(key)}>
         {label}
       </ItemListElement>
     });
   };
 
+  const errorState = (itemList && !itemList.length) || failed;
+  const spinner = loading ? <Spinner/> : null;
+  const errorMessage = (!loading && errorState) ? ErrorMessage('Items can\'t be not loaded') : null;
+  const elements = (!loading && !errorState) ? renderItems(itemList) : null;
 
-  render() {
-    const {itemList, loading, failed} = this.state;
-    const errorState = (itemList && !itemList.length) || failed;
-
-    const spinner = loading ? <Spinner/> : null;
-    const errorMessage = (!loading && errorState) ? ErrorMessage('Items can\'t be not loaded') : null;
-
-    const elements = (!loading && !errorState) ? this.renderItems(itemList) : null;
-
-    return (
-      <ItemListBody className="item-list list-group rounded">
-        {spinner}
-        {errorMessage}
-        {elements}
-      </ItemListBody>
-    );
-  }
+  return (
+    <ItemListBody className="item-list list-group rounded">
+      {spinner}
+      {errorMessage}
+      {elements}
+    </ItemListBody>
+  );
 }
+
+export default ItemList;

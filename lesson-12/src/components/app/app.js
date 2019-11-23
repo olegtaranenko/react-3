@@ -4,6 +4,9 @@ import Header                                   from '../header';
 import {BooksItem, BooksPage}                   from "../pages";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import NotFound                                 from "../notFound";
+import RandomCharPage                           from "../pages/randomCharPage";
+import CharactersPage                           from "../pages/charactersPage";
+import HousesPage                               from "../pages/housesPage";
 
 export default class App extends Component {
 
@@ -30,14 +33,11 @@ export default class App extends Component {
             <Header/>
           </Container>
           <Container>
-            {/*
           <RandomCharPage emulateError={emulateError} onClickRandomError={this.onClickRandomError}/>
-          <Route path='/characters' component={CharactersPage}/>
-          <Route path='/houses' component={HousesPage}/>
-*/}
-
             <Switch>
               <Route path='/' exact component={BooksPage}/>
+              <Route path='/characters' component={CharactersPage}/>
+              <Route path='/houses' component={HousesPage}/>
               {/*<Route path='/books' exact component={BooksPage}/>*/}
               <Route path='/books/' exact component={BooksPage}/>
               <Route path='/books/:id' render={
