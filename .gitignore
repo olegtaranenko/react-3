@@ -162,3 +162,5 @@ fabric.properties
 .idea/react-3.iml
 
 #**/dist
+style.css
+style.css.map
