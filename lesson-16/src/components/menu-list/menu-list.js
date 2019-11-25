@@ -1,14 +1,30 @@
 import React, {Component} from 'react';
 import MenuListItem       from '../menu-list-item';
-import {connect} from 'react-redux'
+import {connect}          from 'react-redux';
+import WithRestoService   from "../hoc";
+import * as actions from "../../actions";
+import Spinner      from "../spinner";
+
 
 import './menu-list.scss';
 
 class MenuList extends Component {
 
-  render() {
-    const {menuItems} = this.props;
+  componentDidMount() {
+    console.log('componentDidMount...');
+    this.props.menuRequested();
 
+    const {RestoService} = this.props;
+
+    RestoService.getMenuItems()
+    .then(res => this.props.menuLoaded(res));
+  }
+
+  render() {
+    const {menuItems, loading} = this.props;
+    if (loading) {
+      return <Spinner/>
+    }
     return (
       <ul className="menu__list">
         {
@@ -23,8 +39,11 @@ class MenuList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    menuItems: state.menu
+    menuItems: state.menu,
+    loading: state.loading
   }
 };
 
-export default connect(mapStateToProps)(MenuList);
+const mapDispatchToProps = actions;
+
+export default WithRestoService()(connect(mapStateToProps, mapDispatchToProps)(MenuList));
