@@ -1,5 +1,27 @@
 export default class RestoService {
-  getMenuItems() {
-    return [];
+
+  constructor({port = 3004} = {}) {
+    console.log(`RestoService is set up to port: ${port}`);
+    this._apiBase = `http://localhost:${port}`
+  }
+
+  async getResource(url) {
+    const response = await fetch(`${this._apiBase}/${url}`);
+
+    if (!response.ok) {
+      throw new Error(`Could not fetch ${url}, status: ${response.status}`)
+    }
+
+    return await response.json();
+  };
+
+
+  getMenuItems = async (page = 1) => {
+    let resource = await this.getResource(`menu?page=${page}`);
+    return resource.map(this._transformMenuItem)
+  };
+
+  _transformMenuItem(item) {
+    return item
   }
 }
