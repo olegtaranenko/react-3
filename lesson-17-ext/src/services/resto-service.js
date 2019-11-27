@@ -16,6 +16,21 @@ export default class RestoService {
   };
 
 
+  saveCart = async (...items) => {
+    const cart = {
+      items: [...items]
+    };
+    const url = `${this._apiBase}/cart`;
+
+    return await fetch(url, {
+      method:  'POST',
+      body:    JSON.stringify(cart),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  };
+
   getMenuItems = async (page = 1) => {
     let resource = await this.getResource(`menu?page=${page}`);
     return resource.map(this._transformMenuItem)

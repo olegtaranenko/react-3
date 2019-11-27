@@ -70,6 +70,10 @@ const reducer = (state = initialState, action) => {
         items: newCartItems
       };
 
+    case 'CART_SAVE':
+
+      return state;
+
     default:
       return state;
   }

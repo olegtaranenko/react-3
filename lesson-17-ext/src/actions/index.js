@@ -35,10 +35,19 @@ const restoServiceFailed = (error) => {
   }
 };
 
+const cartSave = () => {
+  debugger;
+  return {
+    type: 'CART_SAVE'
+  }
+};
+
+
 export {
   menuLoaded,
   menuRequested,
   addedToCart,
   deleteFromCart,
-  restoServiceFailed
+  restoServiceFailed,
+  cartSave
 }

@@ -3,6 +3,13 @@
     padding-bottom: 50px;
     min-height: 100vh;
     color: #fff;
+    text-align: center;
+    &__save {
+        width: 24px;
+        height: 24px;
+        margin-left: 30px;
+        cursor: pointer;
+    }
     &__title {
         font-size: 36px;
         color: #fff;
