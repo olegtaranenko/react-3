@@ -12,7 +12,15 @@ const menuRequested = () => {
 };
 
 
+const restoServiceFailed = (error) => {
+  return {
+    type: 'RESTO_QUERY_FAILED',
+    failed: error
+  }
+};
+
 export {
   menuLoaded,
-  menuRequested
+  menuRequested,
+  restoServiceFailed
 }

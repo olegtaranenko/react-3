@@ -1,7 +1,13 @@
 import React from 'react';
+import './error.sass';
 
-const Error = () => {
-    return <div className="error">Error</div>
-}
+const Error = ({exceptionOrMessage} = {}) => {
+  // console.dir(exceptionOrMessage);
+
+  const err = (exceptionOrMessage && exceptionOrMessage.message) || exceptionOrMessage;
+  return <div className="error">
+    <span>Error: {err}</span>
+  </div>
+};
 
 export default Error;

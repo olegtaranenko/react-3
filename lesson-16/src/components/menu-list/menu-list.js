@@ -3,7 +3,8 @@ import MenuListItem       from '../menu-list-item';
 import {connect}          from 'react-redux';
 import WithRestoService   from "../hoc";
 import * as actions from "../../actions";
-import Spinner      from "../spinner";
+import Spinner from "../spinner";
+import Error   from "../error";
 
 
 import './menu-list.scss';
@@ -17,14 +18,20 @@ class MenuList extends Component {
     const {RestoService} = this.props;
 
     RestoService.getMenuItems()
-    .then(res => this.props.menuLoaded(res));
+    .then(res => this.props.menuLoaded(res))
+    .catch(err => this.props.restoServiceFailed(err));
   }
 
   render() {
-    const {menuItems, loading} = this.props;
+    const {menuItems, loading, failed} = this.props;
+    if (failed) {
+      return <Error exceptionOrMessage={failed}/>;
+    }
+
     if (loading) {
       return <Spinner/>
     }
+
     return (
       <ul className="menu__list">
         {
@@ -37,10 +44,11 @@ class MenuList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     menuItems: state.menu,
-    loading: state.loading
+    loading: state.loading,
+    failed: state.failed
   }
 };
 
