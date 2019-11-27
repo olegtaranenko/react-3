@@ -2,6 +2,7 @@
     padding-top: 120px;
     padding-bottom: 50px;
     min-height: 100vh;
+    color: #fff;
     &__title {
         font-size: 36px;
         color: #fff;
@@ -15,22 +16,30 @@
     &__item {
         position: relative;
         display: flex;
-        justify-content: space-between;
         align-items: center;
         margin-top: 40px;
         border: 1px solid rgba(256,256,256, .2);
         background-color: rgba(0,0,0,.7);
         box-shadow: 0 0 20px rgba(256,256,256, .1);
-        &-title, &-price  {
+        &-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        &-title {
             width: 250px;
-            text-align: center;
-            color: #fff;
+            text-align: left;
+        }
+        &-title, &-price, &-qty  {
             font-size: 24px;
         }
         &-img {
             height: 125px;
             width: 250px;
-            object-fit: cover;
+            //object-fit: cover;
         }
     }
     &__close {
