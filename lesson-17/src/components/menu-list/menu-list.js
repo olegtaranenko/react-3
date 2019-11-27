@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import MenuListItem       from '../menu-list-item';
-import {connect}          from 'react-redux';
-import WithRestoService   from "../hoc";
-import * as actions from "../../actions";
-import Spinner from "../spinner";
-import Error   from "../error";
+import React, {Component}                                           from 'react';
+import MenuListItem                                                 from '../menu-list-item';
+import {connect}                                                    from 'react-redux';
+import WithRestoService                                             from "../hoc";
+import {addedToCart, menuLoaded, menuRequested, restoServiceFailed} from "../../actions";
+import Spinner                                                      from "../spinner";
+import Error                                                        from "../error";
 
 
 import './menu-list.scss';
@@ -23,7 +23,7 @@ class MenuList extends Component {
   }
 
   render() {
-    const {menuItems, loading, failed} = this.props;
+    const {menuItems, loading, failed, addedToCart} = this.props;
     if (failed) {
       return <Error exceptionOrMessage={failed}/>;
     }
@@ -36,7 +36,11 @@ class MenuList extends Component {
       <ul className="menu__list">
         {
           menuItems.map(menuItem => {
-            return <MenuListItem key={menuItem.id} menuItem={menuItem}/>
+            return <MenuListItem
+              onAddToCart={() => addedToCart(menuItem.id)}
+              key={menuItem.id}
+              menuItem={menuItem}
+            />
           })
         }
       </ul>
@@ -47,11 +51,16 @@ class MenuList extends Component {
 const mapStateToProps = state => {
   return {
     menuItems: state.menu,
-    loading: state.loading,
-    failed: state.failed
+    loading:   state.loading,
+    failed:    state.failed
   }
 };
 
-const mapDispatchToProps = actions;
+const mapDispatchToProps = {
+  menuLoaded,
+  menuRequested,
+  restoServiceFailed,
+  addedToCart
+};
 
 export default WithRestoService()(connect(mapStateToProps, mapDispatchToProps)(MenuList));

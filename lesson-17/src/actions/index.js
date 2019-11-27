@@ -12,6 +12,22 @@ const menuRequested = () => {
 };
 
 
+const addedToCart = (id) => {
+  return {
+    type: 'ITEM_ADD_TO_CART',
+    payload: id
+  }
+};
+
+
+const deleteFromCart = (id) => {
+  return {
+    type: 'ITEM_DELETE_FROM_CART',
+    payload: id
+  }
+};
+
+
 const restoServiceFailed = (error) => {
   return {
     type: 'RESTO_QUERY_FAILED',
@@ -22,5 +38,7 @@ const restoServiceFailed = (error) => {
 export {
   menuLoaded,
   menuRequested,
+  addedToCart,
+  deleteFromCart,
   restoServiceFailed
 }
