@@ -46,9 +46,10 @@ img {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-.counter-buttons__main {
   margin-top: 34px;
+}
+.counter-buttons__ext {
+  justify-content: center;
 }
 
 .btn {
@@ -68,6 +69,13 @@ img {
 .btn-rnd {
   background: url("../img/Reset.svg") no-repeat 12.5px 12.5px #cf1c1c;
   margin-right: 20px;
+}
+.btn-down {
+  background: url("../img/Download.svg") no-repeat 10.5px 12.5px #30D9CF;
+  margin-right: 41px;
+}
+.btn-up {
+  background: url("../img/Upload.svg") no-repeat 10.5px 12.5px #9B0F9E;
 }
 
 /*# sourceMappingURL=style.css.map */
