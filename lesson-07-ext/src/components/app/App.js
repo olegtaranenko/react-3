@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import style              from './App.module.sass';
-import {Nav}              from 'reactstrap';
 import Header             from "../header";
+import SectionBody        from "../sectionBody";
 
 
 export default class App extends Component {
@@ -12,14 +11,23 @@ export default class App extends Component {
     this.state = {
       activeTab: 0
     };
-    const {dbProvider} = props;
-    this.dbProvider = dbProvider;
   }
 
 
+
+  onTabClick = (id) => {
+    this.setState({
+      activeTab: id
+    })
+  };
+
   render() {
+    const {activeTab} = this.state;
     return (
-      <Header/>
+      <>
+      <Header activeTab={activeTab} tabs={this.tabs} onTabClick={this.onTabClick}/>
+      <SectionBody tab={this.tabs[activeTab]}/>
+      </>
     );
   }
 }

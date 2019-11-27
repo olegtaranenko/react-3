@@ -1,14 +1,17 @@
 import React, {Component} from 'react'
 // import { Container, Row, Col } from 'reactstrap';
-import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
+import {NavItem, NavLink} from 'reactstrap';
 
 
-export default class Section extends Component{
+export default class Section extends Component {
   render() {
+    const {title, active, onTabClick, id} = this.props;
     return (
       <NavItem>
-        <NavLink href="#" active>{this.props.title}</NavLink>
+        <NavLink href='#' active={active} onClick={() => {onTabClick(id)}
+        }>{title}</NavLink>
       </NavItem>
     )
   }
 };
+
