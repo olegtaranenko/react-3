@@ -1,6 +1,4 @@
-export const inc = () => ({type: 'INC'});
-export const dec = () => ({type: 'DEC'});
-export const rst = () => ({type: 'RST'});
-export const rnd = () => {
-  return {type: 'RND', value: Math.floor(Math.random() * 10) + 1}
-};
+export const toggleDone = id => ({type: 'TOGGLE_DONE', payload: id});
+export const toggleCompleted = () => ({type: 'TOGGLE_COMPLETED'});
+export const addTask = () => ({type: 'ADD_TASK'});
+export const inputChanged = e => ({type: 'INPUT_CHANGED', payload: e.target.value});
