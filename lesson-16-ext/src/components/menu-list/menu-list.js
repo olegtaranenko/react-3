@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import MenuListItem       from '../menu-list-item';
 import {connect}          from 'react-redux';
 import WithRestoService   from "../hoc";
-import * as actions from "../../actions";
-import Spinner from "../spinner";
-import Error   from "../error";
+import * as actions       from "../../actions";
+import Spinner            from "../spinner";
+import Error              from "../error";
 
 
 import './menu-list.scss';
@@ -12,7 +12,7 @@ import './menu-list.scss';
 class MenuList extends Component {
 
   componentDidMount() {
-    console.log('componentDidMount...');
+    // console.log('componentDidMount...');
     this.props.menuRequested();
 
     const {RestoService} = this.props;
@@ -23,7 +23,7 @@ class MenuList extends Component {
   }
 
   render() {
-    const {menuItems, loading, failed} = this.props;
+    const {menuItems, loading, failed, courseId} = this.props;
     if (failed) {
       return <Error exceptionOrMessage={failed}/>;
     }
@@ -32,7 +32,12 @@ class MenuList extends Component {
       return <Spinner/>
     }
 
-    return <View menuItems={menuItems}/>
+    let course = null;
+    if (courseId) {
+      course = menuItems.find(item => item.id === courseId);
+    }
+
+    return !course ? <View menuItems={menuItems}/> : <MenuListItem key={course.id} menuItem={course}/>;
   }
 }
 

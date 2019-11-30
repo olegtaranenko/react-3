@@ -1,9 +1,13 @@
 import React    from 'react';
 import MenuList from '../menu-list';
 
-const MainPage = () => {
+const MainPage = ({courseId}) => {
+  let id = 0;
+  if (courseId) {
+    id = parseInt(courseId)
+  }
   return (
-    <MenuList/>
+    <MenuList courseId={id}/>
   )
 };
 

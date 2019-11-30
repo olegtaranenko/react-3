@@ -5,6 +5,13 @@ const menuLoaded = (newMenu) => {
   }
 };
 
+const courseLoaded = (newCourse) => {
+  return {
+    type: 'COURSE_LOADED',
+    payload: newCourse
+  }
+};
+
 const menuRequested = () => {
   return {
     type: 'MENU_REQUESTED',
