@@ -1,7 +1,7 @@
 export default class RestoService {
 
   constructor({port = 3004} = {}) {
-    console.log(`RestoService is set up to port: ${port}`);
+    // console.log(`RestoService is set up to port: ${port}`);
     this._apiBase = `http://localhost:${port}`
   }
 

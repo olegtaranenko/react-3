@@ -6,7 +6,7 @@ import cartIcon  from './shopping-cart-solid.svg';
 import './app-header.scss';
 
 const AppHeader = ({items}) => {
-  console.log('AppHeader updated', items);
+  // console.log('AppHeader updated', items);
 
   const getOrderTotal = () => {
     if (!items || !items.length) {

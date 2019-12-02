@@ -12,7 +12,7 @@ import './menu-list.scss';
 class MenuList extends Component {
 
   componentDidMount() {
-    console.log('componentDidMount...');
+    // console.log('componentDidMount...');
     this.props.menuRequested();
 
     const {RestoService} = this.props;
