@@ -1,0 +1,108 @@
+$todo-input-color: rgba(0, 0, 0, 0.4)
+
+*
+  box-sizing: border-box
+
+img
+  width: 100%
+
+.app
+  display: flex
+  justify-content: center
+  align-items: center
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+    //height: 100%
+  &-panel
+    width: 1440px
+    height: 768px
+    background: linear-gradient(180deg, #CA94FF 0%, rgba(70, 6, 134, 0.81) 100%)
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+.todo
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  &-panel
+    width: 650px
+    min-height: 300px
+    background: rgba(255, 255, 255, 0.67)
+    border-radius: 4px
+    font-family: 'Roboto', sans-serif
+    padding-top: 25px
+    padding-bottom: 13px
+  &-container
+    width: 550px
+    height: 100%
+    margin-left: auto
+    margin-right: auto
+    display: flex
+    justify-content: space-between
+    flex-direction: column
+  &-item
+    font-size: 24px
+    line-height: 28px
+    position: relative
+    margin-bottom: 15px
+    cursor: pointer
+    &:after
+      content: ''
+      position: absolute
+      left: 0
+      bottom: -10px
+      width: 60px
+      height: 1px
+      background-color: rgba(0, 0, 0, 0.5)
+    &_done
+      text-decoration: line-through
+      opacity: 0.6
+    &s
+      list-style-type: none
+      margin-block-start: 0
+      padding-inline-start: 0
+  &-input
+    width: 100%
+    background-color: inherit
+    border: none
+    border-bottom-width: 1px
+    border-bottom-style: solid
+    border-bottom-color: $todo-input-color
+    color: $todo-input-color
+    font-family: 'Roboto', sans-serif
+    font-size: 18px
+    line-height: 21px
+    padding-bottom: 8px
+    &:focus
+      outline: 0
+  &-buttons
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+    align-items: center
+    &__main
+      margin-top: 13px
+
+.btn
+  width: 135px
+  height: 40px
+  border-radius: 8px
+  outline: 0
+  cursor: pointer
+  font-family: 'Roboto', sans-serif
+  font-style: normal
+  font-weight: 300
+  font-size: 16px
+  line-height: 19px
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25)
+  &-hide
+    background-color: #FFE482
+  &-add
+    background-color: #ffffff
