@@ -1,43 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#000000"/>
+  <meta
+    name="description"
+    content="Coffee shop. Diploma of Oleg Taranenko for React 3.0 course of Glo-Academy. 29.11 - 07.12.219"
+  />
+  <link href="https://fonts.googleapis.com/css?family=Merienda:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Coffee Shop - Online - Oleg Taranenko</title>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+  <div class="preview">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <header>
+            <ul class="header">
+              <li class="header__item">
+                <a href="#">
+                  <img src="./logo/Logo.svg" alt="logo">
+                </a>
+              </li>
+              <li class="header__item">
+                <a href="#">Our coffee</a>
+              </li>
+              <li class="header__item">
+                <a href="#">For your pleasure</a>
+              </li>
+            </ul>
+          </header>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+          <h1 class="title-big">Everything You Love About Coffee</h1>
+          <img class="beanslogo" src="../../main/public/logo/Beans_logo.svg" alt="Beans logo">
+          <div class="preview__subtitle">We makes every day full of energy and taste</div>
+          <div class="preview__subtitle">Want to try our beans?</div>
+          <a href="#" class="preview__btn">More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+          <div class="title">About Us</div>
+          <img class="beanslogo" src="../../main/public/logo/Beans_logo_dark.svg" alt="Beans logo">
+          <div class="about__text">
+            Extremity sweetness difficult behaviour he of. On disposal of as landlord horrible.
+            Afraid at highly months do things on at. Situation recommend objection do intention
+            so questions. As greatly removed calling pleased improve an. Last ask him cold feel
+            met spot shy want. Children me laughing we prospect answered followed. At it went
+            is song that held help face.<br><br>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+            Now residence dashwoods she excellent you. Shade being under his bed her, Much
+            read on as draw. Blessing for ignorant exercise any yourself unpacked. Pleasant
+            horrible but confined day end marriage. Eagerness furniture set preserved far
+            recommend. Did even but nor are most gave hope. Secure active living depend son
+            repair day ladies now.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="best">
+    <div class="container">
+      <div class="title">Our best</div>
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+          <div class="best__wrapper">
+            <div class="best__item">
+              <img src="https://www.sciencenews.org/sites/default/files/main/articles/100315_coffee_opener_NEW_0.jpg"
+                   alt="coffee">
+              <div class="best__item-title">
+                Solimo Coffee Beans 2kg
+              </div>
+              <div class="best__item-price">10.73$</div>
+            </div>
+            <div class="best__item">
+              <img src="https://www.sciencenews.org/sites/default/files/main/articles/100315_coffee_opener_NEW_0.jpg"
+                   alt="coffee">
+              <div class="best__item-title">
+                Presto Coffee Beans 1kg
+              </div>
+              <div class="best__item-price">15.99$</div>
+            </div>
+            <div class="best__item">
+              <img src="https://www.sciencenews.org/sites/default/files/main/articles/100315_coffee_opener_NEW_0.jpg"
+                   alt="coffee">
+              <div class="best__item-title">
+                AROMISTICO Coffee 1kg
+              </div>
+              <div class="best__item-price">6.99$</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 offset-lg-4">
+          <ul class="footer">
+            <li class="footer__item">
+              <a href="#">
+                <img src="../../main/public/logo/Logo_black.svg" alt="logo">
+              </a>
+            </li>
+            <li class="footer__item">
+              <a href="#">Our coffee</a>
+            </li>
+            <li class="footer__item">
+              <a href="#">For your pleasure</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <img class="beanslogo" src="../../main/public/logo/Beans_logo_dark.svg" alt="Beans logo">
+    </div>
+  </footer>
+<!--</div>-->
+</body>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
 </html>
