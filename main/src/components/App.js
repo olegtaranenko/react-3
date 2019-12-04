@@ -1,9 +1,17 @@
-import React from 'react';
+import React   from 'react';
+import Preview from "./preview";
+import About   from "./about";
+import Best    from "./best";
+import Footer  from "./footer";
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <>
+    <Preview/>
+    <About/>
+    <Best/>
+    <Footer/>
+    </>
   );
 }
 
