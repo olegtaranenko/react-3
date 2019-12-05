@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {connect}          from 'react-redux';
+import {withRouter}       from 'react-router-dom';
 import Filter             from "../filter";
 import Error              from "../error";
 import Spinner            from "../spinner";
 import WithShopService    from "../with-shop-service";
+import {gotoProduct}      from '../shared-functions'
 
 import {contentLoaded, contentRequested, shopServiceFailed} from "../../actions";
 
@@ -45,10 +47,6 @@ class ShopOffer extends Component {
     }
   }
 
-  gotoProduct = (id) => {
-    window.location.href = `/item/${id}`;
-  };
-
   render() {
     const {content, loading, failed, theme, countries} = this.props;
 
@@ -75,7 +73,8 @@ class ShopOffer extends Component {
                   return <OfferItem
                     key={id}
                     item={item}
-                    onClick={isClickable ? this.gotoProduct : () => {}}
+                    onClick={isClickable ? gotoProduct : () => {
+                    }}
                   />
                 })
               }
@@ -87,16 +86,17 @@ class ShopOffer extends Component {
   }
 }
 
-const OfferItem = ({item, onClick}) => {
+
+const OfferItem = withRouter(({item, onClick, history}) => {
   const {name, url, id, price, country} = item;
   return (
     <div className="shop__item">
       <img
-        onClick={() => onClick(id)}
+        onClick={() => onClick(id, history)}
         src={url}
         alt={name}/>
       <div
-        onClick={() => onClick(id)}
+        onClick={() => onClick(id, history)}
         className="shop__item-title"
       >
         {name}
@@ -105,7 +105,7 @@ const OfferItem = ({item, onClick}) => {
       <div className="shop__item-price">{price}</div>
     </div>
   )
-};
+});
 
 const mapStateToProps = ({content, loading, failed, filterCountries, filterState}) => {
   return {

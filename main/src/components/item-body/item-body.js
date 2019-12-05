@@ -4,11 +4,24 @@ import {connect}          from "react-redux";
 import Error              from "../error";
 import Spinner            from "../spinner";
 
+import {escapeNewLine, escapeNbsp}      from '../shared-functions'
+
 import {contentRequested, itemLoaded, shopServiceFailed, doShowLongDescription} from "../../actions";
 
 class ItemBody extends Component {
 
   componentDidMount() {
+    this.retrieveItem();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {itemId} = this.props;
+    if (itemId !== prevProps.itemId) {
+      this.retrieveItem();
+    }
+  }
+
+  retrieveItem() {
     const {itemId} = this.props;
 
     if (itemId) {
@@ -86,18 +99,6 @@ class ItemBody extends Component {
     )
   }
 }
-
-
-const escapeNewLine = (string) => {
-  return string.split('\n').map((item, index) => {
-    return (index === 0) ? item : [<br key={index} />, item]
-  })
-};
-
-
-const escapeNbsp = (string) => {
-  return string.replace('&nbsp;', "\u00a0");
-};
 
 
 

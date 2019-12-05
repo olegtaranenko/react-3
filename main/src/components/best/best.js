@@ -1,14 +1,36 @@
 import React, {Component} from 'react';
+import {withRouter}       from 'react-router-dom';
 import WithShopService    from "../with-shop-service";
 import {connect}          from 'react-redux';
 import Spinner            from "../spinner";
 import Error              from "../error";
+
+import {gotoProduct, escapeNbsp}      from '../shared-functions'
 
 import {contentLoaded, contentRequested, shopServiceFailed} from "../../actions";
 
 class Best extends Component {
 
   componentDidMount() {
+    this.retrieveBestsellers();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {content} = this.props;
+    let sameContent = true;
+    prevProps.content.some((prevItem, index) => {
+      if (prevItem.id !== content[index].id) {
+        sameContent = false;
+        return true;
+      }
+    });
+    if (!sameContent) {
+      this.retrieveBestsellers();
+    }
+  }
+
+
+  retrieveBestsellers() {
     const {ShopService, contentRequested, contentLoaded, shopServiceFailed} = this.props;
     contentRequested();
 
@@ -16,12 +38,6 @@ class Best extends Component {
     .then(res => contentLoaded(res))
     .catch(err => shopServiceFailed(err));
   }
-
-  gotoProduct = (id) => {
-    console.log(id);
-    window.location.href=`/item/${id}`;
-  };
-
 
   render() {
     const {content, loading, failed} = this.props;
@@ -48,7 +64,7 @@ class Best extends Component {
                     return <BestItem
                       key={id}
                       item={item}
-                      onClick={this.gotoProduct}
+                      onClick={gotoProduct}
                     />
                   })
                 }
@@ -61,29 +77,31 @@ class Best extends Component {
   }
 }
 
-const BestItem = ({item, onClick}) => {
-  const {name, url, id, price} = item;
+const BestItem = withRouter(({item, onClick, history}) => {
+  let {name, url, id, price} = item;
+  name = escapeNbsp(name);
+
   return (
     <div className="best__item">
       <img
-        onClick={() => onClick(id)}
+        onClick={() => onClick(id, history)}
         src={url}
         alt={name}
       />
       <div
-        onClick={() => onClick(id)}
+        onClick={() => onClick(id, history)}
         className="best__item-title"
       >{name}</div>
       <div className="best__item-price">{price}</div>
     </div>
   )
-};
+});
 
-const mapStateToProps = state => {
+const mapStateToProps = ({content, loading, failed}) => {
   return {
-    content: state.content,
-    loading: state.loading,
-    failed:  state.failed
+    content: content,
+    loading: loading,
+    failed:  failed
   }
 };
 
