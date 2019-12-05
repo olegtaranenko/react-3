@@ -1,72 +1,103 @@
-import React  from 'react';
-import Filter from "../filter";
-const ShopOffer = ({theme = 'coffee'}) => {
-  const filter = theme === 'coffee' ? <Filter/> : null;
-  return (
-    <>
-      {filter}
-      <div className="row">
-        <div className="col-lg-10 offset-lg-1">
-          <div className="shop__wrapper">
-            <div className="shop__item">
-              <img src="https://www.sciencenews.org/sites/default/files/main/articles/100315_coffee_opener_NEW_0.jpg"
-                   alt="coffee"/>
-              <div className="shop__item-title">
-                Solimo Coffee Beans 2kg
-              </div>
-              <div className="shop__item-country">Brazil</div>
-              <div className="shop__item-price">10.73$</div>
-            </div>
-            <div className="shop__item">
-              <img src="https://www.sciencenews.org/sites/default/files/main/articles/100315_coffee_opener_NEW_0.jpg"
-                   alt="coffee"/>
-              <div className="shop__item-title">
-                Presto Coffee Beans 1kg
-              </div>
-              <div className="shop__item-country">Brazil</div>
-              <div className="shop__item-price">15.99$</div>
-            </div>
-            <div className="shop__item">
-              <img src="https://hhp-blog.s3.amazonaws.com/2018/07/iStock-673468996.jpg" alt="coffee"/>
-              <div className="shop__item-title">
-                AROMISTICO Coffee 1kg
-              </div>
-              <div className="shop__item-country">Brazil</div>
-              <div className="shop__item-price">6.99$</div>
-            </div>
-            <div className="shop__item">
-              <img src="https://www.sciencenews.org/sites/default/files/main/articles/100315_coffee_opener_NEW_0.jpg"
-                   alt="coffee"/>
-              <div className="shop__item-title">
-                Solimo Coffee Beans 2kg
-              </div>
-              <div className="shop__item-country">Brazil</div>
-              <div className="shop__item-price">10.73$</div>
-            </div>
-            <div className="shop__item">
-              <img
-                src="https://i0.wp.com/www.healthline.com/hlcmsresource/images/AN_images/AN275-cup-of-coffee-732x549-Thumb.jpg?w=756"
-                alt="coffee"/>
-              <div className="shop__item-title">
-                Solimo Coffee Beans 2kg
-              </div>
-              <div className="shop__item-country">Brazil</div>
-              <div className="shop__item-price">10.73$</div>
-            </div>
-            <div className="shop__item">
-              <img src="https://www.sciencenews.org/sites/default/files/main/articles/100315_coffee_opener_NEW_0.jpg"
-                   alt="coffee"/>
-              <div className="shop__item-title">
-                Solimo Coffee Beans 2kg
-              </div>
-              <div className="shop__item-country">Brazil</div>
-              <div className="shop__item-price">10.73$</div>
+import React, {Component}     from 'react';
+import {connect} from 'react-redux';
+
+import Filter          from "../filter";
+import Error           from "../error";
+import Spinner         from "../spinner";
+import WithShopService from "../with-shop-service";
+
+import {contentLoaded, contentRequested, shopServiceFailed} from "../../actions";
+
+class ShopOffer extends Component {
+
+  static defaultProps = {
+    theme: 'coffee'
+  };
+
+  componentDidMount() {
+    const {ShopService, contentRequested, contentLoaded, shopServiceFailed, theme} = this.props;
+    contentRequested();
+
+    ShopService.getSection(theme)
+    .then(res => contentLoaded(res))
+    .catch(err => shopServiceFailed(err));
+  }
+
+  gotoProduct = (id) => {
+    window.location.href=`/item/${id}`;
+  };
+
+  render() {
+
+    const {content, loading, failed, theme} = this.props;
+
+    if (failed) {
+      return <Error exceptionOrMessage={failed}/>;
+    }
+
+    if (loading) {
+      return <Spinner/>
+    }
+
+    const filter = theme === 'coffee' ? <Filter/> : null;
+
+    return (
+      <>
+        {filter}
+        <div className="row">
+          <div className="col-lg-10 offset-lg-1">
+            <div className="shop__wrapper">
+              {
+                content.map(item => {
+                  const {id} = item;
+                  return <OfferItem
+                    key={id}
+                    item={item}
+                    onClick={this.gotoProduct}
+                  />
+                })
+              }
             </div>
           </div>
         </div>
-      </div>
-    </>
-)
+      </>
+    )
+  }
 };
 
-export default ShopOffer;
+const OfferItem = ({item, onClick}) => {
+  const {name, url, id, price, country} = item;
+  return (
+    <div className="shop__item">
+      <img
+        onClick={() => onClick(id)}
+        src={url}
+        alt={name}/>
+      <div
+        onClick={() => onClick(id)}
+        className="shop__item-title"
+      >
+        {name}
+      </div>
+      <div className="shop__item-country">{country}</div>
+      <div className="shop__item-price">{price}</div>
+    </div>
+  )
+};
+
+const mapStateToProps = state => {
+  return {
+    content: state.content,
+    loading: state.loading,
+    failed:  state.failed
+  }
+};
+
+const mapDispatchToProps = {
+  contentRequested,
+  contentLoaded,
+  shopServiceFailed
+};
+
+
+export default WithShopService()(connect(mapStateToProps, mapDispatchToProps)(ShopOffer));

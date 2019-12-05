@@ -1,27 +1,34 @@
 const initialState = {
-  menu:    [],
-  items:   [],
+  content: [],
+  item:    {},
   loading: true,
   failed:  false
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'MENU_LOADED':
+    case 'CONTENT_LOADED':
       return {
         ...state,
-        menu:    action.payload,
+        content: action.payload,
         loading: false,
         failed:  false
       };
-    case 'MENU_REQUESTED':
+    case 'ITEM_LOADED':
+      return {
+        ...state,
+        item: action.payload,
+        loading: false,
+        failed:  false
+      };
+    case 'CONTENT_REQUESTED':
       return {
         ...state,
         loading: true,
         failed:  false
       };
 
-    case 'RESTO_QUERY_FAILED':
+    case 'SHOP_QUERY_FAILED':
       return {
         ...state,
         loading: false,
@@ -51,9 +58,9 @@ const reducer = (state = initialState, action) => {
       let cartItem, newCartItems;
 
       if (existedCartItemIndex === -1) {
-        const menuItem = state.menu.find(item => item.id === addedId);
+        const contentItem = state.content.find(item => item.id === addedId);
         cartItem = {
-          ...menuItem,
+          ...contentItem,
         };
         newCartItems = [
           ...state.items,
@@ -96,7 +103,6 @@ const reducer = (state = initialState, action) => {
       ...state.items.slice(existedCartItemIndex + 1)
     ];
   }
-
 
 
 };

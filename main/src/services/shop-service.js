@@ -1,7 +1,6 @@
 export default class ShopService {
 
   constructor({port = 3001} = {}) {
-    // console.log(`CoffeeShopService is set up to port: ${port}`);
     this._apiBase = `http://localhost:${port}`
   }
 
@@ -33,10 +32,19 @@ export default class ShopService {
   };
 
 
-  getMenuItems = async (page = 1) => {
-    let resource = await this.getResource(`menu?page=${page}`);
-    return resource.map(this._transformMenuItem)
+  getSection = async (section = 'coffee', page = 1) => {
+    let resource = await this.getResource(`${section}?page=${page}`);
+    return resource.map(this._transformItem);
   };
+
+  getItem = async (id, section = 'coffee') => {
+    return await this.getResource(`${section}/${id}`)
+  };
+
+  getGood = async (id) => {
+    return await this.getItem(id, 'goods');
+  };
+
 
   saveCart = async (...items) => {
     const payload = {
@@ -47,7 +55,7 @@ export default class ShopService {
 
   };
 
-  _transformMenuItem(item) {
+  _transformItem(item) {
     return item
   }
 }

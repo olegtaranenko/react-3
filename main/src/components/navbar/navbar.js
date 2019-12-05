@@ -13,7 +13,7 @@ const Navbar = ({theme = 'coffee'}) => {
             <ul className="header">
               <li className="header__item">
                 <Link to="/">
-                  <img src="./logo/Logo.svg" alt="logo"/>
+                  <img src="/logo/Logo.svg" alt="logo"/>
                 </Link>
               </li>
               <li className="header__item">

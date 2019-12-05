@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ShopHero = ({theme = 'coffee'}) => {
+const ItemHero = ({theme = 'coffee'}) => {
   const heroClass = `col-lg-4 offset-2 shop__hero shop__hero-${theme}`;
   const themeTitle = theme === 'coffee' ?  'beans' : theme;
   const heroTitle = `About our ${themeTitle}`;
@@ -26,4 +26,4 @@ const ShopHero = ({theme = 'coffee'}) => {
 )
 };
 
-export default ShopHero;
+export default ItemHero;

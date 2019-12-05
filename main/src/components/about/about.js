@@ -7,7 +7,7 @@ const About = () => {
         <div className="row">
           <div className="col-lg-6 offset-lg-3">
             <div className="title">About Us</div>
-            <img className="beanslogo" src="./logo/Beans_logo_dark.svg" alt="Beans logo"/>
+            <img className="beanslogo" src="/logo/Beans_logo_dark.svg" alt="Beans logo"/>
             <div className="about__text">
               Extremity sweetness difficult behaviour he of. On disposal of as landlord horrible.
               Afraid at highly months do things on at. Situation recommend objection do intention

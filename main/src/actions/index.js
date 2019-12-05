@@ -1,13 +1,20 @@
-const menuLoaded = (newMenu) => {
+const contentLoaded = (newContent) => {
   return {
-    type: 'MENU_LOADED',
-    payload: newMenu
+    type: 'CONTENT_LOADED',
+    payload: newContent
   }
 };
 
-const menuRequested = () => {
+const itemLoaded = (item) => {
   return {
-    type: 'MENU_REQUESTED',
+    type: 'ITEM_LOADED',
+    payload: item
+  }
+};
+
+const contentRequested = () => {
+  return {
+    type: 'CONTENT_REQUESTED',
   }
 };
 
@@ -28,9 +35,9 @@ const deleteFromCart = (id) => {
 };
 
 
-const restoServiceFailed = (error) => {
+const shopServiceFailed = (error) => {
   return {
-    type: 'RESTO_QUERY_FAILED',
+    type: 'SHOP_QUERY_FAILED',
     failed: error
   }
 };
@@ -44,10 +51,11 @@ const cartSave = () => {
 
 
 export {
-  menuLoaded,
-  menuRequested,
+  contentLoaded,
+  itemLoaded,
+  contentRequested,
   addedToCart,
   deleteFromCart,
-  restoServiceFailed,
+  shopServiceFailed,
   cartSave
 }

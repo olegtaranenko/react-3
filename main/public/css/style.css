@@ -136,7 +136,7 @@ body {
   min-height: 240px;
   margin: 0 auto;
   margin-top: 40px;
-  padding: 22px 24px;
+  padding: 22px 20px;
   background: rgba(255, 255, 255, 0.65);
   border-radius: 8px;
 }
@@ -146,6 +146,10 @@ body {
   width: 151px;
   height: 130px;
   object-fit: cover;
+  cursor: pointer;
+}
+.best__item-title {
+  cursor: pointer;
 }
 .best__item-title, .best__item-price {
   font-size: 14px;
@@ -261,6 +265,10 @@ body {
   width: 151px;
   height: 130px;
   object-fit: cover;
+  cursor: pointer;
+}
+.shop__item-title {
+  cursor: pointer;
 }
 .shop__item-title, .shop__item-price, .shop__item-country {
   font-size: 14px;
@@ -279,6 +287,11 @@ body {
 }
 .shop__point:first-child {
   margin-top: 26px;
+}
+
+.item-detail img {
+  width: 392px;
+  height: 355px;
 }
 
 footer {
