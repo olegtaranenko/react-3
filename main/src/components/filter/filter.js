@@ -5,8 +5,10 @@ const Filter = () => {
     <div className="row">
       <div className="col-12 col-md-6 col-lg-5 offset-lg-1 col-xl-4 offset-xl-2">
         <form action="#" className="shop__search">
-          <label className="shop__search-label" htmlFor="filter">Looking for</label>
-          <input id="filter" type="text" placeholder="start typing here..." className="shop__search-input"/>
+          <div className="shop__search-wrapper{/* filled*/}">
+            <label className="shop__search-label" htmlFor="filter">Looking for</label>
+            <input id="filter" type="text" placeholder="start typing here..." className="shop__search-input"/>
+          </div>
         </form>
       </div>
       <div className="col-12 col-md-6 col-lg-5 col-lx-4">

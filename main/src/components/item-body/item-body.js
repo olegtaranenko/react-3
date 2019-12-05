@@ -4,7 +4,7 @@ import {connect}          from "react-redux";
 import Error              from "../error";
 import Spinner            from "../spinner";
 
-import {contentRequested, itemLoaded, shopServiceFailed} from "../../actions";
+import {contentRequested, itemLoaded, shopServiceFailed, doShowLongDescription} from "../../actions";
 
 class ItemBody extends Component {
 
@@ -23,9 +23,16 @@ class ItemBody extends Component {
     }
   }
 
+  showLongDescription = () => {
+
+    const {doShowLongDescription} = this.props;
+    doShowLongDescription(true);
+  };
+
   render() {
-    const {item, loading, failed} = this.props;
-    const {name, url, price, description, country} = item;
+    const {item, loading, failed, longDescription} = this.props;
+    let {name, url, price, description, country} = item;
+
 
 
     if (failed) {
@@ -36,6 +43,19 @@ class ItemBody extends Component {
       return <Spinner/>
     }
 
+    let descriptionCt = null;
+    let clickableClassName = '';
+    let descriptionClassName = 'shop__point';
+    if (description && description.length) {
+      if (description.length > 200 && !longDescription) {
+        description = description.substr(0, 199) + '...';
+        descriptionClassName += ' clickable'
+      }
+      descriptionCt = escapeNewLine(description);
+    }
+
+    name = escapeNbsp(name);
+
     return (
       <section className="shop">
         <div className="container">
@@ -44,13 +64,17 @@ class ItemBody extends Component {
               <img className="" src={url} alt="coffee_item"/>
             </div>
             <div className="col-lg-4">
-              <div className="title">About it</div>
+              <div className="title">About "{name}"</div>
               <img className="beanslogo" src="/logo/Beans_logo_dark.svg" alt="Beans logo"/>
               <div className="shop__point">
                 <span>Country: </span>{country}</div>
-              <div className="shop__point">
+              <div
+                onClick={() => this.showLongDescription()}
+                className={descriptionClassName}
+              >
                 <span>Description: </span>
-                {description}</div>
+                  {descriptionCt}
+              </div>
               <div className="shop__point">
                 <span>Price: </span>
                 <span className="shop__point-price">{price}</span>
@@ -63,18 +87,34 @@ class ItemBody extends Component {
   }
 }
 
-const mapStateToProps = state => {
+
+const escapeNewLine = (string) => {
+  return string.split('\n').map((item, index) => {
+    return (index === 0) ? item : [<br key={index} />, item]
+  })
+};
+
+
+const escapeNbsp = (string) => {
+  return string.replace('&nbsp;', "\u00a0");
+};
+
+
+
+const mapStateToProps = ({item, loading, failed, longDescription}) => {
   return {
-    item:    state.item,
-    loading: state.loading,
-    failed:  state.failed
+    item:    item,
+    loading: loading,
+    failed:  failed,
+    longDescription: longDescription
   }
 };
 
 const mapDispatchToProps = {
   contentRequested,
   itemLoaded,
-  shopServiceFailed
+  shopServiceFailed,
+  doShowLongDescription
 };
 
 

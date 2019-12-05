@@ -35,6 +35,21 @@
     text-align: center
 
   &__search
+    position: relative
+    &-wrapper
+      &.filled
+        &:before
+          content: ""
+          position: absolute
+          height: 16px
+          width: 16px
+          right: 46px
+          top: 7px
+          background: url(../img/close-icon.png) no-repeat center center
+          background-color: lightgray
+          border-radius: 50%
+          cursor: pointer
+
     &-label
       margin-right: 20px
 
@@ -47,8 +62,8 @@
       font-size: 12px
       padding: 0 15px
 
-      &::placeholder
-        text-align: center
+      //&::placeholder
+      //  text-align: center
 
   &__filter
     display: flex
@@ -84,6 +99,9 @@
     display: flex
     flex-wrap: wrap
     justify-content: center
+    &.shop-goods
+      margin-top: -50px
+
     &.shop-coffee
       .shop__item
         &:hover

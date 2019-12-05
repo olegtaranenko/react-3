@@ -13,10 +13,7 @@ class Best extends Component {
     contentRequested();
 
     ShopService.getSection('bestsellers')
-    .then(res => {
-      // debugger;
-      contentLoaded(res)
-    })
+    .then(res => contentLoaded(res))
     .catch(err => shopServiceFailed(err));
   }
 

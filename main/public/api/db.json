@@ -7,7 +7,7 @@
       "price": "10.73$"
     },
     {
-      "name": "Presto Coffee Beans 1 kg",
+      "name": "Presto Coffee Beans 1&nbsp;kg",
       "url": "https://images-na.ssl-images-amazon.com/images/I/91Ryk2gKejL._SL1500_.jpg",
       "id": "91Ryk2gKejL",
       "price": "15.99$"
@@ -26,7 +26,7 @@
       "url": "https://images-na.ssl-images-amazon.com/images/I/91DlZZBjxzL._SX522_.jpg",
       "id": "91DlZZBjxzL",
       "price": "12.99$",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet."
+      "description": "DEATH WISH COFFEE\nIS CREATED BY USING THE STRONGEST COMBINATION OF BEANS AND A PERFECT ROASTING PROCESS.\nAwaken your inner rebel with the world’s strongest coffee.\nBe the best you can be with the clarity and focus that comes with strong coffee.\nRaise your coffee standards with one sip of these premium, bold beans.\nEnjoy a smooth, never-bitter taste with subtle notes of cherry and chocolate.\nKick bad habits with something just as strong but 100% natural.\nWe will refund you in full if it’s not the strongest coffee you’ve ever had."
     },
     {
       "name": "AROMISTICO Coffee 1 kg",
@@ -34,7 +34,7 @@
       "url": "https://images-na.ssl-images-amazon.com/images/I/71qBQnpQFYL._SL1500_.jpg",
       "id": "71qBQnpQFYL",
       "price": "6.99$",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet."
+      "description": "ITALIAN ARTISAN GOURMET COFFEE AND GIFT SETS\nThe best varieties of coffees from around the world, selected with a devotion for traditions, to create unique and unmistakable Italian gourmet blends, full of aroma and with a signature aftertaste.\n\nWe are an independent Italian family business with an original and true artisan passion for quality coffee. Distinguished coffee flavour is not only determined by the origin of the beans and their roast type, but also by surrounding elements like air, temperature, climate and water. All our coffee is hand-roasted in Italy in small batches and perfected in the Italian air of the Lake Garda region.\n\nAromistico coffee allows you to bring a little piece of Italy and its history into your home"
     },
     {
       "name": "Solimo Coffee Beans 2 kg",
@@ -42,7 +42,7 @@
       "url": "https://images-na.ssl-images-amazon.com/images/I/815O9ktyfUL._SL1500_.jpg",
       "id": "815O9ktyfUL",
       "price": "10.73$",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet."
+      "description": "This coffee was grown by UTZ certified farmers who implement better farming practices, with respect for people and planet. Coffee Beans 100% Arabica Strength: 3/5 Packaged in a protective atmosphere for freshness Roasted and packed in Belgium"
     },
     {
       "name": "Black Rifle Coffee",
@@ -50,15 +50,15 @@
       "url": "https://images-na.ssl-images-amazon.com/images/I/91vwF6Kh8IL._SX522_.jpg",
       "id": "91vwF6Kh8IL",
       "price": "19.75$",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet."
+      "description": "Follow your taste buds through the seven levels of the candy cane forest with notes of red grape, milk chocolate, and lime. Our premium holiday roast offers bright, floral aromatics and a smooth, well balanced flavor, perfect for late-night last minute shopping or early mornings around the Christmas tree. Note: This roast is best enjoyed in the company of family, friends, or loved ones."
     },
     {
-      "name": "Presto Coffee Beans 1 kg",
+      "name": "Presto Coffee Beans 1&nbsp;kg",
       "country": "Columbia",
       "url": "https://images-na.ssl-images-amazon.com/images/I/91Ryk2gKejL._SL1500_.jpg",
       "id": "91Ryk2gKejL",
       "price": "15.99$",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet."
+      "description": "The espresso gave a nice crema and there was actual body to the smell and didnt smell watered down at all. There were spicy notes coming from the cup and that hint of rubber and nuts. Adding the foamed milk and tasting the coffee had real body and left a lovely strong coffee taste at the back of the throat with out that extreme bitterness. It seems a real quality coffee from initial impressions that's only going to get better as I get my machine dialled in"
     },
     {
       "name": "Organic Coffee One Cup",
@@ -66,7 +66,7 @@
       "url": "https://images-na.ssl-images-amazon.com/images/I/51M2fmEXTIL.jpg",
       "id": "51M2fmEXTIL",
       "price": "24.99$",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet."
+      "description": "Coffee with an organic label must be roasted on a roaster dedicated to organic green beans, or on equipment that has been thoroughly cleaned between roasts. \nEven if the beans are certified organic, they can’t be labeled as such once they go into a roaster that has been used for non-certified beans. For this reason, most small batch roasters either sell all organic coffees, or none at all. And sometimes, for marketing reasons, we’ve seen roasted bean labeling highlighting organic beans, even though the equipment renders the roast non-organic. \n\nFinally, what goes for the roaster should also technically extend to the grinder and brewing equipment, which means that even beans grown, processed, or roasted in certified organic ways are, by organic standards, completely contaminated by the time you take a sip."
     }
   ],
   "goods": [

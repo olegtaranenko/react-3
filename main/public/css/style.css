@@ -32,6 +32,10 @@ body {
   margin-bottom: 60px;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .header {
   display: flex;
   align-items: flex-end;
@@ -196,6 +200,21 @@ body {
   font-size: 14px;
   text-align: center;
 }
+.shop__search {
+  position: relative;
+}
+.shop__search-wrapper.filled:before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  right: 46px;
+  top: 7px;
+  background: url(../img/close-icon.png) no-repeat center center;
+  background-color: lightgray;
+  border-radius: 50%;
+  cursor: pointer;
+}
 .shop__search-label {
   margin-right: 20px;
 }
@@ -207,9 +226,6 @@ body {
   border-radius: 4px;
   font-size: 12px;
   padding: 0 15px;
-}
-.shop__search-input::placeholder {
-  text-align: center;
 }
 .shop__filter {
   display: flex;
@@ -245,6 +261,9 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.shop__wrapper.shop-goods {
+  margin-top: -50px;
 }
 .shop__wrapper.shop-coffee .shop__item:hover {
   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.25);

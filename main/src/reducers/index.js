@@ -1,8 +1,9 @@
 const initialState = {
-  content: [],
-  item:    {},
-  loading: true,
-  failed:  false
+  content:         [],
+  item:            {},
+  loading:         true,
+  failed:          false,
+  longDescription: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,9 +18,10 @@ const reducer = (state = initialState, action) => {
     case 'ITEM_LOADED':
       return {
         ...state,
-        item: action.payload,
+        item:    action.payload,
         loading: false,
-        failed:  false
+        failed:  false,
+        longDescription: false
       };
     case 'CONTENT_REQUESTED':
       return {
@@ -33,6 +35,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         failed:  action.failed
+      };
+
+    case 'LONG_DESCRIPTION':
+
+      return {
+        ...state,
+        longDescription: action.payload
       };
 
     case 'ITEM_DELETE_FROM_CART':

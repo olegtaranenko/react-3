@@ -42,8 +42,16 @@ const shopServiceFailed = (error) => {
   }
 };
 
+const doShowLongDescription = (long) => {
+
+  return {
+    type: 'LONG_DESCRIPTION',
+    payload: long
+  }
+};
+
 const cartSave = () => {
-  debugger;
+
   return {
     type: 'CART_SAVE'
   }
@@ -57,5 +65,6 @@ export {
   addedToCart,
   deleteFromCart,
   shopServiceFailed,
-  cartSave
+  cartSave,
+  doShowLongDescription
 }
