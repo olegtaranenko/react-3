@@ -246,6 +246,15 @@ body {
   flex-wrap: wrap;
   justify-content: center;
 }
+.shop__wrapper.shop-coffee .shop__item:hover {
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.25);
+}
+.shop__wrapper.shop-coffee .shop__item img {
+  cursor: pointer;
+}
+.shop__wrapper.shop-coffee .shop__item-title {
+  cursor: pointer;
+}
 .shop__item {
   width: 220px;
   min-height: 240px;
@@ -256,19 +265,12 @@ body {
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.25);
   transition: 0.3s all;
 }
-.shop__item:hover {
-  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.25);
-}
 .shop__item img {
   display: block;
   margin: 0 auto;
   width: 151px;
   height: 130px;
   object-fit: cover;
-  cursor: pointer;
-}
-.shop__item-title {
-  cursor: pointer;
 }
 .shop__item-title, .shop__item-price, .shop__item-country {
   font-size: 14px;

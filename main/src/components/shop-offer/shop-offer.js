@@ -39,21 +39,22 @@ class ShopOffer extends Component {
       return <Spinner/>
     }
 
-    const filter = theme === 'coffee' ? <Filter/> : null;
-
+    const isClickable = theme === 'coffee';
+    const filter = isClickable ? <Filter/> : null;
+    const wrapperClass = `shop__wrapper shop-${theme}`;
     return (
       <>
         {filter}
         <div className="row">
           <div className="col-lg-10 offset-lg-1">
-            <div className="shop__wrapper">
+            <div className={wrapperClass}>
               {
                 content.map(item => {
                   const {id} = item;
                   return <OfferItem
                     key={id}
                     item={item}
-                    onClick={this.gotoProduct}
+                    onClick={isClickable ? this.gotoProduct : () => {} }
                   />
                 })
               }

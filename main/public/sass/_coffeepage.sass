@@ -84,6 +84,14 @@
     display: flex
     flex-wrap: wrap
     justify-content: center
+    &.shop-coffee
+      .shop__item
+        &:hover
+          box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.25)
+        img
+          cursor: pointer
+        &-title
+          cursor: pointer
 
   &__item
     width: 220px
@@ -95,19 +103,13 @@
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.25)
     transition: 0.3s all
 
-    &:hover
-      box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.25)
-
     img
       display: block
       margin: 0 auto
       width: 151px
       height: 130px
       object-fit: cover
-      cursor: pointer
 
-    &-title
-      cursor: pointer
     &-title, &-price, &-country
       font-size: 14px
       margin-top: 10px
