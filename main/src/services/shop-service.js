@@ -32,8 +32,35 @@ export default class ShopService {
   };
 
 
-  getSection = async (section = 'coffee', page = 1) => {
-    let resource = await this.getResource(`${section}?page=${page}`);
+  getSection = async (section = 'coffee', filterBy = '', filterPayload = '', page = 0) => {
+
+    const params = [];
+    if (page) {
+      params.push(`page=${page}`);
+    }
+    if (filterBy && filterBy.length && filterPayload && filterPayload.length) {
+      let paramField = '',
+        fieldSuffix = '';
+
+      switch (filterBy) {
+        case 'like':
+        case 'search':
+          paramField = `name`;
+          fieldSuffix = '_like';
+          break;
+        case 'country':
+          paramField = `country`;
+          break;
+      }
+      params.push(`${paramField}${fieldSuffix}=${filterPayload}`);
+    }
+
+    let url = section;
+    if (params.length) {
+      url += '?' + params.join('&');
+    }
+
+    let resource = await this.getResource(`${url}`);
     return resource.map(this._transformItem);
   };
 

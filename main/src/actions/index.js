@@ -43,10 +43,23 @@ const shopServiceFailed = (error) => {
 };
 
 const doShowLongDescription = (long) => {
-
   return {
     type: 'LONG_DESCRIPTION',
     payload: long
+  }
+};
+
+const filterByCountry = (country) => {
+  return {
+    type: 'FILTER_BY_COUNTRY',
+    payload: country
+  }
+};
+
+const filterBySearch = (search) => {
+  return {
+    type: 'FILTER_BY_SEARCH',
+    payload: search
   }
 };
 
@@ -66,5 +79,7 @@ export {
   deleteFromCart,
   shopServiceFailed,
   cartSave,
-  doShowLongDescription
+  doShowLongDescription,
+  filterByCountry,
+  filterBySearch
 }

@@ -3,10 +3,18 @@ const initialState = {
   item:            {},
   loading:         true,
   failed:          false,
-  longDescription: false
+  longDescription: false,
+  filterCountries: ['Brazil', 'Kenya', 'Columbia'],
+  filterState: {
+    byCountry: '',
+    bySearch: ''
+  }
 };
 
+
+
 const reducer = (state = initialState, action) => {
+  const {filterState} = state;
   switch (action.type) {
     case 'CONTENT_LOADED':
       return {
@@ -42,6 +50,34 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         longDescription: action.payload
+      };
+
+    case 'FILTER_BY_COUNTRY':
+      const {byCountry} = filterState;
+      const newByCountry = action.payload;
+      if (newByCountry === byCountry) {
+        return state;
+      }
+      return {
+        ...state,
+        filterState: {
+          byCountry: newByCountry,
+          bySearch: ''
+        }
+      };
+
+    case 'FILTER_BY_SEARCH':
+      const {bySearch} = filterState;
+      const newBySearch = action.payload;
+      if (newBySearch === bySearch) {
+        return state;
+      }
+      return {
+        ...state,
+        filterState: {
+          bySearch: newBySearch,
+          byCountry: ''
+        }
       };
 
     case 'ITEM_DELETE_FROM_CART':

@@ -1,10 +1,9 @@
-import React, {Component}     from 'react';
-import {connect} from 'react-redux';
-
-import Filter          from "../filter";
-import Error           from "../error";
-import Spinner         from "../spinner";
-import WithShopService from "../with-shop-service";
+import React, {Component} from 'react';
+import {connect}          from 'react-redux';
+import Filter             from "../filter";
+import Error              from "../error";
+import Spinner            from "../spinner";
+import WithShopService    from "../with-shop-service";
 
 import {contentLoaded, contentRequested, shopServiceFailed} from "../../actions";
 
@@ -14,22 +13,44 @@ class ShopOffer extends Component {
     theme: 'coffee'
   };
 
-  componentDidMount() {
-    const {ShopService, contentRequested, contentLoaded, shopServiceFailed, theme} = this.props;
+  retrieveData() {
+    const {ShopService, contentRequested, contentLoaded, shopServiceFailed, theme, filterState} = this.props;
+    const {byCountry, bySearch} = filterState;
+    let filterBy = '', filterPayload = '';
+    if (byCountry && !bySearch) {
+      filterBy = 'country';
+      filterPayload = byCountry
+    } else if (!byCountry && bySearch) {
+      filterBy = 'search';
+      filterPayload = bySearch;
+    }
+
     contentRequested();
 
-    ShopService.getSection(theme)
+    ShopService.getSection(theme, filterBy, filterPayload)
     .then(res => contentLoaded(res))
     .catch(err => shopServiceFailed(err));
   }
 
+  componentDidMount() {
+    this.retrieveData();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+
+    const {byCountry, bySearch} = this.props.filterState;
+    const {filterState} = prevProps;
+    if (byCountry !== filterState.byCountry || bySearch !== filterState.bySearch) {
+      this.retrieveData();
+    }
+  }
+
   gotoProduct = (id) => {
-    window.location.href=`/item/${id}`;
+    window.location.href = `/item/${id}`;
   };
 
   render() {
-
-    const {content, loading, failed, theme} = this.props;
+    const {content, loading, failed, theme, countries} = this.props;
 
     if (failed) {
       return <Error exceptionOrMessage={failed}/>;
@@ -54,7 +75,7 @@ class ShopOffer extends Component {
                   return <OfferItem
                     key={id}
                     item={item}
-                    onClick={isClickable ? this.gotoProduct : () => {} }
+                    onClick={isClickable ? this.gotoProduct : () => {}}
                   />
                 })
               }
@@ -64,7 +85,7 @@ class ShopOffer extends Component {
       </>
     )
   }
-};
+}
 
 const OfferItem = ({item, onClick}) => {
   const {name, url, id, price, country} = item;
@@ -86,11 +107,13 @@ const OfferItem = ({item, onClick}) => {
   )
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = ({content, loading, failed, filterCountries, filterState}) => {
   return {
-    content: state.content,
-    loading: state.loading,
-    failed:  state.failed
+    content:     content,
+    loading:     loading,
+    failed:      failed,
+    countries:   filterCountries,
+    filterState: filterState
   }
 };
 
