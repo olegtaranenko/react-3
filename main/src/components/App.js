@@ -1,16 +1,18 @@
-import React   from 'react';
-import Preview from "./preview";
-import About   from "./about";
-import Best    from "./best";
-import Footer  from "./footer";
+import React           from 'react';
+import {Route, Switch} from 'react-router-dom';
+
+import {CoffeePage, GoodsPage, MainPage} from "./pages";
 
 function App() {
   return (
     <>
-    <Preview/>
-    <About/>
-    <Best/>
-    <Footer/>
+      <Switch>
+        <Route path='/' exact component={MainPage}/>
+        {/*<Route path='/' exact component={CoffeePage}/>*/}
+        <Route path='/main' exact component={MainPage}/>
+        <Route path='/coffee' exact component={CoffeePage}/>
+        <Route path='/goods' exact component={GoodsPage}/>
+      </Switch>
     </>
   );
 }

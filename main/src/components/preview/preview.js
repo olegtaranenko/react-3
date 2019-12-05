@@ -1,11 +1,11 @@
 import React  from 'react';
-import Header from "../header";
+import Navbar from "../navbar";
 import Hero   from "../hero";
 
 const Preview = () => {
   return (
     <div className="preview">
-      <Header/>
+      <Navbar/>
       <Hero/>
     </div>
   )

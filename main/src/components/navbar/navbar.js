@@ -1,6 +1,10 @@
 import React from 'react';
+import {Link}    from 'react-router-dom';
 
-const Header = () => {
+const Navbar = ({theme = 'coffee'}) => {
+
+  const title = theme === 'coffee' ? 'Our Coffee' : 'For your pleasure';
+
   return (
     <div className="container">
       <div className="row">
@@ -8,22 +12,23 @@ const Header = () => {
           <header>
             <ul className="header">
               <li className="header__item">
-                <a href="#">
+                <Link to="/">
                   <img src="./logo/Logo.svg" alt="logo"/>
-                </a>
+                </Link>
               </li>
               <li className="header__item">
-                <a href="#">Our coffee</a>
+                <Link to="/coffee">Our coffee</Link>
               </li>
               <li className="header__item">
-                <a href="#">For your pleasure</a>
+                <Link to="/goods">For your pleasure</Link>
               </li>
             </ul>
           </header>
         </div>
       </div>
+      <h1 className="title-big">{title}</h1>
     </div>
   )
 };
 
-export default Header;
+export default Navbar;

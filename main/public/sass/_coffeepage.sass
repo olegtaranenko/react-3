@@ -2,6 +2,8 @@
   height: 260px
   background: url('../img/Coffee_bg.jpg') center center no-repeat
   background-size: cover
+  &__goods
+    background-image: url("../img/Goods_bg.jpg")
 
   .title-big
     margin-top: 60px
@@ -12,9 +14,20 @@
   .title
     margin-top: 10px
 
-  &__girl
+  &__hero
     display: block
-    margin: 0 auto
+    max-width: 264px
+    height: 347px
+    background-repeat: no-repeat
+    background-position: center center
+    margin-right: 90px
+    &-coffee
+      background-image: url("../img/coffee_girl.jpg")
+      background-size: 100% 100%
+    &-goods
+      background-image: url("../img/goods_hero.jpg")
+      background-size: 332px 415px
+
 
   &__text
     margin-top: 25px
@@ -40,7 +53,7 @@
   &__filter
     display: flex
     align-items: center
-    justify-content: space-between
+    justify-content: flex-start
 
     &-label
       margin-right: 35px
@@ -49,11 +62,14 @@
       width: 75px
       height: 30px
       background-color: #fff
-      border: none
+      //border-width: 0
+      border-radius: 1px 1px 1px 1px
       box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25)
       font-size: 12px
       outline: none
       cursor: pointer
+      &:not(:last-child)
+        margin-right: 3px
 
       &:first-child
         border-radius: 4px 0 0 4px
@@ -67,6 +83,7 @@
   &__wrapper
     display: flex
     flex-wrap: wrap
+    justify-content: center
 
   &__item
     width: 220px

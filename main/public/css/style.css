@@ -158,6 +158,9 @@ body {
   background: url("../img/Coffee_bg.jpg") center center no-repeat;
   background-size: cover;
 }
+.banner__goods {
+  background-image: url("../img/Goods_bg.jpg");
+}
 .banner .title-big {
   margin-top: 60px;
 }
@@ -168,9 +171,21 @@ body {
 .shop .title {
   margin-top: 10px;
 }
-.shop__girl {
+.shop__hero {
   display: block;
-  margin: 0 auto;
+  max-width: 264px;
+  height: 347px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-right: 90px;
+}
+.shop__hero-coffee {
+  background-image: url("../img/coffee_girl.jpg");
+  background-size: 100% 100%;
+}
+.shop__hero-goods {
+  background-image: url("../img/goods_hero.jpg");
+  background-size: 332px 415px;
 }
 .shop__text {
   margin-top: 25px;
@@ -195,7 +210,7 @@ body {
 .shop__filter {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .shop__filter-label {
   margin-right: 35px;
@@ -204,11 +219,14 @@ body {
   width: 75px;
   height: 30px;
   background-color: #fff;
-  border: none;
+  border-radius: 1px 1px 1px 1px;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
   font-size: 12px;
   outline: none;
   cursor: pointer;
+}
+.shop__filter-btn:not(:last-child) {
+  margin-right: 3px;
 }
 .shop__filter-btn:first-child {
   border-radius: 4px 0 0 4px;
@@ -222,6 +240,7 @@ body {
 .shop__wrapper {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .shop__item {
   width: 220px;
@@ -269,6 +288,7 @@ footer {
 .footer {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   margin-top: 30px;
   list-style-type: none;
 }
