@@ -8,7 +8,7 @@ const Navbar = ({theme = 'coffee'}) => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-lg-6">
+        <div>
           <header>
             <ul className="header">
               <li className="header__item">
@@ -21,6 +21,9 @@ const Navbar = ({theme = 'coffee'}) => {
               </li>
               <li className="header__item">
                 <Link to="/goods">For your pleasure</Link>
+              </li>
+              <li className="header__item">
+                <Link to="/contact">Contact Us</Link>
               </li>
             </ul>
           </header>

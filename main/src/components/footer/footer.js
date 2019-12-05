@@ -6,7 +6,7 @@ const Footer = () => {
     <footer>
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-lg-6">
+          <div className="col-sm-10">
             <ul className="footer">
               <li className="footer__item">
                 <Link to="/">
@@ -18,6 +18,9 @@ const Footer = () => {
               </li>
               <li className="footer__item">
                 <Link to="/goods">For your pleasure</Link>
+              </li>
+              <li className="footer__item">
+                <Link to="/contact">Contact Us</Link>
               </li>
             </ul>
           </div>
