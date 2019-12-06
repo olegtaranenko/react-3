@@ -3,7 +3,18 @@ import {Link}    from 'react-router-dom';
 
 const Navbar = ({theme = 'coffee'}) => {
 
-  const title = theme === 'coffee' ? 'Our Coffee' : 'For your pleasure';
+  let title;
+  switch (theme) {
+    case 'goods':
+      title = 'For your pleasure';
+      break;
+    case 'contact':
+      title = 'Contact us';
+      break;
+    default:
+      title = 'Our Coffee';
+      break;
+  }
 
   return (
     <div className="container">

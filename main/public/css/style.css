@@ -169,6 +169,9 @@ body {
 .banner__goods {
   background-image: url("../img/Goods_bg.jpg");
 }
+.banner__contact {
+  background-image: url("../img/ContactPage.jpg");
+}
 .banner .title-big {
   margin-top: 60px;
 }
@@ -341,6 +344,10 @@ footer {
 .footer__item a:hover {
   text-decoration: none;
   color: #000;
+}
+
+.contact {
+  padding: 60px 0;
 }
 
 /*# sourceMappingURL=style.css.map */
