@@ -6,6 +6,7 @@ $error-text-color: #ff0000
 
 .contact
   padding: 60px 0
+  position: relative
   &-btn
     +styled-input
     cursor: pointer
@@ -19,6 +20,18 @@ $error-text-color: #ff0000
     align-items: center
     width: 420px
     font-size: 18px
+    &__spinner
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      display: none
+      background-color: rgba(0, 0, 0, 0.25)
+      &.active
+        display: flex
+        align-items: center
+        justify-content: center
     &__submit
       width: 120px
       margin-left: -70px

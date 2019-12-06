@@ -348,6 +348,7 @@ footer {
 
 .contact {
   padding: 60px 0;
+  position: relative;
 }
 .contact-btn {
   border: 1px solid rgba(0, 0, 0, 0.49);
@@ -366,6 +367,20 @@ footer {
   align-items: center;
   width: 420px;
   font-size: 18px;
+}
+.contact-form__spinner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.contact-form__spinner.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .contact-form__submit {
   width: 120px;
