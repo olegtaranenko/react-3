@@ -67,6 +67,10 @@ class ContactForm extends Component {
         validationSchema={yupContactSchema}
         onSubmit={(values, {setSubmitting}) => {
           setTimeout(() => {
+            const {phone} = values;
+            if (phone.indexOf('_') >= 0) {
+              values.phone = '';
+            }
             ShopService.saveMessage(values);
             setSubmitting(false);
             history.push('/thanks');
