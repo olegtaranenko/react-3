@@ -16,6 +16,7 @@ export default class ShopService {
 
 
   async postResource(url, payload) {
+    debugger;
     const response = await fetch(url, {
       method:  'POST',
       body:    JSON.stringify(payload),

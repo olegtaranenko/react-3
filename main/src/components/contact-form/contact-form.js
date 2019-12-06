@@ -11,6 +11,10 @@ import WithShopService                     from "../with-shop-service";
 
 class ContactForm extends Component {
 
+  componentDidCatch(error, errorInfo) {
+    console.log('ContactForm::componentDidCatch triggered!');
+  }
+
   render() {
     let detectedNumber;
 
