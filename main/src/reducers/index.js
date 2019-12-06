@@ -2,15 +2,15 @@ const initialState = {
   content:         [],
   item:            {},
   loading:         true,
+  saving:          false,
   failed:          false,
   longDescription: false,
   filterCountries: ['Brazil', 'Kenya', 'Columbia'],
-  filterState: {
+  filterState:     {
     byCountry: '',
-    bySearch: ''
+    bySearch:  ''
   }
 };
-
 
 
 const reducer = (state = initialState, action) => {
@@ -26,9 +26,9 @@ const reducer = (state = initialState, action) => {
     case 'ITEM_LOADED':
       return {
         ...state,
-        item:    action.payload,
-        loading: false,
-        failed:  false,
+        item:            action.payload,
+        loading:         false,
+        failed:          false,
         longDescription: false
       };
     case 'CONTENT_REQUESTED':
@@ -62,7 +62,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         filterState: {
           byCountry: newByCountry,
-          bySearch: ''
+          bySearch:  ''
         }
       };
 
@@ -75,11 +75,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filterState: {
-          bySearch: newBySearch,
+          bySearch:  newBySearch,
           byCountry: ''
         }
       };
 
+/*
     case 'ITEM_DELETE_FROM_CART':
       const deleteId = action.payload;
       const deleteItemIndex = state.items.findIndex(item => item.id === deleteId);
@@ -121,15 +122,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         items: newCartItems
       };
+*/
 
-    case 'CART_SAVE':
-
-      return state;
+    case 'MESSAGE_SAVE':
+      return {
+        ...state,
+        saving: true,
+        failed: false
+      };
 
     default:
       return state;
   }
 
+/*
 
   function removeItemByIndex(deleteItemIndex) {
     return [
@@ -149,6 +155,7 @@ const reducer = (state = initialState, action) => {
     ];
   }
 
+*/
 
 };
 

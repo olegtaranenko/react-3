@@ -5,6 +5,9 @@ const gotoProduct = (id, history) => {
 };
 
 const escapeNewLine = (string) => {
+  if (!string) {
+    return string;
+  }
   return string.split('\n').map((item, index) => {
     return (index === 0) ? item : [<br key={index} />, item]
   })
@@ -12,6 +15,9 @@ const escapeNewLine = (string) => {
 
 
 const escapeNbsp = (string) => {
+  if (!string) {
+    return string;
+  }
   return string.replace('&nbsp;', "\u00a0");
 };
 

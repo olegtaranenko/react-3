@@ -73,11 +73,8 @@ export default class ShopService {
   };
 
 
-  saveCart = async (...items) => {
-    const payload = {
-      items: [...items]
-    };
-    const url = `${this._apiBase}/cart`;
+  saveMessage = async (payload) => {
+    const url = `${this._apiBase}/contacts`;
     return await this.postResource(url, payload);
 
   };

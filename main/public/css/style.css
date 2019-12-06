@@ -349,5 +349,101 @@ footer {
 .contact {
   padding: 60px 0;
 }
+.contact-btn {
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 30px;
+}
+.contact-logo {
+  margin-bottom: 40px;
+}
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 420px;
+  font-size: 18px;
+}
+.contact-form__submit {
+  width: 120px;
+  margin-left: -70px;
+  margin-top: 20px;
+}
+.contact-field {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+}
+.contact-field__error {
+  position: absolute;
+  top: -15px;
+  left: 200px;
+  font-size: 10px;
+  color: #ff0000;
+}
+.contact-field__error-message {
+  top: 40px;
+  left: 0;
+}
+.contact-field input {
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.5);
+  width: 220px;
+  padding-left: 15px;
+}
+.contact-field__up {
+  flex-direction: column;
+}
+.contact-field__message {
+  margin-top: 10px;
+}
+.contact-field__message textarea {
+  border: 1px solid rgba(0, 0, 0, 0.49);
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  font-size: 14px;
+  width: 350px;
+  min-height: 120px;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+}
+.contact-field__message .contact-field__required {
+  margin-left: 110px;
+}
+.contact-field__message label {
+  margin-bottom: 30px;
+}
+.contact-field__required-asterisk {
+  color: #ff0000;
+}
+
+.thanks-title {
+  margin-top: 60px;
+}
+.thanks-greeting {
+  font-size: 36px;
+  margin-top: 115px;
+}
+.thanks-breakfast {
+  margin-bottom: 115px;
+}
+.thanks-btn__reply {
+  width: 120px;
+  height: 30px;
+  margin-left: -5px;
+}
+.thanks-btn__icon {
+  margin-top: -2px;
+  margin-left: 10px;
+}
 
 /*# sourceMappingURL=style.css.map */

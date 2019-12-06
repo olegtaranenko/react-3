@@ -18,23 +18,6 @@ const contentRequested = () => {
   }
 };
 
-
-const addedToCart = (id) => {
-  return {
-    type: 'ITEM_ADD_TO_CART',
-    payload: id
-  }
-};
-
-
-const deleteFromCart = (id) => {
-  return {
-    type: 'ITEM_DELETE_FROM_CART',
-    payload: id
-  }
-};
-
-
 const shopServiceFailed = (error) => {
   return {
     type: 'SHOP_QUERY_FAILED',
@@ -63,10 +46,10 @@ const filterBySearch = (search) => {
   }
 };
 
-const cartSave = () => {
+const messageSave = () => {
 
   return {
-    type: 'CART_SAVE'
+    type: 'MESSAGE_SAVE'
   }
 };
 
@@ -75,10 +58,8 @@ export {
   contentLoaded,
   itemLoaded,
   contentRequested,
-  addedToCart,
-  deleteFromCart,
   shopServiceFailed,
-  cartSave,
+  messageSave,
   doShowLongDescription,
   filterByCountry,
   filterBySearch
