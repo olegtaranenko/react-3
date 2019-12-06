@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import * as Yup           from 'yup';
 import {withRouter}       from 'react-router-dom';
+import InputMask from 'react-input-mask';
 
 import {ErrorMessage, Field, Form, Formik} from 'formik';
 import {parsePhoneNumberFromString}        from 'libphonenumber-js';
@@ -23,6 +24,7 @@ class ContactForm extends Component {
                .min(2, 'Too Short!')
                .max(50, 'Too Long!')
                .required('Required'),
+/*
       phone:   Yup.string()
                .min(7)
                .test('phone', 'Phone number is not valid', function (value) {
@@ -41,6 +43,7 @@ class ContactForm extends Component {
 
                  return ret;
                }),
+*/
       email:   Yup.string()
                .email('Invalid email')
                .min(5, 'Too Short!')
@@ -94,8 +97,11 @@ class ContactForm extends Component {
               label="Phone"
               placeholder="Enter phone number"
               required={false}
+              as={InputMask}
+              mask="+7(999) 999-9999"
               // value={numberToShow}
             />
+
             <ContactField
               as="textarea"
               name="message"
@@ -138,9 +144,10 @@ const ContactField = ({
     placeholder,
     required = true,
     labelAlign = 'left',
-    as = 'input',
+    as,
     theme,
-    value
+    value,
+    mask
   } = {}
 ) => {
   const requiredCt = required ? <span className="contact-field__required-asterisk">*</span> : null;
@@ -152,6 +159,18 @@ const ContactField = ({
     labelAlignClass += ` contact-field__${theme}`
   }
   let errorClassName = `contact-field__error contact-field__error-${name}`;
+  if (mask) {
+    placeholder = mask.replace(/9/g, '_' );
+  }
+  const attribs = {name};
+  const optional = {as, value, mask, placeholder, type};
+  for (let key in optional) {
+    const val = optional[key];
+    if (val || val === 0 || val === false) {
+      attribs[key] = val;
+    }
+  }
+
   return (
     <div className={labelAlignClass}>
       <div className="contact-field__required">
@@ -160,11 +179,7 @@ const ContactField = ({
         {requiredCt}
       </div>
       <Field
-        as={as}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        value={value}
+        {...attribs}
       />
       <ErrorMessage name={name} component="span" className={errorClassName}/>
     </div>
