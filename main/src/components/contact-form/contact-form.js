@@ -47,9 +47,7 @@ class ContactForm extends Component {
             try {
               ShopService.saveMessage(values);
             } catch (e) {
-              debugger;
             }
-            debugger
             setSubmitting(false);
             history.push('/thanks');
           }, 1000);

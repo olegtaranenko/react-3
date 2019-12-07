@@ -4,10 +4,6 @@ import Footer      from "../footer";
 import ContactForm from "../contact-form";
 
 class ContactPage extends Component{
-  componentDidCatch(error, errorInfo) {
-    debugger;
-    console.log('ContactForm::componentDidCatch triggered!');
-  }
 
   render() {
     const theme = 'contact';
