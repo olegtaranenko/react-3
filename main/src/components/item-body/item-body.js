@@ -4,9 +4,9 @@ import {connect}          from "react-redux";
 import Error              from "../error";
 import Spinner            from "../spinner";
 
-import {escapeNewLine, escapeNbsp}      from '../shared-functions'
+import {escapeNbsp, escapeNewLine} from '../shared-functions'
 
-import {contentRequested, itemLoaded, shopServiceFailed, doShowLongDescription} from "../../actions";
+import {contentRequested, doShowLongDescription, itemLoaded, shopServiceFailed} from "../../actions";
 
 class ItemBody extends Component {
 
@@ -36,16 +36,14 @@ class ItemBody extends Component {
     }
   }
 
-  showLongDescription = () => {
-
-    const {doShowLongDescription} = this.props;
-    doShowLongDescription(true);
+  toggleLongDescription = () => {
+    const {doShowLongDescription, longDescription} = this.props;
+    doShowLongDescription(!longDescription);
   };
 
   render() {
     const {item, loading, failed, longDescription} = this.props;
     let {name, url, price, description, country} = item;
-
 
 
     if (failed) {
@@ -57,12 +55,10 @@ class ItemBody extends Component {
     }
 
     let descriptionCt = null;
-    let clickableClassName = '';
-    let descriptionClassName = 'shop__point';
+    let descriptionClassName = 'shop__point clickable';
     if (description && description.length) {
       if (description.length > 200 && !longDescription) {
         description = description.substr(0, 199) + '...';
-        descriptionClassName += ' clickable'
       }
       descriptionCt = escapeNewLine(description);
     }
@@ -82,11 +78,11 @@ class ItemBody extends Component {
               <div className="shop__point">
                 <span>Country: </span>{country}</div>
               <div
-                onClick={() => this.showLongDescription()}
+                onClick={() => this.toggleLongDescription()}
                 className={descriptionClassName}
               >
                 <span>Description: </span>
-                  {descriptionCt}
+                {descriptionCt}
               </div>
               <div className="shop__point">
                 <span>Price: </span>
@@ -101,12 +97,11 @@ class ItemBody extends Component {
 }
 
 
-
 const mapStateToProps = ({item, loading, failed, longDescription}) => {
   return {
-    item:    item,
-    loading: loading,
-    failed:  failed,
+    item:            item,
+    loading:         loading,
+    failed:          failed,
     longDescription: longDescription
   }
 };

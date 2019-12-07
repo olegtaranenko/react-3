@@ -18,7 +18,7 @@ class Filter extends Component {
 
   render() {
     const {countries, status} = this.props;
-    const {byCountry, bySearch} = status;
+    const {bySearch} = status;
 
     return (
       <div className="row">

@@ -23,6 +23,7 @@ class Best extends Component {
         sameContent = false;
         return true;
       }
+      return undefined;
     });
     if (!sameContent) {
       this.retrieveBestsellers();
