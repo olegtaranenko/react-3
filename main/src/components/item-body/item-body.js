@@ -57,7 +57,6 @@ class ItemBody extends Component {
     }
 
     let descriptionCt = null;
-    let clickableClassName = '';
     let descriptionClassName = 'shop__point';
     if (description && description.length) {
       if (description.length > 200 && !longDescription) {

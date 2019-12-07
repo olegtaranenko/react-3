@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import * as Yup           from 'yup';
 import {withRouter}       from 'react-router-dom';
-import InputMask from 'react-input-mask';
+import InputMask          from 'react-input-mask';
 
 import {ErrorMessage, Field, Form, Formik} from 'formik';
-import {parsePhoneNumberFromString}        from 'libphonenumber-js';
+// import {parsePhoneNumberFromString}        from 'libphonenumber-js';
 import WithShopService                     from "../with-shop-service";
 
 // import detectBrowserLanguage from 'detect-browser-language';
@@ -12,12 +12,7 @@ import WithShopService                     from "../with-shop-service";
 
 class ContactForm extends Component {
 
-  componentDidCatch(error, errorInfo) {
-    console.log('ContactForm::componentDidCatch triggered!');
-  }
-
   render() {
-    let detectedNumber;
 
     const yupContactSchema = Yup.object().shape({
       name:    Yup.string()

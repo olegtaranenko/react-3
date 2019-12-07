@@ -48,7 +48,7 @@ class ShopOffer extends Component {
   }
 
   render() {
-    const {content, loading, failed, theme, countries} = this.props;
+    const {content, loading, failed, theme} = this.props;
 
     if (failed) {
       return <Error exceptionOrMessage={failed}/>;
