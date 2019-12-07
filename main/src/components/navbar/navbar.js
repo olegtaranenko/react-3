@@ -11,6 +11,9 @@ const Navbar = ({theme = 'coffee'}) => {
     case 'contact':
       title = 'Contact us';
       break;
+    case 'error':
+      title = 'We are really sorry';
+      break;
     default:
       title = 'Our Coffee';
       break;
