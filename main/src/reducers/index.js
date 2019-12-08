@@ -15,7 +15,6 @@ const initialState = {
 
 
 const reducer = (state = initialState, action) => {
-  debugger;
   const {filterState} = state;
   switch (action.type) {
     case 'CONTENT_LOADED':
@@ -44,7 +43,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'SHOP_QUERY_CLEANUP':
-      debugger;
       return {
         ...state,
         failed: action.failed

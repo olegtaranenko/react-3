@@ -27,7 +27,6 @@ const shopServiceFailed = (error) => {
 };
 
 const shopServiceCleanup = () => {
-  debugger;
   return {
     type: 'SHOP_QUERY_CLEANUP',
     failed: undefined

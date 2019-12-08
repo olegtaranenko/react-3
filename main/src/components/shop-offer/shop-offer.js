@@ -51,7 +51,6 @@ class ShopOffer extends Component {
 
     if (failed) {
       const errorCt = <Error exceptionOrMessage={failed} component={theme}/>;
-      debugger
       shopServiceFailed(false);
       return errorCt;
     }
