@@ -28,7 +28,7 @@ class ItemBody extends Component {
       const {ShopService, contentRequested, itemLoaded, shopServiceFailed} = this.props;
 
       // contentRequested();
-      ShopService.getItem({itemId, contentRequested})
+      ShopService.getItem({id: itemId, contentRequested})
       .then(res => {
         itemLoaded(res)
       })
