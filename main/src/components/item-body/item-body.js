@@ -4,7 +4,7 @@ import {connect}          from "react-redux";
 import Error              from "../error";
 import Spinner            from "../spinner";
 
-import {escapeNbsp, escapeNewLine} from '../shared-functions'
+import {escapeNbsp, escapeNewLine} from '../../shared-functions'
 
 import {contentRequested, doShowLongDescription, itemLoaded, shopServiceFailed} from "../../actions";
 
@@ -27,8 +27,8 @@ class ItemBody extends Component {
     if (itemId) {
       const {ShopService, contentRequested, itemLoaded, shopServiceFailed} = this.props;
 
-      contentRequested();
-      ShopService.getItem(itemId)
+      // contentRequested();
+      ShopService.getItem({itemId, contentRequested})
       .then(res => {
         itemLoaded(res)
       })
@@ -47,7 +47,7 @@ class ItemBody extends Component {
 
 
     if (failed) {
-      return <Error exceptionOrMessage={failed}/>;
+      return <Error exceptionOrMessage={failed} component="ITEM DETAIL"/>;
     }
 
     if (loading) {

@@ -5,13 +5,17 @@ import {connect}          from 'react-redux';
 import Spinner            from "../spinner";
 import Error              from "../error";
 
-import {gotoProduct, escapeNbsp}      from '../shared-functions'
+import {gotoProduct, escapeNbsp} from '../../shared-functions'
 
 import {contentLoaded, contentRequested, shopServiceFailed} from "../../actions";
 
 class Best extends Component {
 
   componentDidMount() {
+    // Critical error emulation
+    // it should be proceed in the ErrorBoundary component
+    // let foo;
+    // foo.baz = 1;
     this.retrieveBestsellers();
   }
 
@@ -33,9 +37,9 @@ class Best extends Component {
 
   retrieveBestsellers() {
     const {ShopService, contentRequested, contentLoaded, shopServiceFailed} = this.props;
-    contentRequested();
+    const section = 'bestsellers';
 
-    ShopService.getSection('bestsellers')
+    ShopService.getSection({section,contentRequested})
     .then(res => contentLoaded(res))
     .catch(err => shopServiceFailed(err));
   }
@@ -44,7 +48,7 @@ class Best extends Component {
     const {content, loading, failed} = this.props;
 
     if (failed) {
-      return <Error exceptionOrMessage={failed}/>;
+      return <Error exceptionOrMessage={failed} component="bestsellers"/>;
     }
 
     if (loading) {
@@ -100,9 +104,9 @@ const BestItem = withRouter(({item, onClick, history}) => {
 
 const mapStateToProps = ({content, loading, failed}) => {
   return {
-    content: content,
-    loading: loading,
-    failed:  failed
+    content,
+    loading,
+    failed
   }
 };
 

@@ -9,11 +9,13 @@ const initialState = {
   filterState:     {
     byCountry: '',
     bySearch:  ''
-  }
+  },
+  lastUrl:         ''
 };
 
 
 const reducer = (state = initialState, action) => {
+  debugger;
   const {filterState} = state;
   switch (action.type) {
     case 'CONTENT_LOADED':
@@ -21,7 +23,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         content: action.payload,
         loading: false,
-        failed:  false
+        failed:  false,
+        lastUrl: ''
       };
     case 'ITEM_LOADED':
       return {
@@ -29,13 +32,22 @@ const reducer = (state = initialState, action) => {
         item:            action.payload,
         loading:         false,
         failed:          false,
-        longDescription: false
+        longDescription: false,
+        lastUrl:         ''
       };
     case 'CONTENT_REQUESTED':
       return {
         ...state,
         loading: true,
-        failed:  false
+        failed:  false,
+        lastUrl: action.payload
+      };
+
+    case 'SHOP_QUERY_CLEANUP':
+      debugger;
+      return {
+        ...state,
+        failed: action.failed
       };
 
     case 'SHOP_QUERY_FAILED':
@@ -80,50 +92,6 @@ const reducer = (state = initialState, action) => {
         }
       };
 
-/*
-    case 'ITEM_DELETE_FROM_CART':
-      const deleteId = action.payload;
-      const deleteItemIndex = state.items.findIndex(item => item.id === deleteId);
-      const deleteItem = state.items[deleteItemIndex];
-      const qty = deleteItem.qty || 1;
-
-      let items;
-      if (qty <= 1) {
-        items = removeItemByIndex(deleteItemIndex);
-      } else {
-        items = setItemQtyByIndex(deleteItemIndex, qty - 1);
-      }
-      return {
-        ...state,
-        items: items
-      };
-
-    case 'ITEM_ADD_TO_CART':
-      const addedId = action.payload;
-      const existedCartItemIndex = state.items.findIndex(item => item.id === addedId);
-      let cartItem, newCartItems;
-
-      if (existedCartItemIndex === -1) {
-        const contentItem = state.content.find(item => item.id === addedId);
-        cartItem = {
-          ...contentItem,
-        };
-        newCartItems = [
-          ...state.items,
-          cartItem
-        ];
-      } else {
-        const existedItem = state.items[existedCartItemIndex];
-        const qty = existedItem.qty || 1;
-        newCartItems = setItemQtyByIndex(existedCartItemIndex, qty + 1);
-      }
-
-      return {
-        ...state,
-        items: newCartItems
-      };
-*/
-
     case 'MESSAGE_SAVE':
       return {
         ...state,
@@ -134,28 +102,6 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
-
-/*
-
-  function removeItemByIndex(deleteItemIndex) {
-    return [
-      ...state.items.slice(0, deleteItemIndex),
-      ...state.items.slice(deleteItemIndex + 1)
-    ];
-  }
-
-  function setItemQtyByIndex(existedCartItemIndex, newQty) {
-    const existedCartItem = state.items[existedCartItemIndex];
-    const cartItem = {...existedCartItem, qty: newQty};
-
-    return [
-      ...state.items.slice(0, existedCartItemIndex),
-      cartItem,
-      ...state.items.slice(existedCartItemIndex + 1)
-    ];
-  }
-
-*/
 
 };
 

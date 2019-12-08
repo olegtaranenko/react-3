@@ -1,11 +1,19 @@
+import {buildAnUrl} from '../shared-functions'
+
 export default class ShopService {
 
   constructor({port = 3001} = {}) {
+    // this._apiBase = process.env.API_URL;
+    // console.log(this._apiBase);
     this._apiBase = `http://localhost:${port}`
   }
 
-  async getResource(url) {
-    const response = await fetch(`${this._apiBase}/${url}`);
+  getUrl = (url, ...params) => {
+    return buildAnUrl(url, this._apiBase, ...params);
+  };
+
+  async getResource(url, ...params) {
+    const response = await fetch(this.getUrl(url, ...params));
 
     if (!response.ok) {
       throw new Error(`Could not fetch ${url}, status: ${response.status}`)
@@ -18,8 +26,8 @@ export default class ShopService {
   async postResource(url, payload) {
 
     const response = await fetch(url, {
-      method:  'POST',
-      body:    JSON.stringify(payload),
+      method: 'POST',
+      body: JSON.stringify(payload),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -33,7 +41,10 @@ export default class ShopService {
   };
 
 
-  getSection = async (section = 'coffee', filterBy = '', filterPayload = '', page = 0) => {
+  getSection = async ({section = 'coffee', filterBy = '', filterPayload = '', page = 0, contentRequested} = {}) => {
+    if (contentRequested) {
+      contentRequested(section);
+    }
 
     const params = [];
     if (page) {
@@ -53,33 +64,43 @@ export default class ShopService {
           paramField = `country`;
           break;
         default:
-          //nothing
+        //nothing
       }
       params.push(`${paramField}${fieldSuffix}=${filterPayload}`);
     }
 
-    let url = section;
-    if (params.length) {
-      url += '?' + params.join('&');
-    }
-
-    let resource = await this.getResource(`${url}`);
+    const resource = await this.getResource(section, ...params);
     return resource.map(this._transformItem);
   };
 
-  getItem = async (id, section = 'coffee') => {
-    return await this.getResource(`${section}/${id}`)
+  getItem = async ({id, section = 'coffee', contentRequested}) => {
+
+    const urlPath = `${section}/${id}`;
+    if (contentRequested) {
+      contentRequested(urlPath);
+    }
+    return await this.getResource(urlPath)
   };
 
-  getGood = async (id) => {
-    return await this.getItem(id, 'goods');
-  };
+  saveMessage = async ({
+    payload, contentRequested, success, failure
+  }) => {
+    const section = 'contacts';
+    contentRequested && contentRequested(section);
 
+    const url = this.getUrl(section);
+    // returns created object from db
+    try {
+      const response = await this.postResource(url, payload);
 
-  saveMessage = async (payload) => {
-    const url = `${this._apiBase}/contacts`;
-    return await this.postResource(url, payload);
-
+      if (!response.id) {
+        failure && failure(url, response);
+      } else {
+        success && success(url, response);
+      }
+    } catch (e) {
+      failure && failure(`Can't save message to the ${url}`);
+    }
   };
 
   _transformItem(item) {

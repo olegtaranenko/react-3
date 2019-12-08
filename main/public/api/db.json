@@ -95,5 +95,61 @@
       "price": "45.99$"
     }
   ],
-  "contacts": []
+  "contacts": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    },
+    {
+      "name": "Oleg",
+      "email": "olegtaranenko@gmail.com",
+      "phone": "",
+      "message": "О принятом решении прошу известить меня в письменной форме.",
+      "id": 3
+    },
+    {
+      "name": "Oleg",
+      "email": "olegtaranenko@gmail.com",
+      "phone": "",
+      "message": "failure()failure()",
+      "id": 4
+    },
+    {
+      "name": "Oleg",
+      "email": "olegtaranenko@gmail.com",
+      "phone": "",
+      "message": "    if (contentRequested) {\n      contentRequested(section);\n    }\n",
+      "id": 5
+    },
+    {
+      "name": "Oleg",
+      "email": "olegtaranenko@gmail.com",
+      "phone": "",
+      "message": "    if (contentRequested) {\n      contentRequested(section);\n    }\n",
+      "id": 6
+    },
+    {
+      "name": "Oleg",
+      "email": "olegtaranenko@gmail.com",
+      "phone": "",
+      "message": "    if (contentRequested) {\n      contentRequested(section);\n    }\n    if (contentRequested) {\n      contentRequested(section);\n    }\n",
+      "id": 7
+    },
+    {
+      "name": "Oleg",
+      "email": "olegtaranenko@gmail.com",
+      "phone": "",
+      "message": "    if (failed) {\n      return <Error exceptionOrMessage={failed} component=\"bestsellers\"/>;\n    }\n\n",
+      "id": 8
+    },
+    {
+      "name": "Oleg",
+      "email": "olegtaranenko@gmail.com",
+      "phone": "+7(123) 465-2243",
+      "message": "      // shopServiceFailed(false);\n",
+      "id": 9
+    }
+  ]
 }

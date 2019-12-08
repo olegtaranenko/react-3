@@ -59,6 +59,54 @@ body {
   background-color: rgba(0, 0, 0, 0);
 }
 
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 242px;
+  background-color: #fff;
+}
+
+.error-section {
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: darkblue;
+  padding-top: 30px;
+}
+.error-greeting {
+  margin-bottom: 30px;
+}
+.error-message {
+  font-size: 14px;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.blinking {
+  animation: blinkingText 5s infinite;
+}
+
+@keyframes blinkingText {
+  0% {
+    color: darkblue;
+  }
+  49% {
+    color: transparent;
+  }
+  50% {
+    color: transparent;
+  }
+  60% {
+    color: transparent;
+  }
+  100% {
+    color: darkblue;
+  }
+}
 .header {
   display: flex;
   align-items: flex-end;

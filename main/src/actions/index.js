@@ -12,9 +12,10 @@ const itemLoaded = (item) => {
   }
 };
 
-const contentRequested = () => {
+const contentRequested = (url) => {
   return {
     type: 'CONTENT_REQUESTED',
+    payload: url
   }
 };
 
@@ -22,6 +23,14 @@ const shopServiceFailed = (error) => {
   return {
     type: 'SHOP_QUERY_FAILED',
     failed: error
+  }
+};
+
+const shopServiceCleanup = () => {
+  debugger;
+  return {
+    type: 'SHOP_QUERY_CLEANUP',
+    failed: undefined
   }
 };
 
@@ -59,6 +68,7 @@ export {
   itemLoaded,
   contentRequested,
   shopServiceFailed,
+  shopServiceCleanup,
   messageSave,
   doShowLongDescription,
   filterByCountry,

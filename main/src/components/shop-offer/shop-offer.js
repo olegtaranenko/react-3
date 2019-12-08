@@ -5,9 +5,9 @@ import Filter             from "../filter";
 import Error              from "../error";
 import Spinner            from "../spinner";
 import WithShopService    from "../with-shop-service";
-import {gotoProduct}      from '../shared-functions'
+import {gotoProduct}      from '../../shared-functions';
 
-import {contentLoaded, contentRequested, shopServiceFailed} from "../../actions";
+import {contentLoaded, contentRequested, shopServiceCleanup, shopServiceFailed} from "../../actions";
 
 class ShopOffer extends Component {
 
@@ -27,9 +27,8 @@ class ShopOffer extends Component {
       filterPayload = bySearch;
     }
 
-    contentRequested();
-
-    ShopService.getSection(theme, filterBy, filterPayload)
+    const section = theme;
+    ShopService.getSection({section, filterBy, filterPayload, contentRequested})
     .then(res => contentLoaded(res))
     .catch(err => shopServiceFailed(err));
   }
@@ -51,7 +50,10 @@ class ShopOffer extends Component {
     const {content, loading, failed, theme} = this.props;
 
     if (failed) {
-      return <Error exceptionOrMessage={failed}/>;
+      const errorCt = <Error exceptionOrMessage={failed} component={theme}/>;
+      debugger
+      shopServiceFailed(false);
+      return errorCt;
     }
 
     if (loading) {
@@ -109,18 +111,19 @@ const OfferItem = withRouter(({item, onClick, history}) => {
 
 const mapStateToProps = ({content, loading, failed, filterCountries, filterState}) => {
   return {
-    content:     content,
-    loading:     loading,
-    failed:      failed,
-    countries:   filterCountries,
-    filterState: filterState
+    content,
+    loading,
+    failed,
+    countries: filterCountries,
+    filterState
   }
 };
 
 const mapDispatchToProps = {
   contentRequested,
   contentLoaded,
-  shopServiceFailed
+  shopServiceFailed,
+  shopServiceCleanup
 };
 
 

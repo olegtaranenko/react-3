@@ -2,14 +2,20 @@ import React, {Component} from 'react';
 import * as Yup           from 'yup';
 import {withRouter}       from 'react-router-dom';
 import InputMask          from 'react-input-mask';
+import {connect}          from 'react-redux';
 
 import {ErrorMessage, Field, Form, Formik} from 'formik';
 
-import WithShopService                     from "../with-shop-service";
-
+import {shopServiceCleanup, shopServiceFailed} from "../../actions";
+import WithShopService                         from "../with-shop-service";
+import Error                                   from "../error";
 
 
 class ContactForm extends Component {
+
+  componentDidMount() {
+    shopServiceFailed(false);
+  }
 
   render() {
 
@@ -27,7 +33,13 @@ class ContactForm extends Component {
                .required('Required')
     });
 
-    const {ShopService} = this.props;
+    const {ShopService, shopServiceFailed, failed} = this.props;
+
+    if (failed) {
+      const errorCt = <Error exceptionOrMessage={failed} component="save contacts"/>;
+      // shopServiceFailed(false);
+      return errorCt;
+    }
 
     const MyFormik = withRouter(({history}) => (
       <Formik
@@ -44,12 +56,18 @@ class ContactForm extends Component {
             if (phone.indexOf('_') >= 0) {
               values.phone = '';
             }
-            try {
-              ShopService.saveMessage(values);
-            } catch (e) {
-            }
-            setSubmitting(false);
-            history.push('/thanks');
+            ShopService.saveMessage({
+              payload: values,
+              success: () => {
+                setSubmitting(false);
+                history.push('/thanks');
+              },
+              failure: (url, response) => {
+                setSubmitting(false);
+                shopServiceFailed(response || url);
+              }
+            });
+
           }, 1000);
         }}
       >
@@ -140,7 +158,7 @@ const ContactField = ({
   }
   let errorClassName = `contact-field__error contact-field__error-${name}`;
   if (mask) {
-    placeholder = mask.replace(/9/g, '_' );
+    placeholder = mask.replace(/9/g, '_');
   }
   const attribs = {name};
   const optional = {as, value, mask, placeholder, type};
@@ -166,4 +184,16 @@ const ContactField = ({
   )
 };
 
-export default WithShopService()(ContactForm);
+const mapStateToProps = ({failed}) => {
+  return {
+    failed
+  }
+};
+
+
+const mapDispatchToProps = {
+  shopServiceFailed,
+  shopServiceCleanup
+};
+
+export default WithShopService()(connect(mapStateToProps, mapDispatchToProps)(ContactForm));

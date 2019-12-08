@@ -13,7 +13,6 @@ const escapeNewLine = (string) => {
   })
 };
 
-
 const escapeNbsp = (string) => {
   if (!string) {
     return string;
@@ -21,11 +20,18 @@ const escapeNbsp = (string) => {
   return string.replace('&nbsp;', "\u00a0");
 };
 
-
+const buildAnUrl = (url, baseUrl, ...params) => {
+  let referrer = `${baseUrl}/${url}`;
+  if (params && params.length) {
+    referrer += `?${params.join('&')}`
+  }
+  return referrer;
+};
 
 
 export {
   gotoProduct,
   escapeNewLine,
-  escapeNbsp
+  escapeNbsp,
+  buildAnUrl
 }
